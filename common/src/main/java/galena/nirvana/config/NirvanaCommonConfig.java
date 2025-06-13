@@ -1,56 +1,36 @@
 package galena.nirvana.config;
 
-public class NirvanaCommonConfig {
+public interface NirvanaCommonConfig {
 
-    public double jointRadius() {
-        return 15.0;
-    }
+    double jointRadius();
 
-    public double bongRadius() {
-        return 4.0;
-    }
+    double bongRadius();
 
-    public int getBongHits() {
+    default int getBongHits() {
         return 4;
-    }
+    };
 
-    public int getJointHits() {
+    default int getJointHits() {
         return 3;
-    }
+    };
 
-    public int nauseaAfterHits() {
-        return 3;
-    }
+    int nauseaAfterHits();
 
-    public int reeferAfterHits() {
-        return nauseaAfterHits();
-    }
+    int reeferAfterHits();
 
-    public float reeferChance() {
-        return 0.5F;
-    }
+    double reeferChance();
 
-    public int jointPeaceSeconds() {
-        return 20;
-    }
+    int jointPeaceSeconds();
 
-    public int bongPeaceSeconds() {
-        return 30;
-    }
+    int bongPeaceSeconds();
 
-    public int browniesPeaceSeconds() {
-        return 40;
-    }
+    int browniesPeaceSeconds();
 
-    public int herbalSalveFactor() {
-        return 3;
-    }
+    int herbalSalveFactor();
 
-    public int suspiciousPipeFactor() {
-        return 4;
-    }
+    int suspiciousPipeFactor();
 
-    public int getPipeHits() {
+    default int getPipeHits() {
         return 6;
-    }
+    };
 }

@@ -28,16 +28,20 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
     private static final int REEFER_CONVERSION_RANGE = 20;
     private static final int REEFER_CONVERSION_RANGE_SQR = REEFER_CONVERSION_RANGE * REEFER_CONVERSION_RANGE;
 
+    private static boolean fulfills(int hitsTaken, int hitsRequired) {
+        return hitsRequired >= 0 && hitsTaken >= hitsRequired;
+    }
+
     @Override
     public void onIncreasedTo(MobEffectInstance instance, ItemStack source, LivingEntity target, Level level) {
         if (!source.is(NirvanaTags.NAUSEATING)) return;
         var hitsTaken = instance.getAmplifier() + 1;
 
-        if (hitsTaken >= Services.CONFIG.common().nauseaAfterHits()) {
+        if (fulfills(hitsTaken, Services.CONFIG.common().nauseaAfterHits())) {
             target.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * 20, 0));
         }
 
-        if (hitsTaken >= Services.CONFIG.common().reeferAfterHits()) {
+        if (fulfills(hitsTaken, Services.CONFIG.common().reeferAfterHits())) {
             spawnReefers(target, level);
             transformCreepers(target.position(), level);
         }

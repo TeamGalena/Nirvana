@@ -1,6 +1,7 @@
 val mc_version: String by extra
 val registrate_fabric_version: String by extra
 val mixin_extras_version: String by extra
+val forge_config_port_version: String by extra
 
 plugins {
     id("dev.architectury.loom") version ("1.10-SNAPSHOT")
@@ -15,6 +16,8 @@ dependencies {
    "mappings"(loom.officialMojangMappings())
 
     compileOnly("io.github.llamalad7:mixinextras-common:${mixin_extras_version}")
+
+    modCompileOnly("fuzs.forgeconfigapiport:forgeconfigapiport-common:${forge_config_port_version}")
 
     modCompileOnly("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
 }
