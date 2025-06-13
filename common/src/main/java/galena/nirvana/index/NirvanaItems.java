@@ -21,6 +21,7 @@ import galena.nirvana.world.item.ModdedRecordItem;
 import galena.nirvana.world.item.PotionBongItem;
 import galena.nirvana.world.item.SuspiciousPipeItem;
 import java.util.function.Consumer;
+import java.util.function.IntSupplier;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -107,8 +108,8 @@ public class NirvanaItems {
                 .forEach(modifier::accept);
     }
 
-    private static <T extends Item> Consumer<CreativeModeTabModifier> addSuspiciousStack(ItemBuilder<T, ?> item, int factor) {
-        return modifier -> NirvanaRecipeTypes.getSuspiciousVariants(item.getEntry(), factor)
+    private static <T extends Item> Consumer<CreativeModeTabModifier> addSuspiciousStack(ItemBuilder<T, ?> item, IntSupplier factor) {
+        return modifier -> NirvanaRecipeTypes.getSuspiciousVariants(item.getEntry(), factor.getAsInt())
                 .map(Pair::getSecond)
                 .forEach(modifier::accept);
     }
@@ -144,7 +145,7 @@ public class NirvanaItems {
             .item("herbal_salve", HerbalSalveItem::new)
             .properties(it -> it.stacksTo(1))
             .properties(it -> it.craftRemainder(Items.BOWL))
-            .transform(it -> it.tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addSuspiciousStack(it, Services.CONFIG.common().herbalSalveFactor())))
+            .transform(it -> it.tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addSuspiciousStack(it, () -> Services.CONFIG.common().herbalSalveFactor())))
             .register();
 
     public static final ItemEntry<? extends RecordItem> DISC_JAM = REGISTRATE
@@ -185,7 +186,7 @@ public class NirvanaItems {
             .properties(it -> it.craftRemainder(EMPTY_PIPE.asItem()))
             .model(Services.DATAGEN::pipe)
             .tag(NirvanaTags.SMOKING_ITEM)
-            .transform(it -> it.tab(CreativeModeTabs.TOOLS_AND_UTILITIES, NirvanaItems.addSuspiciousStack(it, Services.CONFIG.common().suspiciousPipeFactor())))
+            .transform(it -> it.tab(CreativeModeTabs.TOOLS_AND_UTILITIES, NirvanaItems.addSuspiciousStack(it, () -> Services.CONFIG.common().suspiciousPipeFactor())))
             .register();
 
     public static final ItemEntry<? extends Item> REEFER_SPAWN_EGG = REGISTRATE

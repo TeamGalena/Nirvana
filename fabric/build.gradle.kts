@@ -6,6 +6,7 @@ val registrate_fabric_version: String by extra
 val jei_version: String by extra
 val jeed_version: String by extra
 val create_fabric_version: String by extra
+val forge_config_port_version: String by extra
 val galena_hats_version: String by extra
 
 fabric {
@@ -50,19 +51,13 @@ repositories {
             includeGroup("com.jamieswhiteshirt")
         }
     }
-
-    maven {
-        url = uri("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/")
-        content {
-            includeGroup("net.minecraftforge")
-            includeGroup("fuzs.forgeconfigapiport")
-        }
-    }
 }
 
 dependencies {
     modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${mc_version}-fabric-api:${jei_version}")
+
+    modImplementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_port_version}")
 
     modImplementation("com.simibubi.create:create-fabric-${mc_version}:${create_fabric_version}")
 

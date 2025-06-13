@@ -1,12 +1,14 @@
 package galena.nirvana.fabric;
 
+import static galena.nirvana.NirvanaConstants.MOD_ID;
+
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import galena.nirvana.NirvanaCommon;
-import galena.nirvana.NirvanaConstants;
 import galena.nirvana.NirvanaTrades;
 import galena.nirvana.compat.DyeColors;
+import galena.nirvana.fabric.services.FabricConfigs;
 import galena.nirvana.index.NirvanaBanners;
 import galena.nirvana.index.NirvanaBlocks;
 import galena.nirvana.index.NirvanaBrewing;
@@ -36,9 +38,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 
 public class FabricEntrypoint implements ModInitializer {
 
-    public static final FabricNirvanaRegistrate REGISTRATE = new FabricNirvanaRegistrate(NirvanaConstants.MOD_ID);
+    public static final FabricNirvanaRegistrate REGISTRATE = new FabricNirvanaRegistrate(MOD_ID);
 
-    private static final ResourceKey<PlacedFeature> WILD_HEMP_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(NirvanaConstants.MOD_ID, "patch_wild_hemp"));
+    private static final ResourceKey<PlacedFeature> WILD_HEMP_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MOD_ID, "patch_wild_hemp"));
 
     private static final ProviderType<RegistrateTagsProvider.IntrinsicImpl<BannerPattern>> BANNER_PATTERN_TAGS = ProviderType.register("tags/banner_pattern", type -> (p, e) ->
             new RegistrateTagsProvider.IntrinsicImpl<>(p, type, "blocks", e.output(), Registries.BANNER_PATTERN, e.registriesLookup(), it -> BuiltInRegistries.BANNER_PATTERN.getResourceKey(it).orElseThrow())
@@ -46,10 +48,23 @@ public class FabricEntrypoint implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        FabricConfigs.register();
         NirvanaCommon.init();
         REGISTRATE.addRegisterCallback(Registries.POTION, NirvanaBrewing::register);
         REGISTRATE.register();
 
+        modifyLootTables();
+
+        BiomeModifications.addFeature(BiomeSelectors.tag(NirvanaTags.GENERATES_WILD_HEMP), GenerationStep.Decoration.VEGETAL_DECORATION, WILD_HEMP_FEATURE);
+
+        NirvanaTrades.register((profession, level, listing) ->
+                TradeOfferHelper.registerVillagerOffers(profession, level, list -> list.add(listing))
+        );
+
+        setupAdditionalDatagen();
+    }
+
+    private static void modifyLootTables() {
         LootTableEvents.MODIFY.register((resources, manager, id, table, source) -> {
             if (!source.isBuiltin()) return;
             if (BuiltInLootTables.SNIFFER_DIGGING.equals(id)) {
@@ -68,13 +83,9 @@ public class FabricEntrypoint implements ModInitializer {
                 );
             }
         });
+    }
 
-        BiomeModifications.addFeature(BiomeSelectors.tag(NirvanaTags.GENERATES_WILD_HEMP), GenerationStep.Decoration.VEGETAL_DECORATION, WILD_HEMP_FEATURE);
-
-        NirvanaTrades.register((profession, level, listing) ->
-                TradeOfferHelper.registerVillagerOffers(profession, level, list -> list.add(listing))
-        );
-
+    private static void setupAdditionalDatagen() {
         REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, provider ->
                 provider.addTag(NirvanaTags.CREEPER_LIKE).add(EntityType.CREEPER)
         );
@@ -89,7 +100,7 @@ public class FabricEntrypoint implements ModInitializer {
                     .pattern("XXX")
                     .define('X', NirvanaItems.HEMP_CLOTH.get())
                     .unlockedBy("has_hemp", RegistrateRecipeProvider.has(NirvanaItems.HEMP_CLOTH))
-                    .save(provider, new ResourceLocation(NirvanaConstants.MOD_ID, "leather_from_hemp"));
+                    .save(provider, new ResourceLocation(MOD_ID, "leather_from_hemp"));
         });
 
         REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, provider ->
