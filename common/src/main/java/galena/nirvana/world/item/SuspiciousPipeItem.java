@@ -1,5 +1,7 @@
 package galena.nirvana.world.item;
 
+import static galena.nirvana.world.item.FilledPipeItem.DISPENSER_BEHAVIOUR;
+
 import galena.nirvana.index.NirvanaParticles;
 import galena.nirvana.platform.Services;
 import java.util.List;
@@ -12,11 +14,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SuspiciousStewItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 
 public class SuspiciousPipeItem extends SuspiciousStewItem {
 
     public SuspiciousPipeItem(Properties properties) {
         super(properties);
+        DispenserBlock.registerBehavior(this, DISPENSER_BEHAVIOUR);
     }
 
     private static List<MobEffectInstance> getEffects(ItemStack stack) {
@@ -33,8 +37,7 @@ public class SuspiciousPipeItem extends SuspiciousStewItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
         if (getEffects(stack).isEmpty()) return InteractionResultHolder.pass(stack);
-        player.startUsingItem(hand);
-        return InteractionResultHolder.consume(stack);
+        return SmokingItem.startUsing(level, player, hand);
     }
 
     @Override

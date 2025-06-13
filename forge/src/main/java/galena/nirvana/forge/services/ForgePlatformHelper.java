@@ -15,12 +15,14 @@ import galena.nirvana.world.item.JointItem;
 import java.util.Objects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
+import net.minecraftforge.common.util.FakePlayer;
 
 public class ForgePlatformHelper implements IPlatformHelper {
 
@@ -83,5 +85,10 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public Ingredient createNBTIngredient(ItemStack stack) {
         var nbt = Objects.requireNonNull(stack.getTag());
         return PartialNBTIngredient.of(stack.getItem(), nbt);
+    }
+
+    @Override
+    public boolean isFakePlayer(LivingEntity entity) {
+        return entity instanceof FakePlayer;
     }
 }

@@ -12,11 +12,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 
 public class FilledPipeItem extends Item {
 
+    static final SmokingDispenserBehaviour DISPENSER_BEHAVIOUR = (source, pos, look, stack) -> {
+        source.getLevel().sendParticles(NirvanaParticles.SMOKE_RING.get(), pos.x, pos.y, pos.z, 0, look.x, look.y, look.z, 0.1);
+    };
+
     public FilledPipeItem(Properties properties) {
         super(properties);
+        DispenserBlock.registerBehavior(this, DISPENSER_BEHAVIOUR);
     }
 
     @Override
@@ -26,9 +32,7 @@ public class FilledPipeItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        var stack = player.getItemInHand(hand);
-        player.startUsingItem(hand);
-        return InteractionResultHolder.consume(stack);
+        return SmokingItem.startUsing(level, player, hand);
     }
 
     @Override

@@ -2,6 +2,7 @@ package galena.nirvana.world.item;
 
 import galena.nirvana.index.NirvanaEffects;
 import galena.nirvana.index.NirvanaSounds;
+import galena.nirvana.platform.Services;
 import galena.nirvana.world.effects.IStackingEffect;
 import java.util.stream.Stream;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -10,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -22,14 +24,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class SmokingItem extends Item {
 
     public SmokingItem(Properties properties) {
         super(properties);
+        SmokingDispenserBehaviour dispenserBehaviour = (source, pos, look, stack) -> {
+            applyEffects(stack, source.getLevel(), Vec3.atCenterOf(source.getPos()), null);
+            var mouth = pos.add(look.scale(0.5));
+            source.getLevel().sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                    mouth.x(), mouth.y(), mouth.z(),
+                    5,
+                    0.0, 0.2 + source.getLevel().getRandom().nextDouble() * 0.1, 0.0,
+                    0.02
+            );
+        };
+        DispenserBlock.registerBehavior(this, dispenserBehaviour);
     }
 
     abstract Stream<MobEffectInstance> getEffects(ItemStack stack, @Nullable Level level, @Nullable LivingEntity entity);
@@ -76,9 +91,9 @@ public abstract class SmokingItem extends Item {
         }
     }
 
-    private void applyEffects(ItemStack source, Level level, LivingEntity user) {
+    private void applyEffects(ItemStack source, Level level, Vec3 pos, @Nullable LivingEntity user) {
         var range = getRadius(source, level, user) * 2;
-        var targets = level.getEntitiesOfClass(LivingEntity.class, AABB.ofSize(user.position(), range, range, range));
+        var targets = level.getEntitiesOfClass(LivingEntity.class, AABB.ofSize(pos, range, range, range));
 
         targets.forEach(target -> getEffects(source, level, user).forEach(effect ->
                 applyEffect(effect, source, target, user)
@@ -91,15 +106,19 @@ public abstract class SmokingItem extends Item {
 
     public static ItemStack takeHit(Player player, ItemStack stack) {
         player.getCooldowns().addCooldown(stack.getItem(), 20);
+        return takeHit(player.level(), player.position(), SoundSource.PLAYERS, player.getAbilities().instabuild, stack);
+    }
 
+    static ItemStack takeHit(Level level, Vec3 pos, SoundSource soundSource, boolean simulate, ItemStack stack) {
         var sound = stack.getItem() instanceof SmokingItem item
                 ? item.getUseSound()
                 : NirvanaSounds.SMOKING.get();
 
-        if (sound != null) player.playSound(sound);
+        if (sound != null) {
+            level.playSound(null, pos.x(), pos.y(), pos.z(), sound, soundSource, 1F, 1F);
+        }
 
-
-        if (player.getAbilities().instabuild) return stack;
+        if (simulate) return stack;
 
         var remainder = stack.getItem().getCraftingRemainingItem();
         if (stack.isDamageableItem()) {
@@ -125,7 +144,7 @@ public abstract class SmokingItem extends Item {
         entity.gameEvent(GameEvent.DRINK);
 
         if (level instanceof ServerLevel serverLevel) {
-            applyEffects(stack, level, entity);
+            applyEffects(stack, level, entity.position(), entity);
             addParticles(serverLevel, entity);
         }
 
@@ -141,8 +160,17 @@ public abstract class SmokingItem extends Item {
         return stack;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public static InteractionResultHolder<ItemStack> startUsing(Level level, Player player, InteractionHand hand) {
+        if(!canUse(player)) return InteractionResultHolder.pass(player.getItemInHand(hand));
         return ItemUtils.startUsingInstantly(level, player, hand);
+    }
+
+    public static boolean canUse(LivingEntity entity) {
+        return Services.CONFIG.common().allowFakePlayerSmoking() || !Services.PLATFORM.isFakePlayer(entity);
+    }
+
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        return startUsing(level, player, hand);
     }
 
     @Override

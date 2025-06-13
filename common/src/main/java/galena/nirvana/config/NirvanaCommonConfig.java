@@ -53,4 +53,9 @@ public class NirvanaCommonConfig {
     public int getPipeHits() {
         return 6;
     }
+
+    public boolean allowFakePlayerSmoking() {
+        return true;
+    }
+
 }

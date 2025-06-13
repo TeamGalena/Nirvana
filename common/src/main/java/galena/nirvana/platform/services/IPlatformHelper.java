@@ -10,6 +10,7 @@ import galena.nirvana.world.item.DeerStalkerItem;
 import galena.nirvana.world.item.JointItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,4 +37,5 @@ public interface IPlatformHelper {
 
     Ingredient createNBTIngredient(ItemStack stack);
 
+    boolean isFakePlayer(LivingEntity entity);
 }
