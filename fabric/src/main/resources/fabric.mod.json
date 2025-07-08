@@ -11,7 +11,7 @@
     "sources": "https://github.com/${repository}",
     "issues": "https://github.com/${repository}/issues"
   },
-  "license": "https://github.com/${repository}/blob/1.20.x/LICENSE.txt",
+  "license": "https://github.com/${repository}/blob/1.21.x/LICENSE.txt",
   "environment": "*",
   "accessWidener": "nirvana.accesswidener",
   "entrypoints": {
@@ -35,7 +35,7 @@
   "depends": {
     "fabricloader": ">=0.16",
     "fabric-api": "*",
-    "minecraft": ">=1.20.1",
-    "java": ">=17"
+    "minecraft": ">=1.21.1",
+    "java": ">=21"
   }
 }

@@ -1,6 +1,6 @@
 modLoader = "javafml"
-loaderVersion = "[47,)"
-license = 'https://github.com/${repository}/blob/1.20.x/LICENSE.txt'
+loaderVersion = "[1,)"
+license = 'https://github.com/${repository}/blob/1.21.x/LICENSE.txt'
 issueTrackerURL = "https://github.com/${repository}/issues"
 itemIcon="nirvana:hemp"
 configBackground="nirvana:textures/block/hemp_burlap.png"
@@ -13,16 +13,16 @@ authors = "${mod_author}"
 description = '''TODO'''
 
 [[dependencies.${mod_id}]]
-    modId = "forge"
+    modId = "neoforge"
     mandatory = true
-    versionRange = "[47,)"
+    versionRange = "[21,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.${mod_id}]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.20.1,)"
+    versionRange = "[1.21.1,)"
     ordering = "NONE"
     side = "BOTH"
 
@@ -32,3 +32,8 @@ description = '''TODO'''
     versionRange = "*"
     ordering = "NONE"
     side = "BOTH"
+
+[[mixins]]
+    config="${mod_id}.mixins.json"
+[[mixins]]
+    config="${mod_id}.forge.mixins.json"

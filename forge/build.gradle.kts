@@ -23,6 +23,13 @@ neoforge {
 
 repositories {
     maven {
+        url = uri("https://mvn.devos.one/snapshots")
+        content {
+            includeGroup("com.tterrag.registrate")
+        }
+    }
+
+    maven {
         url = uri("https://maven.createmod.net")
         content {
             includeGroup("com.simibubi.create")
