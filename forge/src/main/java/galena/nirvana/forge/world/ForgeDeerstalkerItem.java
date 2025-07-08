@@ -3,11 +3,13 @@ package galena.nirvana.forge.world;
 import galena.nirvana.client.CustomItemModel;
 import galena.nirvana.forge.client.CustomModelExtensions;
 import galena.nirvana.world.item.DeerStalkerItem;
-import java.util.function.Consumer;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+
+import java.util.function.Consumer;
 
 public class ForgeDeerstalkerItem extends DeerStalkerItem {
 
@@ -21,9 +23,9 @@ public class ForgeDeerstalkerItem extends DeerStalkerItem {
     }
 
     @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment)
-                || enchantment.canApplyAtEnchantingTable(new ItemStack(Items.LEATHER_HELMET));
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        return super.supportsEnchantment(stack, enchantment)
+                || enchantment.value().isSupportedItem(new ItemStack(Items.LEATHER_HELMET));
     }
 
 }

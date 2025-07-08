@@ -9,10 +9,9 @@ import galena.nirvana.fabric.world.item.FabricSpawnEggItem;
 import galena.nirvana.platform.registrate.EntityPropertiesBuilder;
 import galena.nirvana.platform.registrate.NirvanaRegistrate;
 import galena.nirvana.platform.services.IPlatformHelper;
-import java.util.Objects;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.NbtIngredient;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -68,8 +67,8 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public Ingredient createNBTIngredient(ItemStack stack) {
         var base = Ingredient.of(stack);
-        var nbt = Objects.requireNonNull(stack.getTag());
-        return new NbtIngredient(base, nbt, false).toVanilla();
+        var components = stack.getComponentsPatch();
+        return new ComponentsIngredient(base, components).toVanilla();
     }
 
     @Override

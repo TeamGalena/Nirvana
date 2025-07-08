@@ -9,39 +9,39 @@ import galena.nirvana.forge.services.ForgeConfigs;
 import galena.nirvana.forge.world.AddItemLootModifier;
 import galena.nirvana.forge.world.ReplaceItemLootModifier;
 import galena.nirvana.index.NirvanaBrewing;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
+
 import java.util.ArrayList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(NirvanaConstants.MOD_ID)
 public class ForgeEntrypoint {
 
     public static final NonNullSupplier<ForgeNirvanaRegistrate> REGISTRATE = NonNullSupplier.lazy(() -> ForgeNirvanaRegistrate.create(NirvanaConstants.MOD_ID));
 
-    public ForgeEntrypoint() {
-        ForgeConfigs.register(ModLoadingContext.get());
+    public ForgeEntrypoint(IEventBus modBus, Dist dist) {
+        ForgeConfigs.register(modBus);
         NirvanaCommon.init();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        MinecraftForge.EVENT_BUS.addListener(this::registerTrades);
+        modBus.addListener(this::setup);
+        NeoForge.EVENT_BUS.addListener(this::registerTrades);
 
-        //noinspection Convert2MethodRef
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ForgeClientEntrypoint.init());
+        if (dist == Dist.CLIENT) {
+            ForgeClientEntrypoint.init(modBus);
+        }
 
         REGISTRATE.get()
                 .object("replace_item")
-                .generic(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, () -> ReplaceItemLootModifier.CODEC)
+                .generic(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, () -> ReplaceItemLootModifier.CODEC)
                 .register();
 
         REGISTRATE.get()
                 .object("add_item")
-                .generic(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, () -> AddItemLootModifier.CODEC)
+                .generic(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, () -> AddItemLootModifier.CODEC)
                 .register();
     }
 

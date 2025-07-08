@@ -5,18 +5,18 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ForgeCommonConfig implements NirvanaCommonConfig {
 
-    private final ForgeConfigSpec.DoubleValue jointRadius;
-    private final ForgeConfigSpec.IntValue nauseaAfterHits;
-    private final ForgeConfigSpec.IntValue reeferAfterHits;
-    private final ForgeConfigSpec.DoubleValue reeferChance;
-    private final ForgeConfigSpec.IntValue jointPeaceSeconds;
-    private final ForgeConfigSpec.DoubleValue bongRadius;
-    private final ForgeConfigSpec.IntValue bongPeaceSeconds;
-    private final ForgeConfigSpec.IntValue browniesPeaceSeconds;
-    private final ForgeConfigSpec.IntValue herbalSalveFactor;
-    private final ForgeConfigSpec.IntValue suspiciousPipeFactor;
-    private final ForgeConfigSpec.BooleanValue allowFakePlayerSmoking;
-    private final ForgeConfigSpec.BooleanValue generateBongTranslations;
+    private final ModConfigSpec.DoubleValue jointRadius;
+    private final ModConfigSpec.IntValue nauseaAfterHits;
+    private final ModConfigSpec.IntValue reeferAfterHits;
+    private final ModConfigSpec.DoubleValue reeferChance;
+    private final ModConfigSpec.IntValue jointPeaceSeconds;
+    private final ModConfigSpec.DoubleValue bongRadius;
+    private final ModConfigSpec.IntValue bongPeaceSeconds;
+    private final ModConfigSpec.IntValue browniesPeaceSeconds;
+    private final ModConfigSpec.IntValue herbalSalveFactor;
+    private final ModConfigSpec.IntValue suspiciousPipeFactor;
+    private final ModConfigSpec.BooleanValue allowFakePlayerSmoking;
+    private final ModConfigSpec.BooleanValue generateBongTranslations;
 
     public ForgeCommonConfig(ForgeConfigSpec.Builder builder) {
         builder.push(NirvanaConstants.MOD_ID);

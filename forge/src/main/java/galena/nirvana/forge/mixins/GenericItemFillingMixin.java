@@ -7,9 +7,8 @@ import com.simibubi.create.content.fluids.transfer.GenericItemFilling;
 import galena.nirvana.index.NirvanaItems;
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,14 +29,14 @@ public class GenericItemFillingMixin {
         if (NirvanaItems.BONG.isIn(stack)) cir.setReturnValue(true);
     }
 
-    @Inject(require = 0, cancellable = true, at = @At("HEAD"), method = "getRequiredAmountForItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraftforge/fluids/FluidStack;)I")
+    @Inject(require = 0, cancellable = true, at = @At("HEAD"), method = "getRequiredAmountForItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/neoforged/neoforge/fluids/FluidStack;)I")
     private static void getRequiredAmountForBong(Level world, ItemStack stack, FluidStack availableFluid, CallbackInfoReturnable<Integer> cir) {
         if (NirvanaItems.BONG.isIn(stack) && nirvana$isValidPotion(availableFluid)) {
             cir.setReturnValue(PotionFluidHandler.getRequiredAmountForFilledBottle(stack, availableFluid));
         }
     }
 
-    @Inject(require = 0, cancellable = true, at = @At("HEAD"), method = "fillItem(Lnet/minecraft/world/level/Level;ILnet/minecraft/world/item/ItemStack;Lnet/minecraftforge/fluids/FluidStack;)Lnet/minecraft/world/item/ItemStack;")
+    @Inject(require = 0, cancellable = true, at = @At("HEAD"), method = "fillItem(Lnet/minecraft/world/level/Level;ILnet/minecraft/world/item/ItemStack;Lnet/neoforged/neoforge/fluids/FluidStack;)Lnet/minecraft/world/item/ItemStack;")
     private static void fillBong(Level world, int requiredAmount, ItemStack stack, FluidStack availableFluid, CallbackInfoReturnable<ItemStack> cir) {
         if (NirvanaItems.BONG.isIn(stack) && nirvana$isValidPotion(availableFluid)) {
             var tag = availableFluid.getOrCreateTag();

@@ -12,7 +12,6 @@ import galena.nirvana.platform.registrate.NirvanaRegistrate;
 import galena.nirvana.platform.services.IPlatformHelper;
 import galena.nirvana.world.item.DeerStalkerItem;
 import galena.nirvana.world.item.JointItem;
-import java.util.Objects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,9 +19,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.common.crafting.PartialNBTIngredient;
-import net.minecraftforge.common.util.FakePlayer;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
+import net.neoforged.neoforge.common.util.FakePlayer;
 
 public class ForgePlatformHelper implements IPlatformHelper {
 
@@ -43,7 +42,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public Item createSpawnEggItem(NonNullSupplier<? extends EntityType<? extends Mob>> type, int primary, int secodary, Item.Properties properties) {
-        return new ForgeSpawnEggItem(type, primary, secodary, properties);
+        return new DeferredSpawnEggItem(type, primary, secodary, properties);
     }
 
     private static <E extends Entity> NonNullConsumer<EntityType.Builder<E>> mapFactory(NonNullConsumer<EntityPropertiesBuilder> factory) {
@@ -83,8 +82,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public Ingredient createNBTIngredient(ItemStack stack) {
-        var nbt = Objects.requireNonNull(stack.getTag());
-        return PartialNBTIngredient.of(stack.getItem(), nbt);
+        return DataComponentIngredient.of(false, stack);
     }
 
     @Override

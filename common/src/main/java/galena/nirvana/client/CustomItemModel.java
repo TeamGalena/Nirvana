@@ -41,7 +41,7 @@ public class CustomItemModel {
         this.flatModel = new ModelResourceLocation(NirvanaConstants.MOD_ID, name + "_flat", "inventory");
     }
 
-    public Collection<? extends ResourceLocation> models() {
+    public Collection<? extends ModelResourceLocation> models() {
         return List.of(flatModel, equippedModel);
     }
 
