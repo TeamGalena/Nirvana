@@ -1,7 +1,7 @@
 package galena.nirvana.config;
 
 import galena.nirvana.NirvanaConstants;
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ForgeCommonConfig implements NirvanaCommonConfig {
 
@@ -18,7 +18,7 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
     private final ModConfigSpec.BooleanValue allowFakePlayerSmoking;
     private final ModConfigSpec.BooleanValue generateBongTranslations;
 
-    public ForgeCommonConfig(ForgeConfigSpec.Builder builder) {
+    public ForgeCommonConfig(ModConfigSpec.Builder builder) {
         builder.push(NirvanaConstants.MOD_ID);
 
         builder.push("smoking");

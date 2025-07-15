@@ -11,6 +11,7 @@ import galena.nirvana.world.block.HempCropBlock;
 import galena.nirvana.world.block.ModdedSkullBlock;
 import galena.nirvana.world.block.ModdedWallSkullBlock;
 import galena.nirvana.world.block.ThcBlock;
+import galena.nirvana.world.block.WildHempBlock;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -86,8 +87,8 @@ public class NirvanaBlocks {
             .build()
             .register();
 
-    public static final BlockEntry<BushBlock> WILD_HEMP = REGISTRATE
-            .block("wild_hemp", BushBlock::new)
+    public static final BlockEntry<? extends BushBlock> WILD_HEMP = REGISTRATE
+            .block("wild_hemp", WildHempBlock::new)
             .initialProperties(() -> Blocks.FERN)
             .addLayer(() -> RenderType::cutout)
             .blockstate(Services.DATAGEN::wildHemp)
@@ -112,8 +113,7 @@ public class NirvanaBlocks {
             .build()
             .register();
 
-    public static final SkullBlock.Type REEFER_SKULL_TYPE = new SkullBlock.Type() {
-    };
+    public static final SkullBlock.Type REEFER_SKULL_TYPE = () -> "reefer";
 
     public static final BlockEntry<? extends SkullBlock> REEFER_HEAD = REGISTRATE
             .block("reefer_head", it -> new ModdedSkullBlock(REEFER_SKULL_TYPE, it))

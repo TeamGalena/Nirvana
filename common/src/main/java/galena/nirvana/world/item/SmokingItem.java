@@ -7,7 +7,6 @@ import galena.nirvana.world.effects.IStackingEffect;
 import java.util.stream.Stream;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -15,7 +14,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -38,12 +36,12 @@ public abstract class SmokingItem extends Item {
 
     protected void registerDispenserBehaviour() {
         SmokingDispenserBehaviour dispenserBehaviour = (source, pos, look, stack) -> {
-            applyEffects(stack, source.getLevel(), Vec3.atCenterOf(source.getPos()), null);
+            applyEffects(stack, source.level(), source.center(), null);
             var mouth = pos.add(look.scale(0.5));
-            source.getLevel().sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+            source.level().sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE,
                     mouth.x(), mouth.y(), mouth.z(),
                     5,
-                    0.0, 0.2 + source.getLevel().getRandom().nextDouble() * 0.1, 0.0,
+                    0.0, 0.2 + source.level().getRandom().nextDouble() * 0.1, 0.0,
                     0.02
             );
         };
@@ -64,15 +62,11 @@ public abstract class SmokingItem extends Item {
         );
     }
 
-    private static boolean isStackingEffect(MobEffect effect) {
-        var holder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect);
-        return holder.is(NirvanaEffects.STACKING_EFFECTS);
-    }
-
     public static void applyEffect(MobEffectInstance instance, ItemStack source, LivingEntity target, @Nullable LivingEntity cause) {
         var existing = target.getEffect(instance.getEffect());
 
-        if (existing != null && isStackingEffect(instance.getEffect())) {
+        var effect = instance.getEffect();
+        if (existing != null && effect.is(NirvanaEffects.STACKING_EFFECTS)) {
             var increased = new MobEffectInstance(
                     instance.getEffect(),
                     instance.getDuration(),
@@ -80,15 +74,14 @@ public abstract class SmokingItem extends Item {
                     instance.isAmbient(),
                     instance.isVisible(),
                     instance.showIcon(),
-                    null,
-                    instance.getFactorData()
+                    null
             );
             target.addEffect(increased);
-            if (instance.getEffect() instanceof IStackingEffect stacking) {
+            if (effect.value() instanceof IStackingEffect stacking) {
                 stacking.onIncreasedTo(increased, source, target, target.level());
             }
-        } else if (instance.getEffect().isInstantenous()) {
-            instance.getEffect().applyInstantenousEffect(cause, cause, target, instance.getAmplifier(), 1.0);
+        } else if (effect.value().isInstantenous()) {
+            effect.value().applyInstantenousEffect(cause, cause, target, instance.getAmplifier(), 1.0);
         } else {
             target.addEffect(instance);
         }
@@ -164,7 +157,7 @@ public abstract class SmokingItem extends Item {
     }
 
     public static InteractionResultHolder<ItemStack> startUsing(Level level, Player player, InteractionHand hand) {
-        if(!canUse(player)) return InteractionResultHolder.pass(player.getItemInHand(hand));
+        if (!canUse(player)) return InteractionResultHolder.pass(player.getItemInHand(hand));
         return ItemUtils.startUsingInstantly(level, player, hand);
     }
 

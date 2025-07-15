@@ -2,12 +2,12 @@ package galena.nirvana.fabric.services;
 
 import static galena.nirvana.NirvanaConstants.MOD_ID;
 
-import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
+import fuzs.forgeconfigapiport.fabric.api.forge.v4.ForgeConfigRegistry;
 import galena.nirvana.config.ForgeCommonConfig;
 import galena.nirvana.config.NirvanaCommonConfig;
 import galena.nirvana.platform.services.IConfigs;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class FabricConfigs implements IConfigs {

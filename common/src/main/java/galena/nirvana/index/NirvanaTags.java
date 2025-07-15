@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class NirvanaTags {
 
-    public static final TagKey<Block> SUMMER_CROPS = TagKey.create(Registries.BLOCK, new ResourceLocation("sereneseasons", "summer_crops"));
+    public static final TagKey<Block> SUMMER_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("sereneseasons", "summer_crops"));
 
     public static final TagKey<Item> NAUSEATING = TagKey.create(Registries.ITEM, NirvanaConstants.createId("nauseating"));
 
@@ -34,7 +34,7 @@ public class NirvanaTags {
 
     public static final TagKey<Item> BURLAP = TagKey.create(Registries.ITEM, NirvanaConstants.createId("burlap"));
 
-    public static final TagKey<Item> CHICKEN_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation("chicken_food"));
+    public static final TagKey<Item> CHICKEN_FOOD = TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("chicken_food"));
 
     public static final TagKey<Item>[] SEEDS = platformSpecific(Registries.ITEM, "seeds");
 
@@ -43,8 +43,8 @@ public class NirvanaTags {
     @SuppressWarnings("unchecked")
     private static <T> TagKey<T>[] platformSpecific(ResourceKey<Registry<T>> registry, String path) {
         return (TagKey<T>[]) new TagKey[]{
-                TagKey.create(registry, new ResourceLocation("forge", path)),
-                TagKey.create(registry, new ResourceLocation("c", path)),
+                TagKey.create(registry, ResourceLocation.fromNamespaceAndPath("forge", path)),
+                TagKey.create(registry, ResourceLocation.fromNamespaceAndPath("c", path)),
         };
     }
 

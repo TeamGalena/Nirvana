@@ -30,9 +30,9 @@ public class NirvanaForgeJeiPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
-        registration.registerSubtypeInterpreter(NirvanaItems.POTION_BONG.get(), NirvanaJeiCompat::interpretPotion);
-        registration.registerSubtypeInterpreter(NirvanaItems.HERBAL_SALVE.get(), NirvanaJeiCompat::interpretSuspiciousItem);
-        registration.registerSubtypeInterpreter(NirvanaItems.SUSPICIOUS_PIPE.get(), NirvanaJeiCompat::interpretSuspiciousItem);
+        registration.registerSubtypeInterpreter(NirvanaItems.POTION_BONG.get(), NirvanaJeiCompat.potionInterpreter());
+        registration.registerSubtypeInterpreter(NirvanaItems.HERBAL_SALVE.get(), NirvanaJeiCompat.suspiciousInterpreter());
+        registration.registerSubtypeInterpreter(NirvanaItems.SUSPICIOUS_PIPE.get(), NirvanaJeiCompat.suspiciousInterpreter());
     }
 
 }

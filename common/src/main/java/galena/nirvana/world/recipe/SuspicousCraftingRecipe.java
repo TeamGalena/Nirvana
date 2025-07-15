@@ -1,20 +1,23 @@
 package galena.nirvana.world.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import galena.nirvana.index.NirvanaItems;
 import galena.nirvana.index.NirvanaRecipeTypes;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SuspiciousStewItem;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
@@ -22,14 +25,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class SuspicousCraftingRecipe extends CustomRecipe {
 
-    private final Item result;
-    private final Item base;
+    private final ItemStack result;
+    private final Ingredient base;
     private final int requiredFlowers;
     private final int requiredWeed;
     private final int durationFactor;
 
-    public SuspicousCraftingRecipe(ResourceLocation id, CraftingBookCategory category, Item result, Item base, int requiredFlowers, int requiredWeed, int durationFactor) {
-        super(id, category);
+    public SuspicousCraftingRecipe(CraftingBookCategory category, ItemStack result, Ingredient base, int requiredFlowers, int requiredWeed, int durationFactor) {
+        super(category);
         this.result = result;
         this.base = base;
         this.requiredFlowers = requiredFlowers;
@@ -38,14 +41,14 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean matches(CraftingContainer container, Level level) {
+    public boolean matches(CraftingInput input, Level level) {
         @Nullable Item flowerType = null;
         var flowerCount = 0;
         var weedCount = 0;
         var hasBase = false;
 
-        for (int i = 0; i < container.getContainerSize(); ++i) {
-            var stack = container.getItem(i);
+        for (int i = 0; i < input.size(); ++i) {
+            var stack = input.getItem(i);
 
             if (NirvanaItems.WEED.isIn(stack)) {
                 weedCount++;
@@ -54,7 +57,7 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
 
                 if (stack.is(flowerType)) flowerCount++;
                 else return false;
-            } else if (stack.is(base) && !hasBase) {
+            } else if (base.test(stack) && !hasBase) {
                 hasBase = true;
             } else if (!stack.isEmpty()) {
                 return false;
@@ -65,15 +68,21 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
-        var result = new ItemStack(this.result);
+    public ItemStack assemble(CraftingInput container, HolderLookup.Provider lookup) {
+        var result = this.result.copy();
 
-        for(int i = 0; i < container.getContainerSize(); ++i) {
+        for (int i = 0; i < container.size(); ++i) {
             ItemStack stack = container.getItem(i);
             if (!stack.isEmpty()) {
-                SuspiciousEffectHolder suspiciousEffectHolder = SuspiciousEffectHolder.tryGet(stack.getItem());
-                if (suspiciousEffectHolder != null) {
-                    SuspiciousStewItem.saveMobEffect(result, suspiciousEffectHolder.getSuspiciousEffect(), suspiciousEffectHolder.getEffectDuration() * durationFactor);
+                var holder = SuspiciousEffectHolder.tryGet(stack.getItem());
+                if (holder != null) {
+                    var effects = new SuspiciousStewEffects(
+                            holder.getSuspiciousEffects().effects()
+                                    .stream()
+                                    .map(it -> new SuspiciousStewEffects.Entry(it.effect(), it.duration() * durationFactor))
+                                    .toList()
+                    );
+                    result.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, effects);
                     break;
                 }
             }
@@ -94,36 +103,41 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
 
     public static class Serializer implements RecipeSerializer<SuspicousCraftingRecipe> {
 
+        private static final MapCodec<SuspicousCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(builder ->
+                builder.group(
+                        CraftingBookCategory.CODEC.optionalFieldOf("category", CraftingBookCategory.MISC).forGetter(SuspicousCraftingRecipe::category),
+                        ItemStack.CODEC.fieldOf("result").forGetter(it -> it.result),
+                        Ingredient.CODEC.fieldOf("base").forGetter(it -> it.base),
+                        Codec.INT.optionalFieldOf("flowers", 1).forGetter(it -> it.requiredFlowers),
+                        Codec.INT.optionalFieldOf("weed", 1).forGetter(it -> it.requiredWeed),
+                        Codec.INT.optionalFieldOf("durationFactor", 1).forGetter(it -> it.durationFactor)
+                ).apply(builder, SuspicousCraftingRecipe::new)
+        );
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, SuspicousCraftingRecipe> STREAM_CODEC = StreamCodec.composite(
+            CraftingBookCategory.STREAM_CODEC,
+                SuspicousCraftingRecipe::category,
+                ItemStack.STREAM_CODEC,
+                it -> it.result,
+                Ingredient.CONTENTS_STREAM_CODEC,
+                it -> it.base,
+                ByteBufCodecs.INT,
+                it -> it.requiredFlowers,
+                ByteBufCodecs.INT,
+                it -> it.requiredWeed,
+                ByteBufCodecs.INT,
+                it -> it.durationFactor,
+                SuspicousCraftingRecipe::new
+        );
+
         @Override
-        public SuspicousCraftingRecipe fromJson(ResourceLocation id, JsonObject json) {
-            var category = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null), CraftingBookCategory.MISC);
-            var item = GsonHelper.getAsItem(json, "result");
-            var base = GsonHelper.getAsItem(json, "base");
-            var requiredFlowers = GsonHelper.getAsInt(json, "flowers", 1);
-            var requiredWeed = GsonHelper.getAsInt(json, "weed", 1);
-            var durationFactor = GsonHelper.getAsInt(json, "durationFactor", 1);
-            return new SuspicousCraftingRecipe(id, category, item, base, requiredFlowers, requiredWeed, durationFactor);
+        public MapCodec<SuspicousCraftingRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public SuspicousCraftingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
-            var category = buffer.readEnum(CraftingBookCategory.class);
-            var item = buffer.readById(BuiltInRegistries.ITEM);
-            var base = buffer.readById(BuiltInRegistries.ITEM);
-            var requiredFlowers = buffer.readInt();
-            var requiredWeed = buffer.readInt();
-            var durationFactor = buffer.readInt();
-            return new SuspicousCraftingRecipe(id, category, item, base, requiredFlowers, requiredWeed, durationFactor);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, SuspicousCraftingRecipe recipe) {
-            buffer.writeEnum(recipe.category());
-            buffer.writeId(BuiltInRegistries.ITEM, recipe.result);
-            buffer.writeId(BuiltInRegistries.ITEM, recipe.base);
-            buffer.writeInt(recipe.requiredFlowers);
-            buffer.writeInt(recipe.requiredWeed);
-            buffer.writeInt(recipe.durationFactor);
+        public StreamCodec<RegistryFriendlyByteBuf, SuspicousCraftingRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
 
     }

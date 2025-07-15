@@ -11,7 +11,7 @@ public class NirvanaConstants {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     public static ResourceLocation createId(String path) {
-        return new ResourceLocation(MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
 }

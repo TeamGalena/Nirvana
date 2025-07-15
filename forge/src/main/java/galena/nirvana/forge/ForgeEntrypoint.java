@@ -9,25 +9,25 @@ import galena.nirvana.forge.services.ForgeConfigs;
 import galena.nirvana.forge.world.AddItemLootModifier;
 import galena.nirvana.forge.world.ReplaceItemLootModifier;
 import galena.nirvana.index.NirvanaBrewing;
+import java.util.ArrayList;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-
-import java.util.ArrayList;
 
 @Mod(NirvanaConstants.MOD_ID)
 public class ForgeEntrypoint {
 
     public static final NonNullSupplier<ForgeNirvanaRegistrate> REGISTRATE = NonNullSupplier.lazy(() -> ForgeNirvanaRegistrate.create(NirvanaConstants.MOD_ID));
 
-    public ForgeEntrypoint(IEventBus modBus, Dist dist) {
-        ForgeConfigs.register(modBus);
+    public ForgeEntrypoint(ModContainer container, IEventBus modBus, Dist dist) {
+        ForgeConfigs.register(container);
         NirvanaCommon.init();
-        modBus.addListener(this::setup);
+        modBus.addListener(this::registerBrewing);
         NeoForge.EVENT_BUS.addListener(this::registerTrades);
 
         if (dist == Dist.CLIENT) {
@@ -45,8 +45,8 @@ public class ForgeEntrypoint {
                 .register();
     }
 
-    private void setup(FMLCommonSetupEvent event) {
-        NirvanaBrewing.register();
+    private void registerBrewing(RegisterBrewingRecipesEvent event) {
+        NirvanaBrewing.register(event.getBuilder());
     }
 
     private void registerTrades(VillagerTradesEvent event) {

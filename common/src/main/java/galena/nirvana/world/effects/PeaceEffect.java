@@ -11,7 +11,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -95,9 +94,11 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
         }
     }
 
+
+    // TODO check
     @Override
-    public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int i) {
-        super.addAttributeModifiers(entity, attributes, i);
+    public void onEffectAdded(LivingEntity entity, int i) {
+        super.onEffectAdded(entity, i);
         if (entity instanceof Mob mob) {
             mob.setTarget(null);
         }

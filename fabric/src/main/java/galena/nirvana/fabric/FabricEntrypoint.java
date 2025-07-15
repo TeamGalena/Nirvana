@@ -11,7 +11,6 @@ import galena.nirvana.compat.DyeColors;
 import galena.nirvana.fabric.services.FabricConfigs;
 import galena.nirvana.index.NirvanaBanners;
 import galena.nirvana.index.NirvanaBlocks;
-import galena.nirvana.index.NirvanaBrewing;
 import galena.nirvana.index.NirvanaItems;
 import galena.nirvana.index.NirvanaTags;
 import galena.nirvana.world.item.PotionBongItem;
@@ -51,7 +50,6 @@ public class FabricEntrypoint implements ModInitializer {
     public void onInitialize() {
         FabricConfigs.register();
         NirvanaCommon.init();
-        REGISTRATE.addRegisterCallback(Registries.POTION, NirvanaBrewing::register);
         REGISTRATE.register();
 
         modifyLootTables();

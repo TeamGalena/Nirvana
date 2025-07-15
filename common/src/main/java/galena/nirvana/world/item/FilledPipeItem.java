@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 public class FilledPipeItem extends Item {
 
     static final SmokingDispenserBehaviour DISPENSER_BEHAVIOUR = (source, pos, look, stack) -> {
-        source.getLevel().sendParticles(NirvanaParticles.SMOKE_RING.get(), pos.x, pos.y, pos.z, 0, look.x, look.y, look.z, 0.1);
+        source.level().sendParticles(NirvanaParticles.SMOKE_RING.get(), pos.x, pos.y, pos.z, 0, look.x, look.y, look.z, 0.1);
     };
 
     public FilledPipeItem(Properties properties) {
@@ -36,13 +36,13 @@ public class FilledPipeItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack) {
+    public int getUseDuration(ItemStack itemStack, LivingEntity user) {
         return 32;
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
-        var effect = new MobEffectInstance(NirvanaEffects.PEACE.get(), 160 * Services.CONFIG.common().suspiciousPipeFactor(), 0);
+        var effect = new MobEffectInstance(NirvanaEffects.PEACE, 160 * Services.CONFIG.common().suspiciousPipeFactor(), 0);
         SmokingItem.applyEffect(effect, stack, user, user);
 
         NirvanaParticles.spawnRing(level, user);

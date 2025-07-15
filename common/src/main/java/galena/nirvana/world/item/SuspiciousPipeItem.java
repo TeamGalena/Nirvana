@@ -41,7 +41,7 @@ public class SuspiciousPipeItem extends SuspiciousStewItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack) {
+    public int getUseDuration(ItemStack itemStack, LivingEntity user) {
         return 32;
     }
 

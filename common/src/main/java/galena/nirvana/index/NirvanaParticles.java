@@ -18,15 +18,15 @@ public class NirvanaParticles {
 
     private static final AbstractRegistrate<?> REGISTRATE = Services.PLATFORM.getRegistrate();
 
-    public static final RegistryEntry<ModdedParticleType> SMOKE_RING = REGISTRATE
+    public static final RegistryEntry<ParticleType<?>, ModdedParticleType> SMOKE_RING = REGISTRATE
             .generic("smoke_ring", Registries.PARTICLE_TYPE, ModdedParticleType::new)
             .register();
 
-    public static final RegistryEntry<ModdedParticleType> HERBAL_SALVE = REGISTRATE
+    public static final RegistryEntry<ParticleType<?>, ModdedParticleType> HERBAL_SALVE = REGISTRATE
             .generic("herbal_salve", Registries.PARTICLE_TYPE, ModdedParticleType::new)
             .register();
 
-    public static final RegistryEntry<ModdedParticleType> THC_SMOKE = REGISTRATE
+    public static final RegistryEntry<ParticleType<?>, ModdedParticleType> THC_SMOKE = REGISTRATE
             .generic("thc_smoke", Registries.PARTICLE_TYPE, ModdedParticleType::new)
             .register();
 

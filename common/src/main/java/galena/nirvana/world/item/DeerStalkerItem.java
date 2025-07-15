@@ -1,14 +1,15 @@
 package galena.nirvana.world.item;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.base.Suppliers;
+import galena.nirvana.NirvanaConstants;
 import galena.nirvana.index.NirvanaItems;
-import java.util.UUID;
+import java.util.function.Supplier;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -16,23 +17,24 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
 public class DeerStalkerItem extends Item implements ArmorLike {
 
-    private static final UUID ATTRIBUTE_UUID = UUID.fromString("fc19f9da-04c4-41e4-89df-350590564ee4");
-
-    private final Multimap<Attribute, AttributeModifier> modifiers;
+    private final Supplier<ItemAttributeModifiers> modifiers;
 
     public DeerStalkerItem(Properties properties) {
         super(properties);
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);
 
-        var builder = ImmutableMultimap.<Attribute, AttributeModifier>builder();
-        builder.put(Attributes.ARMOR, new AttributeModifier(ATTRIBUTE_UUID, "Armor modifier", ArmorMaterials.LEATHER.getDefenseForType(ArmorItem.Type.HELMET), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ATTRIBUTE_UUID, "Armor toughness", ArmorMaterials.LEATHER.getToughness(), AttributeModifier.Operation.ADDITION));
-        this.modifiers = builder.build();
+        this.modifiers = Suppliers.memoize(() -> {
+            var builder = ItemAttributeModifiers.builder();
+            builder.add(Attributes.ARMOR, new AttributeModifier(NirvanaConstants.createId("armor"), ArmorMaterials.LEATHER.value().getDefense(ArmorItem.Type.HELMET), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD);
+            builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(NirvanaConstants.createId("toughness"), ArmorMaterials.LEATHER.value().toughness(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD);
+            return builder.build();
+        });
     }
 
     public boolean isValidRepairItem(ItemStack stack, ItemStack with) {
@@ -45,12 +47,12 @@ public class DeerStalkerItem extends Item implements ArmorLike {
 
     @Override
     public int getEnchantmentValue() {
-        return ArmorMaterials.LEATHER.getEnchantmentValue();
+        return ArmorMaterials.LEATHER.value().enchantmentValue();
     }
 
     @Override
-    public SoundEvent getEquipSound() {
-        return ArmorMaterials.LEATHER.getEquipSound();
+    public Holder<SoundEvent> getEquipSound() {
+        return ArmorMaterials.LEATHER.value().equipSound();
     }
 
     @Override
@@ -59,9 +61,8 @@ public class DeerStalkerItem extends Item implements ArmorLike {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-        if (slot != getEquipmentSlot()) return super.getDefaultAttributeModifiers(slot);
-        return modifiers;
+    public ItemAttributeModifiers getDefaultAttributeModifiers() {
+        return modifiers.get();
     }
 
 }

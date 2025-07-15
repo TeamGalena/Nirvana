@@ -8,7 +8,6 @@ import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.CreativeModeTabModifier;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import galena.nirvana.NirvanaClient;
 import galena.nirvana.platform.Services;
 import galena.nirvana.world.item.BongItem;
@@ -16,22 +15,19 @@ import galena.nirvana.world.item.CustomMinecartItem;
 import galena.nirvana.world.item.FilledPipeItem;
 import galena.nirvana.world.item.HerbalSalveItem;
 import galena.nirvana.world.item.JointItem;
-import galena.nirvana.world.item.LazyFoodItem;
-import galena.nirvana.world.item.ModdedRecordItem;
 import galena.nirvana.world.item.PotionBongItem;
 import galena.nirvana.world.item.SuspiciousPipeItem;
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.BannerPatternItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -39,10 +35,9 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.ComposterBlock;
 
@@ -76,15 +71,15 @@ public class NirvanaItems {
             })
             .register();
 
-    private static final NonNullSupplier<FoodProperties> BROWNIE_FOOD = NonNullSupplier.lazy(() -> new FoodProperties.Builder()
-            .effect(new MobEffectInstance(NirvanaEffects.PEACE.get(), 20 * Services.CONFIG.common().browniesPeaceSeconds(), 0), 1.0F)
+    private static final FoodProperties BROWNIE_FOOD = new FoodProperties.Builder()
+            .effect(new MobEffectInstance(NirvanaEffects.PEACE, 20 * Services.CONFIG.common().browniesPeaceSeconds(), 0), 1.0F)
             .nutrition(2)
-            .saturationMod(0.1F)
-            .build()
-    );
+            .saturationModifier(0.1F)
+            .build();
 
-    public static final ItemEntry<LazyFoodItem> WEED_BROWNIE = REGISTRATE
-            .item("weed_brownie", p -> new LazyFoodItem(p, BROWNIE_FOOD))
+    public static final ItemEntry<Item> WEED_BROWNIE = REGISTRATE
+            .item("weed_brownie", Item::new)
+            .properties(it -> it.food(BROWNIE_FOOD))
             .tab(CreativeModeTabs.FOOD_AND_DRINKS)
             .recipe((c, p) -> ShapelessRecipeBuilder
                     .shapeless(RecipeCategory.FOOD, c.get(), 2)
@@ -104,9 +99,13 @@ public class NirvanaItems {
             .register();
 
     private static <T extends Item> Consumer<CreativeModeTabModifier> addPotionStacks(ItemBuilder<T, ?> item) {
-        return modifier -> BuiltInRegistries.POTION.stream()
-                .filter(it -> it != Potions.EMPTY && it != Potions.WATER)
-                .map(it -> PotionUtils.setPotion(new ItemStack(item.getEntry()), it))
+        return modifier -> BuiltInRegistries.POTION.holders()
+                .filter(it -> !it.is(Potions.WATER))
+                .map(it -> {
+                    var stack = new ItemStack(item.getEntry());
+                    stack.set(DataComponents.POTION_CONTENTS, new PotionContents(it));
+                    return stack;
+                })
                 .forEach(modifier::accept);
     }
 
@@ -151,12 +150,12 @@ public class NirvanaItems {
             .transform(it -> it.tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addSuspiciousStack(it, () -> Services.CONFIG.common().herbalSalveFactor())))
             .register();
 
-    public static final ItemEntry<? extends RecordItem> DISC_JAM = REGISTRATE
-            .item("music_disc_jam", props -> new ModdedRecordItem(13, NirvanaSounds.JAM, props, 150))
+    public static final ItemEntry<? extends Item> DISC_JAM = REGISTRATE
+            .item("music_disc_jam", Item::new)
             .properties(it -> it.stacksTo(1))
             .properties(it -> it.rarity(Rarity.RARE))
+            .properties(it -> it.jukeboxPlayable(NirvanaSounds.JAM_KEY))
             .tab(CreativeModeTabs.TOOLS_AND_UTILITIES)
-            .tag(ItemTags.MUSIC_DISCS)
             .setData(ProviderType.LANG, (context, provider) -> {
                 provider.add(context.get(), "Music Disc");
                 provider.add(context.get().getDescriptionId() + ".desc", "Jam - firch");
@@ -228,7 +227,7 @@ public class NirvanaItems {
 
     public static final ItemEntry<? extends Item> DEERSTALKER = REGISTRATE
             .item("deerstalker", Services.PLATFORM::createDeerstalkerItem)
-            .properties(it -> it.defaultDurability(ArmorMaterials.LEATHER.getDurabilityForType(ArmorItem.Type.HELMET)))
+            .properties(it -> it.durability(ArmorItem.Type.HELMET.getDurability(5)))
             .recipe(Services.DATAGEN::deerStalker)
             .model(Services.DATAGEN::flatItem)
             .tab(CreativeModeTabs.TOOLS_AND_UTILITIES)
@@ -237,7 +236,6 @@ public class NirvanaItems {
     public static final ItemEntry<? extends Item> REEFER_HEAD = REGISTRATE
             .item("reefer_head", it -> new StandingAndWallBlockItem(NirvanaBlocks.REEFER_HEAD.get(), NirvanaBlocks.REEFER_WALL_HEAD.get(), it, Direction.DOWN))
             .properties(it -> it.rarity(Rarity.UNCOMMON))
-            .properties(it -> it.defaultDurability(ArmorMaterials.LEATHER.getDurabilityForType(ArmorItem.Type.HELMET)))
             .model((c, p) -> p.withExistingParent(c.getName(), "item/template_skull"))
             .tab(CreativeModeTabs.FUNCTIONAL_BLOCKS)
             .tag(NirvanaTags.HEADS)

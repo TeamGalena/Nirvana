@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
@@ -37,8 +36,8 @@ public class CustomItemModel {
 
     public CustomItemModel(String name, Collection<ItemDisplayContext> contexts) {
         this.contexts = contexts;
-        this.equippedModel = new ModelResourceLocation(NirvanaConstants.MOD_ID, name + "_equipped", "inventory");
-        this.flatModel = new ModelResourceLocation(NirvanaConstants.MOD_ID, name + "_flat", "inventory");
+        this.equippedModel = new ModelResourceLocation(NirvanaConstants.createId(name + "_equipped"), "inventory");
+        this.flatModel = new ModelResourceLocation(NirvanaConstants.createId(name + "_flat"), "inventory");
     }
 
     public Collection<? extends ModelResourceLocation> models() {

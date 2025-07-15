@@ -4,9 +4,12 @@ import galena.nirvana.NirvanaConstants;
 import galena.nirvana.index.NirvanaSounds;
 import galena.nirvana.platform.Services;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -15,7 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,8 +35,7 @@ public class PotionBongItem extends SmokingItem {
                 instance.isAmbient(),
                 instance.isVisible(),
                 instance.showIcon(),
-                null,
-                instance.getFactorData()
+                null
         );
     }
 
@@ -42,7 +45,9 @@ public class PotionBongItem extends SmokingItem {
 
     @Override
     Stream<MobEffectInstance> getEffects(ItemStack stack, @Nullable Level level, @Nullable LivingEntity entity) {
-        return PotionUtils.getMobEffects(stack).stream().map(PotionBongItem::modify);
+        var contents = stack.get(DataComponents.POTION_CONTENTS);
+        if (contents == null) return Stream.empty();
+        return StreamSupport.stream(contents.getAllEffects().spliterator(), false).map(PotionBongItem::modify);
     }
 
     @Override
@@ -58,13 +63,17 @@ public class PotionBongItem extends SmokingItem {
 
         var language = Language.getInstance();
         if (language.has(PATTERN_TRANSLATION_KEY)) try {
-            var potion = PotionUtils.getPotion(stack);
-            var pattern = Pattern.compile(language.getOrDefault(PATTERN_TRANSLATION_KEY));
-            var potionTranslation = language.getOrDefault(potion.getName(Items.POTION.getDescriptionId() + ".effect."));
-            var matcher = pattern.matcher(potionTranslation);
-            if (matcher.find()) {
-                var translation = matcher.group(1);
-                return Component.translatable(getDescriptionId(), translation);
+            var potion = Optional.ofNullable(stack.get(DataComponents.POTION_CONTENTS))
+                    .flatMap(PotionContents::potion);
+
+            if (potion.isPresent()) {
+                var pattern = Pattern.compile(language.getOrDefault(PATTERN_TRANSLATION_KEY));
+                var potionTranslation = language.getOrDefault(Potion.getName(potion, Items.POTION.getDescriptionId() + ".effect."));
+                var matcher = pattern.matcher(potionTranslation);
+                if (matcher.find()) {
+                    var translation = matcher.group(1);
+                    return Component.translatable(getDescriptionId(), translation);
+                }
             }
         } catch (PatternSyntaxException | IllegalStateException | IndexOutOfBoundsException ex) {
             NirvanaConstants.LOGGER.debug("Unable to translation potion bong automatically", ex);
@@ -74,11 +83,15 @@ public class PotionBongItem extends SmokingItem {
     }
 
     public String getDescriptionId(ItemStack stack) {
-        return PotionUtils.getPotion(stack).getName(getDescriptionId() + ".effect.");
+        return Potion.getName(stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).potion(), getDescriptionId() + ".effect.");
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        var contents = stack.get(DataComponents.POTION_CONTENTS);
+        if (contents != null) {
+            contents.addPotionTooltip(tooltip::add, 1.0F, context.tickRate());
+        }
     }
 
     @Override

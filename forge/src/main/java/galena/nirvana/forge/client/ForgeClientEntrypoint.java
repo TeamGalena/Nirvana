@@ -5,6 +5,7 @@ import galena.nirvana.client.CustomItemModel;
 import galena.nirvana.index.NirvanaParticles;
 import galena.nirvana.world.block.renderer.ReeferHeadRenderer;
 import galena.nirvana.world.entity.renderer.ReeferRenderer;
+import java.util.function.Function;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
@@ -13,8 +14,6 @@ import net.minecraft.core.particles.ParticleType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-
-import java.util.function.Function;
 
 public class ForgeClientEntrypoint {
 

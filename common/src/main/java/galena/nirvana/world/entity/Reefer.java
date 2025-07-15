@@ -2,6 +2,7 @@ package galena.nirvana.world.entity;
 
 import galena.nirvana.index.NirvanaItems;
 import galena.nirvana.world.THCCloud;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Creeper;
@@ -20,7 +21,7 @@ public class Reefer extends Creeper implements ICustomCreeper {
     }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource source, int i, boolean bl) {
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean bl) {
         var cause = source.getEntity();
         if (cause != this && cause instanceof Creeper creeper) {
             if (creeper.canDropMobsSkull()) {

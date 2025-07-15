@@ -31,7 +31,7 @@ public abstract class SoundBuilder<P> extends AbstractBuilder<SoundEvent, SoundE
 
     public final SoundBuilder<P> with(String... sounds) {
         for (var sound : sounds) {
-            this.sounds.add(new ResourceLocation(getOwner().getModid(), sound));
+            this.sounds.add(ResourceLocation.fromNamespaceAndPath(getOwner().getModid(), sound));
         }
         return this;
     }
@@ -55,7 +55,7 @@ public abstract class SoundBuilder<P> extends AbstractBuilder<SoundEvent, SoundE
         if (sounds.isEmpty()) {
             throw new IllegalStateException("cannot create SoundEvent without any sounds");
         }
-        var id = new ResourceLocation(getOwner().getModid(), getName());
+        var id = ResourceLocation.fromNamespaceAndPath(getOwner().getModid(), getName());
         return SoundEvent.createFixedRangeEvent(id, 1F);
     }
 

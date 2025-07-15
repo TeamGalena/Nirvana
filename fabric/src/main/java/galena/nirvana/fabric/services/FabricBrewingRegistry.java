@@ -30,9 +30,10 @@ public class FabricBrewingRegistry implements IBrewingRegistry {
     }
 
     @Override
-    public void addRecipe(Ingredient input, Ingredient ingredient, ItemStack output) {
+    public void addRecipe(PotionBrewing.Builder builder, Ingredient input, Ingredient ingredient, ItemStack output) {
         CUSTOM_RECIPES.add(new BrewingRecipe(input, ingredient, output));
-        PotionBrewing.ALLOWED_CONTAINERS.add(input);
+        // TODO?
+        // PotionBrewing.ALLOWED_CONTAINERS.add(input);
     }
 
 }

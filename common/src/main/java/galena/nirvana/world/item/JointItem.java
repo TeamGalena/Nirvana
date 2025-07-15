@@ -18,7 +18,7 @@ public class JointItem extends SmokingItem {
 
     @Override
     Stream<MobEffectInstance> getEffects(ItemStack stack, @Nullable Level level, @Nullable LivingEntity entity) {
-        return Stream.of(new MobEffectInstance(NirvanaEffects.PEACE.get(), 20 * Services.CONFIG.common().jointPeaceSeconds(), 0));
+        return Stream.of(new MobEffectInstance(NirvanaEffects.PEACE, 20 * Services.CONFIG.common().jointPeaceSeconds(), 0));
     }
 
     @Override
