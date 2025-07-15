@@ -63,7 +63,7 @@ public class TntBlockMixin {
     }
 
     @WrapWithCondition(
-            method = "use",
+            method = "useItemOn",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/TntBlock;explode(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/LivingEntity;)V"

@@ -50,6 +50,7 @@ repositories {
 dependencies {
     modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${mc_version}-fabric-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-${mc_version}-lib:${jei_version}")
 
     modCompileOnly("com.simibubi.create:create-fabric-${"1.20.1"}:${create_fabric_version}") {
         exclude("com.jozufozu.flywheel")

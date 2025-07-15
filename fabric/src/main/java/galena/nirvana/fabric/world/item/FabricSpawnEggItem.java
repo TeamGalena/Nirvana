@@ -1,12 +1,11 @@
 package galena.nirvana.fabric.world.item;
 
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
-import org.jetbrains.annotations.Nullable;
 
 public class FabricSpawnEggItem extends SpawnEggItem {
 
@@ -18,7 +17,7 @@ public class FabricSpawnEggItem extends SpawnEggItem {
     }
 
     @Override
-    public EntityType<?> getType(@Nullable CompoundTag tag) {
+    public EntityType<?> getType(ItemStack stack) {
         return type.get();
     }
 

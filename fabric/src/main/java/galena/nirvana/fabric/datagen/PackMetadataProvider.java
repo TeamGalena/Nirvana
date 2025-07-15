@@ -1,6 +1,7 @@
 package galena.nirvana.fabric.datagen;
 
 import galena.nirvana.NirvanaConstants;
+import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.DetectedVersion;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -14,7 +15,8 @@ public class PackMetadataProvider extends PackMetadataGenerator {
         super(output);
         add(PackMetadataSection.TYPE, new PackMetadataSection(
                 Component.literal(NirvanaConstants.MOD_NAME + " resources"),
-                DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES)
+                DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
+                Optional.empty()
         ));
     }
 

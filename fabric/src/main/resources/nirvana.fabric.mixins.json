@@ -6,7 +6,6 @@
   "refmap": "nirvana.refmap.json",
   "mixins": [
     "ChickenMixin",
-    "GenericItemFillingMixin",
     "PotionBrewingMixin",
     "PotionSlotMixin",
     "TntBlockMixin"

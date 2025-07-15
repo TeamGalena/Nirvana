@@ -9,6 +9,8 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.library.plugins.vanilla.ingredients.subtypes.PotionSubtypeInterpreter;
+import mezz.jei.library.plugins.vanilla.ingredients.subtypes.SuspiciousStewSubtypeInterpreter;
 import net.minecraft.resources.ResourceLocation;
 
 @JeiPlugin
@@ -30,9 +32,9 @@ public class NirvanaForgeJeiPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
-        registration.registerSubtypeInterpreter(NirvanaItems.POTION_BONG.get(), NirvanaJeiCompat.potionInterpreter());
-        registration.registerSubtypeInterpreter(NirvanaItems.HERBAL_SALVE.get(), NirvanaJeiCompat.suspiciousInterpreter());
-        registration.registerSubtypeInterpreter(NirvanaItems.SUSPICIOUS_PIPE.get(), NirvanaJeiCompat.suspiciousInterpreter());
+        registration.registerSubtypeInterpreter(NirvanaItems.POTION_BONG.get(), PotionSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NirvanaItems.HERBAL_SALVE.get(), SuspiciousStewSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NirvanaItems.SUSPICIOUS_PIPE.get(), SuspiciousStewSubtypeInterpreter.INSTANCE);
     }
 
 }

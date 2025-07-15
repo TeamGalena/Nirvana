@@ -8,8 +8,9 @@ import galena.nirvana.index.NirvanaItems;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 public class FabricDataGenerators implements DataGeneratorEntrypoint {
 
@@ -32,10 +33,11 @@ public class FabricDataGenerators implements DataGeneratorEntrypoint {
 
         FabricEntrypoint.REGISTRATE.addLang("item", NirvanaItems.POTION_BONG.getId(), "effect.empty", "Effect Bong");
 
-        BuiltInRegistries.POTION.forEach(potion -> {
-            var id = potion.getName("");
-            var stack = PotionUtils.setPotion(NirvanaItems.POTION_BONG.asStack(), potion);
-            if (potion.getEffects().isEmpty()) {
+        BuiltInRegistries.POTION.holders().forEach(potion -> {
+            var id = potion.key().location().getPath();
+            var stack = NirvanaItems.POTION_BONG.asStack();
+            stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
+            if (potion.value().getEffects().isEmpty()) {
                 FabricEntrypoint.REGISTRATE.addRawLang(stack.getDescriptionId(), RegistrateLangProvider.toEnglishName(id) + " Bong");
             } else {
                 FabricEntrypoint.REGISTRATE.addRawLang(stack.getDescriptionId(), "Bong of " + RegistrateLangProvider.toEnglishName(id));

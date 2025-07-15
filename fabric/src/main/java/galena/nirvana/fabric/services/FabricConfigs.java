@@ -2,20 +2,20 @@ package galena.nirvana.fabric.services;
 
 import static galena.nirvana.NirvanaConstants.MOD_ID;
 
-import fuzs.forgeconfigapiport.fabric.api.forge.v4.ForgeConfigRegistry;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import galena.nirvana.config.ForgeCommonConfig;
 import galena.nirvana.config.NirvanaCommonConfig;
 import galena.nirvana.platform.services.IConfigs;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class FabricConfigs implements IConfigs {
 
-    private static final Pair<ForgeCommonConfig, ForgeConfigSpec> COMMON = new ForgeConfigSpec.Builder().configure(ForgeCommonConfig::new);
+    private static final Pair<ForgeCommonConfig, ModConfigSpec> COMMON = new ModConfigSpec.Builder().configure(ForgeCommonConfig::new);
 
     public static void register() {
-        ForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.COMMON, COMMON.getRight());
+        NeoForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.COMMON, COMMON.getRight());
     }
 
     @Override

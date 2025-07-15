@@ -42,6 +42,7 @@ repositories {
 dependencies {
     modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-${mc_version}-lib:${jei_version}")
     modImplementation("com.simibubi.create:create-${mc_version}:${create_forge_version}:slim") {
         isTransitive = false
     }

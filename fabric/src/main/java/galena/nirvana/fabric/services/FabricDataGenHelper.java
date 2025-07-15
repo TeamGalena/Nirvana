@@ -22,6 +22,7 @@ import java.util.function.Function;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -58,10 +59,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class FabricDataGenHelper implements IDataGenHelper {
 
-    private ResourceLocation withSuffix(ResourceLocation base, String suffix) {
-        return new ResourceLocation(base.getNamespace(), base.getPath() + suffix);
-    }
-
     private LootItemCondition.Builder hasAge(Block block, int age) {
         return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                 .setProperties(StatePropertiesPredicate.Builder.properties()
@@ -84,10 +81,10 @@ public class FabricDataGenHelper implements IDataGenHelper {
             var age = block.getAge(state);
 
             var base = provider.blockTexture(block);
-            var name = withSuffix(base, "_" + age);
+            var name = base.withSuffix("_" + age);
 
             var model = age < 3
-                    ? provider.models().singleTexture(name.getPath(), new ResourceLocation(NirvanaConstants.MOD_ID, "block/crop_cross"), "cross", name)
+                    ? provider.models().singleTexture(name.getPath(), NirvanaConstants.createId("block/crop_cross"), "cross", name)
                     : provider.models().getExistingFile(name);
 
             return ConfiguredModel.builder()
@@ -98,15 +95,16 @@ public class FabricDataGenHelper implements IDataGenHelper {
 
     @Override
     public void hempCrop(RegistrateBlockLootTables provider, CropBlock block) {
+        var fortune = provider.getRegistries().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE);
         provider.add(block, provider.applyExplosionDecay(block,
                 LootTable.lootTable().withPool(LootPool.lootPool()
                                 .add(AlternativesEntry.alternatives(
                                                 LootItem.lootTableItem(NirvanaItems.HEMP)
                                                         .when(maxAge(block))
-                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.57F, 2)),
+                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(fortune, 0.57F, 2)),
                                                 LootItem.lootTableItem(NirvanaItems.HEMP)
                                                         .when(growthMissing(block, -1))
-                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.62F, 1)),
+                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(fortune, 0.62F, 1)),
                                                 LootItem.lootTableItem(NirvanaItems.HEMP_SEEDS)
                                         )
                                 ))
@@ -114,10 +112,10 @@ public class FabricDataGenHelper implements IDataGenHelper {
                                 .add(AlternativesEntry.alternatives(
                                                 LootItem.lootTableItem(NirvanaItems.HEMP_SEEDS)
                                                         .when(maxAge(block))
-                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.57F, 2)),
+                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(fortune, 0.57F, 2)),
                                                 LootItem.lootTableItem(NirvanaItems.HEMP_SEEDS)
                                                         .when(growthMissing(block, -1))
-                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.57F, 1))
+                                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(fortune, 0.57F, 1))
                                         )
                                 )
                         )
@@ -130,13 +128,13 @@ public class FabricDataGenHelper implements IDataGenHelper {
         var name = provider.blockTexture(block);
         var model = provider.models().cube(
                 name.getPath(),
-                withSuffix(name, "_bottom"),
-                withSuffix(name, "_top"),
-                withSuffix(name, "_front"),
-                withSuffix(name, "_back"),
-                withSuffix(name, "_side"),
-                withSuffix(name, "_side")
-        ).texture("particle", withSuffix(name, "_top"));
+                name.withSuffix("_bottom"),
+                name.withSuffix("_top"),
+                name.withSuffix("_front"),
+                name.withSuffix("_back"),
+                name.withSuffix("_side"),
+                name.withSuffix("_side")
+        ).texture("particle", name.withSuffix("_top"));
 
         provider.getVariantBuilder(block).forAllStates(state -> {
             var facing = state.getValue(HorizontalDirectionalBlock.FACING);
@@ -198,7 +196,7 @@ public class FabricDataGenHelper implements IDataGenHelper {
 
     @Override
     public void pipe(DataGenContext<Item, ? extends Item> context, RegistrateItemModelProvider provider) {
-        var parent = new ResourceLocation(NirvanaConstants.MOD_ID, "item/pipe_in_hand");
+        var parent = NirvanaConstants.createId("item/pipe_in_hand");
         provider.withExistingParent(context.getName(), parent).texture("layer0", provider.itemTexture(context));
     }
 
@@ -261,7 +259,7 @@ public class FabricDataGenHelper implements IDataGenHelper {
         provider.add(type, new LootTable.Builder()
                 .withPool(LootPool.lootPool()
                         .when(LootItemEntityPropertyCondition.hasProperties(
-                                LootContext.EntityTarget.KILLER,
+                                LootContext.EntityTarget.ATTACKER,
                                 EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)
                         ))
                         .add(LootItem.lootTableItem(NirvanaItems.DISC_JAM))
@@ -332,7 +330,7 @@ public class FabricDataGenHelper implements IDataGenHelper {
     @Override
     public void pottedPlant(DataGenContext<Block, ? extends FlowerPotBlock> context, RegistrateBlockstateProvider provider) {
         var model = provider.models().withExistingParent(context.getName(), "block/flower_pot_cross")
-                .texture("plant", provider.blockTexture(context.get().getContent()));
+                .texture("plant", provider.blockTexture(context.get().getPotted()));
         provider.simpleBlock(context.get(), model);
     }
 
@@ -343,7 +341,7 @@ public class FabricDataGenHelper implements IDataGenHelper {
 
     @Override
     public void skull(DataGenContext<Block, ? extends Block> context, RegistrateBlockstateProvider provider) {
-        var model = provider.models().getExistingFile(new ResourceLocation("block/skull"));
+        var model = provider.models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull"));
         provider.simpleBlock(context.get(), model);
     }
 

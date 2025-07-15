@@ -18,7 +18,6 @@ dependencies {
     compileOnly("org.ow2.asm:asm-tree:9.5")
 
     modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${mc_version}-lib:${jei_version}")
     modCompileOnly("fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${forge_config_port_version}")
 
     modCompileOnly("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
