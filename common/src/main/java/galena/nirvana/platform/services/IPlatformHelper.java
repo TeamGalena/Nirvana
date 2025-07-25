@@ -1,11 +1,11 @@
 package galena.nirvana.platform.services;
 
+import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
 import com.tterrag.registrate.builders.EntityBuilder;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import galena.nirvana.platform.registrate.EntityPropertiesBuilder;
-import galena.nirvana.platform.registrate.NirvanaRegistrate;
 import galena.nirvana.world.item.DeerStalkerItem;
 import galena.nirvana.world.item.JointItem;
 import net.minecraft.world.entity.Entity;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public interface IPlatformHelper {
 
-    NirvanaRegistrate<?> getRegistrate();
+    MultikultiRegistrate<?> getRegistrate();
 
     default JointItem createJointItem(Item.Properties properties) {
         return new JointItem(properties);

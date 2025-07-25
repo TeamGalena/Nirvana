@@ -1,5 +1,6 @@
 package galena.nirvana.forge.services;
 
+import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
 import com.tterrag.registrate.builders.EntityBuilder;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
@@ -8,11 +9,9 @@ import galena.nirvana.forge.ForgeEntrypoint;
 import galena.nirvana.forge.world.ForgeDeerstalkerItem;
 import galena.nirvana.forge.world.ForgeJointItem;
 import galena.nirvana.platform.registrate.EntityPropertiesBuilder;
-import galena.nirvana.platform.registrate.NirvanaRegistrate;
 import galena.nirvana.platform.services.IPlatformHelper;
 import galena.nirvana.world.item.DeerStalkerItem;
 import galena.nirvana.world.item.JointItem;
-import java.util.Objects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,10 +23,12 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.common.util.FakePlayer;
 
+import java.util.Objects;
+
 public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
-    public NirvanaRegistrate<?> getRegistrate() {
+    public MultikultiRegistrate<?> getRegistrate() {
         return ForgeEntrypoint.REGISTRATE.get();
     }
 

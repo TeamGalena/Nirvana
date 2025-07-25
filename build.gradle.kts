@@ -5,6 +5,7 @@ plugins {
 subprojects {
     repositories {
         modrinthMaven()
+        mavenLocal()
 
         maven {
             url = uri("https://mvn.devos.one/snapshots/")
@@ -46,6 +47,7 @@ subprojects {
         nexus {
             content {
                 includeGroup("dev.galena")
+                includeGroup("com.possible-triangle")
             }
         }
     }

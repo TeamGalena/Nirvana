@@ -36,6 +36,7 @@
     "fabricloader": ">=0.16",
     "fabric-api": "*",
     "minecraft": ">=1.20.1",
-    "java": ">=17"
+    "java": ">=17",
+    "multikulti_registrate": "*"
   }
 }

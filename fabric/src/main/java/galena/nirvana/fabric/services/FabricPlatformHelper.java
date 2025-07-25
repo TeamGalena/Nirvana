@@ -1,5 +1,6 @@
 package galena.nirvana.fabric.services;
 
+import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
 import com.tterrag.registrate.builders.EntityBuilder;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
@@ -7,9 +8,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import galena.nirvana.fabric.FabricEntrypoint;
 import galena.nirvana.fabric.world.item.FabricSpawnEggItem;
 import galena.nirvana.platform.registrate.EntityPropertiesBuilder;
-import galena.nirvana.platform.registrate.NirvanaRegistrate;
 import galena.nirvana.platform.services.IPlatformHelper;
-import java.util.Objects;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.NbtIngredient;
@@ -23,10 +22,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.Objects;
+
 public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
-    public NirvanaRegistrate<?> getRegistrate() {
+    public MultikultiRegistrate<?> getRegistrate() {
         return FabricEntrypoint.REGISTRATE;
     }
 
