@@ -9,6 +9,9 @@ val create_fabric_version: String by extra
 val forge_config_port_version: String by extra
 val galena_hats_version: String by extra
 val multikulti_version: String by extra
+val fd_fabric_version: String by extra
+val moonlight_fabric_version: String by extra
+val supplementaries_fabric_version: String by extra
 
 fabric {
     enableMixins()
@@ -58,7 +61,9 @@ dependencies {
         exclude("com.jozufozu.flywheel")
     }
 
-    if(!env.isCI) {
+    modImplementation("com.possible-triangle:multikulti-datagen-fabric:${mc_version}-${multikulti_version}")
+
+    if (!env.isCI) {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-fabric:${jei_version}")
         modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_version}")
     }

@@ -1,0 +1,32 @@
+{
+  "item.use.bong": {
+    "sounds": [
+      "nirvana:item/bong_1",
+      "nirvana:item/bong_2",
+      "nirvana:item/bong_3"
+    ],
+    "subtitle": "subtitle.item.use.bong"
+  },
+  "item.use.herbal_salve": {
+    "sounds": [
+      "nirvana:item/herbal_salve_1",
+      "nirvana:item/herbal_salve_4",
+      "nirvana:item/herbal_salve_3",
+      "nirvana:item/herbal_salve_2"
+    ],
+    "subtitle": "subtitle.item.use.herbal_salve"
+  },
+  "item.use.smoking": {
+    "sounds": [
+      "nirvana:item/smoking_1",
+      "nirvana:item/smoking_2",
+      "nirvana:item/smoking_3"
+    ],
+    "subtitle": "subtitle.item.use.smoking"
+  },
+  "music.disc.jam": {
+    "sounds": [
+      "nirvana:discs/jam"
+    ]
+  }
+}

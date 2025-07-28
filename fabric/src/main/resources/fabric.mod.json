@@ -3,7 +3,7 @@
   "id": "${mod_id}",
   "version": "${mod_version}",
   "name": "${mod_name}",
-  "description": "TODO",
+  "description": "Nirvana is a mod that aims to add Hemp and herb in a vanilla friendly way! Get ready to make some Herb Rolled in Paper, Oddly Shaped Glasses, Herbal Salves, Burlap and much more.",
   "authors": [
     "${mod_author}"
   ],

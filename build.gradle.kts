@@ -1,5 +1,5 @@
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.13")
+    id("com.possible-triangle.gradle") version ("0.2.16")
 }
 
 subprojects {
@@ -50,10 +50,6 @@ subprojects {
                 includeGroup("com.possible-triangle")
             }
         }
-    }
-
-    tasks.withType<Jar> {
-        exclude("**/*.bbmodel")
     }
 
     enablePublishing {
