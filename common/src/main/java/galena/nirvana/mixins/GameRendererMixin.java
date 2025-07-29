@@ -1,29 +1,63 @@
 package galena.nirvana.mixins;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.systems.RenderSystem;
 import galena.nirvana.client.PeaceShader;
 import galena.nirvana.world.effects.PeaceEffect;
-import galena.nirvana.world.entity.Reefer;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.client.renderer.PostChain;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
 
-    @WrapOperation(
-            method = "checkEntityPostEffect(Lnet/minecraft/world/entity/Entity;)V",
-            at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/client/renderer/GameRenderer;loadEffect(Lnet/minecraft/resources/ResourceLocation;)V")
+    @Unique
+    @Nullable
+    private PostChain nirvana$shader = null;
+
+    @Unique
+    private boolean nirvana$shouldRender() {
+        var accessor = (GameRendererAccessor) this;
+        if (accessor.getPostEffect() != null) return false;
+        return PeaceEffect.shouldRenderShader(accessor.getMinecraft().player);
+    }
+
+    @Inject(
+            method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;doEntityOutline()V")
     )
-    private void applyReeferShader(GameRenderer instance, ResourceLocation id, Operation<Void> original, @Local Entity entity) {
-        if (entity == null) {
-            PeaceEffect.checkShader();
-        } else {
-            original.call(instance, id);
+    private void renderPeaceShader(float partialTicks, long l, boolean bl, CallbackInfo ci) {
+        var accessor = (GameRendererAccessor) this;
+        var minecraft = accessor.getMinecraft();
+
+        if (nirvana$shouldRender()) {
+            if (nirvana$shader == null) {
+                nirvana$shader = PeaceShader.load(minecraft);
+                if (nirvana$shader == null) return;
+                nirvana$shader.resize(minecraft.getWindow().getWidth(), minecraft.getWindow().getHeight());
+            }
+
+            RenderSystem.disableBlend();
+            RenderSystem.disableDepthTest();
+            RenderSystem.resetTextureMatrix();
+            nirvana$shader.process(partialTicks);
+        } else if (nirvana$shader != null) {
+            nirvana$shader.close();
+            nirvana$shader = null;
+        }
+    }
+
+    @Inject(
+            method = "resize",
+            at = @At("HEAD")
+    )
+    private void resizeShader(int width, int height, CallbackInfo ci) {
+        if (nirvana$shader != null) {
+            nirvana$shader.resize(width, height);
         }
     }
 

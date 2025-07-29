@@ -73,6 +73,10 @@ public abstract class SmokingItem extends Item {
         var existing = target.getEffect(instance.getEffect());
 
         if (existing != null && isStackingEffect(instance.getEffect())) {
+            if (instance.getEffect() instanceof IStackingEffect stacking && !stacking.shouldIncrease(source, target, target.level())) {
+                return;
+            }
+
             var increased = new MobEffectInstance(
                     instance.getEffect(),
                     instance.getDuration(),
@@ -164,7 +168,7 @@ public abstract class SmokingItem extends Item {
     }
 
     public static InteractionResultHolder<ItemStack> startUsing(Level level, Player player, InteractionHand hand) {
-        if(!canUse(player)) return InteractionResultHolder.pass(player.getItemInHand(hand));
+        if (!canUse(player)) return InteractionResultHolder.pass(player.getItemInHand(hand));
         return ItemUtils.startUsingInstantly(level, player, hand);
     }
 

@@ -2,9 +2,9 @@ package galena.nirvana.world;
 
 import galena.nirvana.index.NirvanaEffects;
 import galena.nirvana.index.NirvanaParticles;
+import galena.nirvana.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -16,8 +16,8 @@ public class THCCloud {
 
         var cloud = new AreaEffectCloud(level, at.x, at.y, at.z);
 
-        cloud.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * nauseaSeconds));
-        cloud.addEffect(new MobEffectInstance(NirvanaEffects.PEACE.get(), 20 * peaceSeconds));
+        var amplifier = Services.CONFIG.common().nauseaAfterHits() + 1;
+        cloud.addEffect(new MobEffectInstance(NirvanaEffects.PEACE.get(), 20 * peaceSeconds, amplifier));
 
         cloud.setParticle(NirvanaParticles.THC_SMOKE.get());
         cloud.setRadius(1.5F * size);
@@ -34,7 +34,7 @@ public class THCCloud {
         var z = pos.getZ() + level.getRandom().nextFloat() * range * 2 - range + 0.5;
 
         var containing = BlockPos.containing(x, y, z);
-        if(level.getBlockState(containing).isSolid()) return;
+        if (level.getBlockState(containing).isSolid()) return;
 
         level.addParticle(NirvanaParticles.THC_SMOKE.get(), x, y, z, 0.01, 0.01, 0.01);
 

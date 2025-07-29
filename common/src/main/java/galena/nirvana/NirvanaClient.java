@@ -1,10 +1,8 @@
 package galena.nirvana;
 
 import galena.nirvana.index.NirvanaParticles;
-import galena.nirvana.world.effects.PeaceEffect;
 import galena.nirvana.world.particle.SmokeRingParticle;
 import galena.nirvana.world.particle.ThcSmokeParticle;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.particle.SuspendedTownParticle;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -23,9 +21,7 @@ public class NirvanaClient {
     }
 
     public static void tickShaders() {
-        var level = Minecraft.getInstance().level;
-        if (level == null || level.getGameTime() % 20L != 0) return;
-        PeaceEffect.checkShader();
+        // TODO remove
     }
 
 }
