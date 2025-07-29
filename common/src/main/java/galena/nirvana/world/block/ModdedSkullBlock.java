@@ -16,4 +16,5 @@ public class ModdedSkullBlock extends SkullBlock {
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return NirvanaBlocks.MODDED_SKULL.create(pos, state);
     }
+
 }

@@ -9,7 +9,6 @@ import java.util.function.Function;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleOptions;
@@ -29,7 +28,7 @@ public class FabricClientEntrypoint implements ClientModInitializer {
         });
 
         EntityModelLayerRegistry.registerModelLayer(ReeferRenderer.LAYER, ReeferRenderer::createLayers);
-        EntityModelLayerRegistry.registerModelLayer(ReeferHeadRenderer.LAYER, SkullModel::createMobHeadLayer);
+        EntityModelLayerRegistry.registerModelLayer(ReeferHeadRenderer.LAYER, ReeferHeadRenderer::createLayers);
     }
 
 }

@@ -9,9 +9,6 @@ val create_fabric_version: String by extra
 val forge_config_port_version: String by extra
 val galena_hats_version: String by extra
 val multikulti_version: String by extra
-val fd_fabric_version: String by extra
-val moonlight_fabric_version: String by extra
-val supplementaries_fabric_version: String by extra
 
 fabric {
     enableMixins()

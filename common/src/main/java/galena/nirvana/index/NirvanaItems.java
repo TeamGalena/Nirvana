@@ -55,6 +55,7 @@ public class NirvanaItems {
             .item("hemp_seeds", p -> new ItemNameBlockItem(NirvanaBlocks.HEMP.get(), p))
             .tag(NirvanaTags.SEEDS)
             .tag(NirvanaTags.CHICKEN_FOOD)
+            .tag(NirvanaTags.HEMP_SEASONS_ITEMS)
             .tab(CreativeModeTabs.NATURAL_BLOCKS)
             .recipe((c, p) -> p.singleItem(DataIngredient.items(HEMP.get()), RecipeCategory.MISC, c, 1, 2))
             .onRegister(it -> ComposterBlock.COMPOSTABLES.put(it, 0.3F))

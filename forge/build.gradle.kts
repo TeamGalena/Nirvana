@@ -4,6 +4,8 @@ val registrate_forge_version: String by extra
 val jei_version: String by extra
 val jeed_version: String by extra
 val fd_forge_version: String by extra
+val moonlight_forge_version: String by extra
+val supplementaries_forge_version: String by extra
 val create_forge_version: String by extra
 val flywheel_forge_version: String by extra
 val freecam_forge_version: String by extra
@@ -55,6 +57,8 @@ dependencies {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
         modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_version}")
         modRuntimeOnly("maven.modrinth:farmers-delight:${fd_forge_version}")
+        modRuntimeOnly("maven.modrinth:supplementaries:${supplementaries_forge_version}")
+        modRuntimeOnly("maven.modrinth:moonlight:${moonlight_forge_version}")
         modRuntimeOnly("maven.modrinth:freecam:${freecam_forge_version}")
         // modRuntimeOnly("dev.galena:oreganized:${oreganized_version}:slim")
         modRuntimeOnly("maven.modrinth:blueprint:${blueprint_version}")

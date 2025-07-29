@@ -12,6 +12,7 @@ import galena.nirvana.world.block.ModdedSkullBlock;
 import galena.nirvana.world.block.ModdedWallSkullBlock;
 import galena.nirvana.world.block.ThcBlock;
 import galena.nirvana.world.block.WildHempBlock;
+import galena.nirvana.world.block.entity.ModdedSkullBlockEntity;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class NirvanaBlocks {
             .addLayer(() -> RenderType::cutout)
             .blockstate(Services.DATAGEN::hempCrop)
             .tag(BlockTags.CROPS)
-            .tag(NirvanaTags.SUMMER_CROPS)
+            .tag(NirvanaTags.HEMP_SEASONS_BLOCKS)
             .loot(Services.DATAGEN::hempCrop)
             .register();
 
@@ -130,7 +131,7 @@ public class NirvanaBlocks {
             .register();
 
     public static final BlockEntityEntry<SkullBlockEntity> MODDED_SKULL = REGISTRATE
-            .<SkullBlockEntity>blockEntity("skull", (type, pos, state) -> new SkullBlockEntity(pos, state))
+            .<SkullBlockEntity>blockEntity("skull", ModdedSkullBlockEntity::new)
             .renderer(() -> SkullBlockRenderer::new)
             .validBlocks(REEFER_HEAD, REEFER_WALL_HEAD)
             .register();

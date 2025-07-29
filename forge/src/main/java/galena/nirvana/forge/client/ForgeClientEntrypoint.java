@@ -6,7 +6,6 @@ import galena.nirvana.index.NirvanaParticles;
 import galena.nirvana.world.block.renderer.ReeferHeadRenderer;
 import galena.nirvana.world.entity.renderer.ReeferRenderer;
 import java.util.function.Function;
-import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleOptions;
@@ -35,7 +34,7 @@ public class ForgeClientEntrypoint {
 
     private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ReeferRenderer.LAYER, ReeferRenderer::createLayers);
-        event.registerLayerDefinition(ReeferHeadRenderer.LAYER, SkullModel::createMobHeadLayer);
+        event.registerLayerDefinition(ReeferHeadRenderer.LAYER, ReeferHeadRenderer::createLayers);
     }
 
 }

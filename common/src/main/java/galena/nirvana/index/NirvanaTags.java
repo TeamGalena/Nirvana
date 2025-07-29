@@ -14,7 +14,15 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class NirvanaTags {
 
-    public static final TagKey<Block> SUMMER_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("sereneseasons", "summer_crops"));
+    public static final TagKey<Block>[] HEMP_SEASONS_BLOCKS = new TagKey[] {
+            TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("sereneseasons", "spring_crops")),
+            TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("sereneseasons", "summer_crops"))
+    };
+
+    public static final TagKey<Item>[] HEMP_SEASONS_ITEMS = new TagKey[] {
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("sereneseasons", "spring_crops")),
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("sereneseasons", "summer_crops"))
+    };
 
     public static final TagKey<Item> NAUSEATING = TagKey.create(Registries.ITEM, NirvanaConstants.createId("nauseating"));
 
