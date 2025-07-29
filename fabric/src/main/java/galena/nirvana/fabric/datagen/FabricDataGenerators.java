@@ -18,6 +18,7 @@ public class FabricDataGenerators implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         NirvanaCommon.init();
         addDefaultTranslations();
+        CompatRegistrate.register();
 
         var fileHelper = ExistingFileHelper.withResourcesFromArg();
         var pack = generator.createPack();

@@ -1,0 +1,32 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "supplementaries"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "supplementaries"
+    }
+  ],
+  "key": {
+    "h": {
+      "item": "nirvana:hemp"
+    }
+  },
+  "pattern": [
+    "h",
+    "h"
+  ],
+  "result": {
+    "count": 2,
+    "item": "supplementaries:rope"
+  },
+  "show_notification": true
+}

@@ -10,7 +10,10 @@ modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "${mod_author}"
-description = '''TODO'''
+description = '''
+Nirvana is a mod that aims to add Hemp and herb in a vanilla friendly way!
+Get ready to make some Herb Rolled in Paper, Oddly Shaped Glasses, Herbal Salves, Burlap and much more.
+'''
 
 [[dependencies.${mod_id}]]
     modId = "neoforge"

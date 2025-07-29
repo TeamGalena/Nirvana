@@ -1,6 +1,7 @@
 package galena.nirvana.index;
 
 import com.tterrag.registrate.providers.ProviderType;
+import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import galena.nirvana.NirvanaConstants;
 import galena.nirvana.platform.Services;
@@ -15,7 +16,7 @@ import net.minecraft.world.item.JukeboxSong;
 
 public class NirvanaSounds {
 
-    private static final NirvanaRegistrate<?> REGISTRATE = Services.PLATFORM.getRegistrate();
+    private static final MultikultiRegistrate<?> REGISTRATE = Services.PLATFORM.getRegistrate();
 
     public static final RegistryEntry<SoundEvent, SoundEvent> JAM_SOUND = REGISTRATE
             .sound("music.disc.jam")

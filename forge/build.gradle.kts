@@ -12,6 +12,7 @@ val oreganized_version: String by extra
 val blueprint_version: String by extra
 val data_trades_version: String by extra
 val galena_hats_version: String by extra
+val multikulti_version: String by extra
 
 neoforge {
     enableMixins()
@@ -19,6 +20,8 @@ neoforge {
     dependOn(project(":common"))
     includesMod("com.tterrag.registrate:Registrate:${registrate_forge_version}")
     includesMod("dev.galena:hats-neoforge:${mc_version}-${galena_hats_version}")
+    includesMod("com.possible-triangle:multikulti-core-forge:${mc_version}-${multikulti_version}")
+    includesMod("com.possible-triangle:multikulti-registrate-forge:${mc_version}-${multikulti_version}")
 }
 
 repositories {

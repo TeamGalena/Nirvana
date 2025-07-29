@@ -1,10 +1,11 @@
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.13")
+    id("com.possible-triangle.gradle") version ("0.2.16")
 }
 
 subprojects {
     repositories {
         modrinthMaven()
+        mavenLocal()
 
         maven {
             url = uri("https://mvn.devos.one/snapshots/")
@@ -46,12 +47,9 @@ subprojects {
         nexus {
             content {
                 includeGroup("dev.galena")
+                includeGroup("com.possible-triangle")
             }
         }
-    }
-
-    tasks.withType<Jar> {
-        exclude("**/*.bbmodel")
     }
 
     enablePublishing {

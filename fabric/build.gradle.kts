@@ -8,6 +8,10 @@ val jeed_version: String by extra
 val create_fabric_version: String by extra
 val forge_config_port_version: String by extra
 val galena_hats_version: String by extra
+val multikulti_version: String by extra
+val fd_fabric_version: String by extra
+val moonlight_fabric_version: String by extra
+val supplementaries_fabric_version: String by extra
 
 fabric {
     enableMixins()
@@ -15,6 +19,8 @@ fabric {
 
     dependOn(project(":common"))
     includesMod("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
+    // includesMod("com.possible-triangle:multikulti-core-fabric:${mc_version}-${multikulti_version}")
+    includesMod("com.possible-triangle:multikulti-registrate-fabric:${mc_version}-${multikulti_version}")
     includesMod("dev.galena:hats-fabric:${mc_version}-${galena_hats_version}")
     includesMod("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_port_version}")
 }
@@ -56,7 +62,9 @@ dependencies {
         exclude("com.jozufozu.flywheel")
     }
 
-    if(!env.isCI) {
+    modImplementation("com.possible-triangle:multikulti-datagen-fabric:${mc_version}-${multikulti_version}")
+
+    if (!env.isCI) {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-fabric:${jei_version}")
         modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_version}")
     }
