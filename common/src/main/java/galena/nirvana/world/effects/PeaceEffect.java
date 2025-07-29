@@ -1,9 +1,14 @@
 package galena.nirvana.world.effects;
 
+import galena.nirvana.client.PeaceShader;
+import galena.nirvana.index.NirvanaEffects;
 import galena.nirvana.index.NirvanaEntities;
 import galena.nirvana.index.NirvanaTags;
 import galena.nirvana.platform.Services;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.PostChain;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
 
 public class PeaceEffect extends MobEffect implements IStackingEffect {
     public PeaceEffect() {
@@ -100,6 +107,30 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
         super.addAttributeModifiers(entity, attributes, i);
         if (entity instanceof Mob mob) {
             mob.setTarget(null);
+        }
+    }
+
+    private static boolean shaderEnabledByEffect = false;
+
+    public static void checkShader() {
+        var minecraft = Minecraft.getInstance();
+        if (minecraft.player == null) return;
+        var renderer = minecraft.gameRenderer;
+        var enabled = Optional.ofNullable(minecraft.player.getEffect(NirvanaEffects.PEACE.get()))
+                .filter(it -> it.getAmplifier() > 1)
+                .isPresent();
+        var current = Optional.ofNullable(renderer.currentEffect())
+                .map(PostChain::getName)
+                .map(ResourceLocation::new)
+                .filter(it -> it.equals(PeaceShader.ID))
+                .isPresent();
+        if (current == enabled) return;
+        if (enabled) {
+            PeaceShader.enable(renderer);
+            shaderEnabledByEffect = true;
+        } else if (shaderEnabledByEffect) {
+            PeaceShader.disable(renderer);
+            shaderEnabledByEffect = false;
         }
     }
 

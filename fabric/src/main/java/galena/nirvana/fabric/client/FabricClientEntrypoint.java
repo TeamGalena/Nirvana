@@ -5,8 +5,11 @@ import galena.nirvana.client.CustomItemModel;
 import galena.nirvana.index.NirvanaParticles;
 import galena.nirvana.world.block.renderer.ReeferHeadRenderer;
 import galena.nirvana.world.entity.renderer.ReeferRenderer;
+
 import java.util.function.Function;
+
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.particle.ParticleProvider;
@@ -29,6 +32,10 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ReeferRenderer.LAYER, ReeferRenderer::createLayers);
         EntityModelLayerRegistry.registerModelLayer(ReeferHeadRenderer.LAYER, ReeferHeadRenderer::createLayers);
+
+        ClientTickEvents.START_CLIENT_TICK.register(event -> {
+            NirvanaClient.tickShaders();
+        });
     }
 
 }
