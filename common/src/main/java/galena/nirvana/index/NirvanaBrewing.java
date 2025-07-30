@@ -3,6 +3,7 @@ package galena.nirvana.index;
 import galena.nirvana.platform.Services;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -25,15 +26,16 @@ public class NirvanaBrewing {
         return stack.get(DataComponents.POTION_CONTENTS).is(Potions.WATER);
     }
 
-   // private static void registerMix(PotionBrewing.Builder brewing, ItemStack ingredient, ItemStack from) {
-   //     var input = isWater(from) ? Ingredient.of(NirvanaItems.BONG) : Services.PLATFORM.createNBTIngredient(from);
-   //     var output = brewing.mix(ingredient, from);
-   //     if (output == from) return;
-   //     Services.BREWING.addRecipe(, input, Ingredient.of(ingredient), output);
-   // }
+    private static void registerMix(PotionBrewing.Builder brewing, ItemStack ingredient, ItemStack from) {
+        var vanilla = brewing.build();
+        var input = isWater(from) ? Ingredient.of(NirvanaItems.BONG) : Services.PLATFORM.createNBTIngredient(from);
+        var output = vanilla.mix(ingredient, from);
+        if (output == from) return;
+        Services.BREWING.addRecipe(brewing, input, Ingredient.of(ingredient), output);
+    }
 
     private static void registerBongRecipes(PotionBrewing.Builder builder) {
-  //      var vanilla = builder.build();
+        var vanilla = builder.build();
         var waterBottle = withPotion(Items.POTION, Potions.WATER);
 
         Services.BREWING.addRecipe(
@@ -43,21 +45,18 @@ public class NirvanaBrewing {
                 NirvanaItems.BONG.asStack()
         );
 
-        builder.addContainer(NirvanaItems.POTION_BONG.asItem());
+        var catalysts = BuiltInRegistries.ITEM.stream()
+                .map(ItemStack::new)
+                .filter(vanilla::isIngredient)
+                .toList();
 
-//        var catalysts = BuiltInRegistries.ITEM.stream()
-//                .map(ItemStack::new)
-//                .filter(vanilla::isIngredient)
-//                .toList();
-//
-
-        //BuiltInRegistries.POTION.holders().forEach(potion -> {
-        //    var from = withPotion(NirvanaItems.POTION_BONG, potion);
-        //    var potionStack = withPotion(Items.POTION, potion);
-        //    catalysts.stream()
-        //            .filter(it -> vanilla.hasMix(potionStack, it))
-        //            .forEach(catalyst -> registerMix(brewing, catalyst, from));
-        //});
+        BuiltInRegistries.POTION.holders().forEach(potion -> {
+            var from = withPotion(NirvanaItems.POTION_BONG, potion);
+            var potionStack = withPotion(Items.POTION, potion);
+            catalysts.stream()
+                    .filter(it -> vanilla.hasMix(potionStack, it))
+                    .forEach(catalyst -> registerMix(builder, catalyst, from));
+        });
     }
 
     public static void register(PotionBrewing.Builder builder) {

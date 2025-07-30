@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hemp_cloth": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nirvana:hemp_cloth"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nirvana:hemp_burlap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hemp_cloth"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nirvana:hemp_burlap"
+    ]
+  }
+}

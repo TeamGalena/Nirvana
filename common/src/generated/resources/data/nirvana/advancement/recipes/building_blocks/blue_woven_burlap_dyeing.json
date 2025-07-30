@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nirvana:blue_woven_burlap_dyeing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uncolored": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nirvana:woven_burlap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uncolored"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nirvana:blue_woven_burlap_dyeing"
+    ]
+  }
+}

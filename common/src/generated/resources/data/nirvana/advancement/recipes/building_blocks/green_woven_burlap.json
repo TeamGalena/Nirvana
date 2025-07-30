@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_green_hemp_burlap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nirvana:green_hemp_burlap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nirvana:green_woven_burlap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_green_hemp_burlap"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nirvana:green_woven_burlap"
+    ]
+  }
+}

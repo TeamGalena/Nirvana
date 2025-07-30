@@ -24,8 +24,6 @@ public interface NirvanaCommonConfig {
 
     int bongPeaceSeconds();
 
-    int browniesPeaceSeconds();
-
     int herbalSalveFactor();
 
     int suspiciousPipeFactor();

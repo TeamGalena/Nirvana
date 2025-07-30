@@ -1,18 +1,22 @@
 package galena.nirvana.fabric.datagen;
 
-import galena.nirvana.NirvanaConstants;
-import io.github.fabricators_of_create.porting_lib.data.DatapackBuiltinEntriesProvider;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.registries.RegistriesDatapackGenerator;
+import net.minecraft.data.registries.RegistryPatchGenerator;
 
-public class DataRegistries extends DatapackBuiltinEntriesProvider {
+public class DataRegistries extends RegistriesDatapackGenerator {
 
     public DataRegistries(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, createBuilder(), Set.of(NirvanaConstants.MOD_ID));
+        super(output, fillRegistries(registries));
+    }
+
+    private static CompletableFuture<HolderLookup.Provider> fillRegistries(CompletableFuture<HolderLookup.Provider> registries) {
+        var patched = RegistryPatchGenerator.createLookup(registries, createBuilder());
+        return patched.thenApply(RegistrySetBuilder.PatchedRegistries::patches);
     }
 
     private static RegistrySetBuilder createBuilder() {

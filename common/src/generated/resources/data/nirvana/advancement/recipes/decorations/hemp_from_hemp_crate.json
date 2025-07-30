@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hemp_crate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nirvana:hemp_crate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nirvana:hemp_from_hemp_crate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hemp_crate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nirvana:hemp_from_hemp_crate"
+    ]
+  }
+}

@@ -27,7 +27,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public MultikultiRegistrate<?> getRegistrate() {
-        return ForgeEntrypoint.REGISTRATE.get();
+        return ForgeEntrypoint.REGISTRATE;
     }
 
     @Override

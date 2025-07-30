@@ -17,7 +17,7 @@ public class CompatRegistrate {
     static ItemEntry<? extends Item> SUPPLEMENTARIES_ROPE = SUPPLEMENTARIES.item("rope", Item::new).register();
     static ItemEntry<? extends Item> FARMERS_DELIGHT_ROPE = FARMERS_DELIGHT.item("rope", Item::new).register();
 
-    static void register() {
+    public static void register() {
         SUPPLEMENTARIES.register();
         FARMERS_DELIGHT.register();
     }

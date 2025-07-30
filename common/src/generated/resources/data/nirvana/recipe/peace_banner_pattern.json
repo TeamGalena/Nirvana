@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "nirvana:hemp"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nirvana:peace_banner_pattern"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "nirvana:weed"
+    },
+    "X": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "pattern": [
+    "XOX",
+    "OXO",
+    "XOX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nirvana:thc"
+  }
+}

@@ -36,8 +36,8 @@ public class CustomItemModel {
 
     public CustomItemModel(String name, Collection<ItemDisplayContext> contexts) {
         this.contexts = contexts;
-        this.equippedModel = new ModelResourceLocation(NirvanaConstants.createId(name + "_equipped"), "inventory");
-        this.flatModel = new ModelResourceLocation(NirvanaConstants.createId(name + "_flat"), "inventory");
+        this.equippedModel = new ModelResourceLocation(NirvanaConstants.createId(name + "_equipped"), "standalone");
+        this.flatModel = new ModelResourceLocation(NirvanaConstants.createId(name + "_flat"), "standalone");
     }
 
     public Collection<? extends ModelResourceLocation> models() {

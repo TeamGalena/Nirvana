@@ -16,10 +16,6 @@ public class NirvanaJeiFabricPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        if (Services.PLATFORM.createLoaded()) {
-            CreateCompat.addJeiRecipes(registration);
-        }
-
         registration.addRecipes(RecipeTypes.CRAFTING, NirvanaRecipeTypes.createSuspiciousRecipes());
     }
 

@@ -9,6 +9,7 @@ import galena.nirvana.NirvanaCommon;
 import galena.nirvana.NirvanaConstants;
 import galena.nirvana.NirvanaTrades;
 import galena.nirvana.compat.DyeColors;
+import galena.nirvana.fabric.datagen.CompatRegistrate;
 import galena.nirvana.fabric.services.FabricConfigs;
 import galena.nirvana.index.NirvanaBanners;
 import galena.nirvana.index.NirvanaBlocks;
@@ -18,8 +19,9 @@ import galena.nirvana.world.item.PotionBongItem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -43,14 +45,17 @@ public class FabricEntrypoint implements ModInitializer {
     private static final ResourceKey<PlacedFeature> WILD_HEMP_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, NirvanaConstants.createId("patch_wild_hemp"));
 
     private static final ProviderType<RegistrateTagsProvider.IntrinsicImpl<BannerPattern>> BANNER_PATTERN_TAGS =
-            ProviderType.registerIntrinsicTag("Banner Tags", "tags/banner_pattern", Registries.BANNER_PATTERN, null
-    );
+            ProviderType.registerIntrinsicTag("Banner Tags", "tags/banner_pattern", Registries.BANNER_PATTERN, null);
 
     @Override
     public void onInitialize() {
         FabricConfigs.register();
         NirvanaCommon.init();
         REGISTRATE.register();
+
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            CompatRegistrate.register();
+        }
 
         modifyLootTables();
 
@@ -64,18 +69,18 @@ public class FabricEntrypoint implements ModInitializer {
     }
 
     private static void modifyLootTables() {
-        LootTableEvents.MODIFY.register((id, table, source) -> {
+        LootTableEvents.MODIFY.register((key, table, source, lookup) -> {
             if (!source.isBuiltin()) return;
-            if (BuiltInLootTables.SNIFFER_DIGGING.equals(id)) {
+            if (BuiltInLootTables.SNIFFER_DIGGING.equals(key)) {
                 table.modifyPools(it -> {
                     it.add(LootItem.lootTableItem(NirvanaBlocks.BLISS_BLOOM));
                 });
-            } else if (BuiltInLootTables.IGLOO_CHEST.equals(id)) {
+            } else if (BuiltInLootTables.IGLOO_CHEST.equals(key)) {
                 table.withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(NirvanaItems.EMPTY_PIPE))
                         .when(LootItemRandomChanceCondition.randomChance(0.1F))
                 );
-            } else if (BuiltInLootTables.WOODLAND_MANSION.equals(id)) {
+            } else if (BuiltInLootTables.WOODLAND_MANSION.equals(key)) {
                 table.withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(NirvanaItems.EMPTY_PIPE))
                         .when(LootItemRandomChanceCondition.randomChance(0.33F))
@@ -89,9 +94,10 @@ public class FabricEntrypoint implements ModInitializer {
                 provider.addTag(NirvanaTags.CREEPER_LIKE).add(EntityType.CREEPER)
         );
 
-        REGISTRATE.addDataGenerator(BANNER_PATTERN_TAGS, provider -> {
-            provider.addTag(NirvanaTags.PEACE_BANNER_PATTERN).add(NirvanaBanners.PEACE.get());
-        });
+        // TODO
+        // REGISTRATE.addDataGenerator(BANNER_PATTERN_TAGS, provider -> {
+        //     provider.addTag(NirvanaTags.PEACE_BANNER_PATTERN).add(NirvanaBanners.PEACE.getKey());
+        // });
 
         REGISTRATE.addDataGenerator(ProviderType.RECIPE, provider -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER)

@@ -1,11 +1,10 @@
 package galena.nirvana.index;
 
-import com.tterrag.registrate.providers.ProviderType;
 import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
+import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import galena.nirvana.NirvanaConstants;
 import galena.nirvana.platform.Services;
-import galena.nirvana.platform.registrate.NirvanaRegistrate;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

@@ -12,7 +12,6 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
     private final ModConfigSpec.IntValue jointPeaceSeconds;
     private final ModConfigSpec.DoubleValue bongRadius;
     private final ModConfigSpec.IntValue bongPeaceSeconds;
-    private final ModConfigSpec.IntValue browniesPeaceSeconds;
     private final ModConfigSpec.IntValue herbalSalveFactor;
     private final ModConfigSpec.IntValue suspiciousPipeFactor;
     private final ModConfigSpec.BooleanValue allowFakePlayerSmoking;
@@ -63,10 +62,6 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
 
         builder.pop();
 
-        this.browniesPeaceSeconds = builder
-                .comment("number of seconds the peace effect from a brownie lasts")
-                .defineInRange("brownies.peaceSeconds", 40, 1, 60 * 60);
-
         this.herbalSalveFactor = builder
                 .comment("how much longer herbal salve effects last in comparison to the suspicious soup equivalent (3 => 3x times)")
                 .defineInRange("herbal_salve.factor", 3, 1, 10);
@@ -111,11 +106,6 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
     @Override
     public int bongPeaceSeconds() {
         return bongPeaceSeconds.get();
-    }
-
-    @Override
-    public int browniesPeaceSeconds() {
-        return browniesPeaceSeconds.get();
     }
 
     @Override

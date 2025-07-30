@@ -3,11 +3,14 @@ package galena.nirvana.index;
 import com.mojang.datafixers.util.Pair;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.builders.ItemBuilder;
+import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.CreativeModeTabModifier;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
+import galena.nirvana.DistinctBy;
 import galena.nirvana.NirvanaClient;
 import galena.nirvana.platform.Services;
 import galena.nirvana.world.item.BongItem;
@@ -17,18 +20,22 @@ import galena.nirvana.world.item.HerbalSalveItem;
 import galena.nirvana.world.item.JointItem;
 import galena.nirvana.world.item.PotionBongItem;
 import galena.nirvana.world.item.SuspiciousPipeItem;
+
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
+
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BannerPatternItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -72,15 +79,17 @@ public class NirvanaItems {
             })
             .register();
 
-    private static final FoodProperties BROWNIE_FOOD = new FoodProperties.Builder()
-            .effect(new MobEffectInstance(NirvanaEffects.PEACE, 20 * Services.CONFIG.common().browniesPeaceSeconds(), 0), 1.0F)
-            .nutrition(2)
-            .saturationModifier(0.1F)
-            .build();
+    private static FoodProperties createBrownieFood() {
+        return new FoodProperties.Builder()
+                .effect(new MobEffectInstance(NirvanaEffects.PEACE, 20 * 40, 0), 1.0F)
+                .nutrition(2)
+                .saturationModifier(0.1F)
+                .build();
+    }
 
     public static final ItemEntry<Item> WEED_BROWNIE = REGISTRATE
             .item("weed_brownie", Item::new)
-            .properties(it -> it.food(BROWNIE_FOOD))
+            .properties(it -> it.food(createBrownieFood()))
             .tab(CreativeModeTabs.FOOD_AND_DRINKS)
             .recipe((c, p) -> ShapelessRecipeBuilder
                     .shapeless(RecipeCategory.FOOD, c.get(), 2)
@@ -99,27 +108,28 @@ public class NirvanaItems {
             .properties(it -> it.craftRemainder(Items.GLASS_BOTTLE))
             .register();
 
-    private static <T extends Item> Consumer<CreativeModeTabModifier> addPotionStacks(ItemBuilder<T, ?> item) {
-        return modifier -> BuiltInRegistries.POTION.holders()
+    private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, CreativeModeTabModifier> addPotionStacks() {
+        return (context, modifier) -> BuiltInRegistries.POTION.holders()
                 .filter(it -> !it.is(Potions.WATER))
                 .map(it -> {
-                    var stack = new ItemStack(item.getEntry());
+                    var stack = new ItemStack(context.get());
                     stack.set(DataComponents.POTION_CONTENTS, new PotionContents(it));
                     return stack;
                 })
                 .forEach(modifier::accept);
     }
 
-    private static <T extends Item> Consumer<CreativeModeTabModifier> addSuspiciousStack(ItemBuilder<T, ?> item, IntSupplier factor) {
-        return modifier -> NirvanaRecipeTypes.getSuspiciousVariants(item.getEntry(), factor.getAsInt())
+    private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, CreativeModeTabModifier> addSuspiciousStack(IntSupplier factor) {
+        return (context, modifier) -> NirvanaRecipeTypes.getSuspiciousVariants(context.get(), factor.getAsInt())
                 .map(Pair::getSecond)
+                .filter(DistinctBy.of(it -> it.get(DataComponents.SUSPICIOUS_STEW_EFFECTS)))
                 .forEach(modifier::accept);
     }
 
     public static final ItemEntry<PotionBongItem> POTION_BONG = REGISTRATE
             .item("potion_bong", PotionBongItem::new)
             .lang("Bong of %s")
-            .transform(it -> it.tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addPotionStacks(it)))
+            .tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addPotionStacks())
             .color(() -> () -> NirvanaClient.POTION_COLOR)
             .properties(it -> it.durability(Services.CONFIG.common().getBongHits()))
             .properties(it -> it.craftRemainder(Items.GLASS_BOTTLE))
@@ -148,7 +158,7 @@ public class NirvanaItems {
             .item("herbal_salve", HerbalSalveItem::new)
             .properties(it -> it.stacksTo(1))
             .properties(it -> it.craftRemainder(Items.BOWL))
-            .transform(it -> it.tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addSuspiciousStack(it, () -> Services.CONFIG.common().herbalSalveFactor())))
+            .tab(CreativeModeTabs.FOOD_AND_DRINKS, NirvanaItems.addSuspiciousStack(() -> Services.CONFIG.common().herbalSalveFactor()))
             .register();
 
     public static final ItemEntry<? extends Item> DISC_JAM = REGISTRATE
@@ -189,7 +199,7 @@ public class NirvanaItems {
             .properties(it -> it.craftRemainder(EMPTY_PIPE.asItem()))
             .model(Services.DATAGEN::pipe)
             .tag(NirvanaTags.SMOKING_ITEM)
-            .transform(it -> it.tab(CreativeModeTabs.TOOLS_AND_UTILITIES, NirvanaItems.addSuspiciousStack(it, () -> Services.CONFIG.common().suspiciousPipeFactor())))
+            .tab(CreativeModeTabs.TOOLS_AND_UTILITIES, NirvanaItems.addSuspiciousStack(() -> Services.CONFIG.common().suspiciousPipeFactor()))
             .register();
 
     public static final ItemEntry<? extends Item> REEFER_SPAWN_EGG = REGISTRATE

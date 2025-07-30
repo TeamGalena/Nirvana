@@ -22,24 +22,25 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 @Mod(NirvanaConstants.MOD_ID)
 public class ForgeEntrypoint {
 
-    public static final NonNullSupplier<ForgeNirvanaRegistrate> REGISTRATE = NonNullSupplier.lazy(() -> ForgeNirvanaRegistrate.create(NirvanaConstants.MOD_ID));
+    public static final ForgeNirvanaRegistrate REGISTRATE = new ForgeNirvanaRegistrate(NirvanaConstants.MOD_ID);
 
     public ForgeEntrypoint(ModContainer container, IEventBus modBus, Dist dist) {
         ForgeConfigs.register(container);
         NirvanaCommon.init();
-        modBus.addListener(this::registerBrewing);
+        NeoForge.EVENT_BUS.addListener(this::registerBrewing);
         NeoForge.EVENT_BUS.addListener(this::registerTrades);
+        REGISTRATE.registerEventListeners(modBus);
 
         if (dist == Dist.CLIENT) {
             ForgeClientEntrypoint.init(modBus);
         }
 
-        REGISTRATE.get()
+        REGISTRATE
                 .object("replace_item")
                 .generic(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, () -> ReplaceItemLootModifier.CODEC)
                 .register();
 
-        REGISTRATE.get()
+        REGISTRATE
                 .object("add_item")
                 .generic(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, () -> AddItemLootModifier.CODEC)
                 .register();

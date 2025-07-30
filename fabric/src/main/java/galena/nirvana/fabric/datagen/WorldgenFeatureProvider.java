@@ -6,7 +6,7 @@ import galena.nirvana.index.NirvanaBlocks;
 import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -37,7 +37,7 @@ public class WorldgenFeatureProvider {
 
     private static final Key PATCH_WILD_HEMP = new Key(NirvanaConstants.createId("patch_wild_hemp"));
 
-    public static void generatePlaced(BootstapContext<PlacedFeature> context) {
+    public static void generatePlaced(BootstrapContext<PlacedFeature> context) {
         var configured = context.lookup(Registries.CONFIGURED_FEATURE);
 
         context.register(
@@ -55,7 +55,7 @@ public class WorldgenFeatureProvider {
         );
     }
 
-    public static void generateConfigured(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void generateConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         var directFeature = new PlacedFeature(
                 Holder.direct(new ConfiguredFeature<>(
                         Feature.SIMPLE_BLOCK,

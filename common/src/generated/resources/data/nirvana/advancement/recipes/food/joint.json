@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nirvana:joint"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nirvana:weed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_weed"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nirvana:joint"
+    ]
+  }
+}

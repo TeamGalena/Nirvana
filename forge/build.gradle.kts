@@ -1,8 +1,7 @@
 val mc_version: String by extra
-val mod_id: String by extra
 val registrate_forge_version: String by extra
 val jei_version: String by extra
-val jeed_version: String by extra
+val jeed_forge_version: String by extra
 val fd_forge_version: String by extra
 val moonlight_forge_version: String by extra
 val supplementaries_forge_version: String by extra
@@ -22,8 +21,8 @@ neoforge {
     dependOn(project(":common"))
     includesMod("com.tterrag.registrate:Registrate:${registrate_forge_version}")
     includesMod("dev.galena:hats-neoforge:${mc_version}-${galena_hats_version}")
-    includesMod("com.possible-triangle:multikulti-core-forge:${mc_version}-${multikulti_version}")
-    includesMod("com.possible-triangle:multikulti-registrate-forge:${mc_version}-${multikulti_version}")
+    includesMod("com.possible-triangle:multikulti-core-neoforge:${mc_version}-${multikulti_version}")
+    includesMod("com.possible-triangle:multikulti-registrate-neoforge:${mc_version}-${multikulti_version}")
 }
 
 repositories {
@@ -55,7 +54,7 @@ dependencies {
 
     if (!env.isCI) {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
-        modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_version}")
+        modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_forge_version}")
         modRuntimeOnly("maven.modrinth:farmers-delight:${fd_forge_version}")
         modRuntimeOnly("maven.modrinth:supplementaries:${supplementaries_forge_version}")
         modRuntimeOnly("maven.modrinth:moonlight:${moonlight_forge_version}")

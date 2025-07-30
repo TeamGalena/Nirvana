@@ -9,10 +9,16 @@ import galena.nirvana.index.NirvanaPaintings;
 import galena.nirvana.index.NirvanaParticles;
 import galena.nirvana.index.NirvanaRecipeTypes;
 import galena.nirvana.index.NirvanaSounds;
+import galena.nirvana.platform.Services;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
 
 public class NirvanaCommon {
 
     public static void init() {
+        Services.PLATFORM.getRegistrate()
+                .defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
+
         NirvanaSounds.register();
         NirvanaEffects.register();
         NirvanaBlocks.register();

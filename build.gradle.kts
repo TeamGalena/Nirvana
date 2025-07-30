@@ -1,3 +1,5 @@
+val mc_version: String by extra
+
 plugins {
     id("com.possible-triangle.gradle") version ("0.2.16")
 }
@@ -55,6 +57,25 @@ subprojects {
     enablePublishing {
         repositories {
             if (env.isCI) nexus()
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            fun portingLib(module: String, patch: Int = 66) {
+                force("io.github.fabricators_of_create.Porting-Lib:$module:3.1.0-beta.$patch+$mc_version")
+            }
+            portingLib("tags")
+            portingLib("models", 65)
+            portingLib("data")
+            portingLib("lazy_registration", 54)
+            portingLib("model_loader")
+            portingLib("transfer")
+            portingLib("common")
+            portingLib("conditions")
+            portingLib("fluids")
+            portingLib("core")
+            portingLib("gametest")
         }
     }
 }

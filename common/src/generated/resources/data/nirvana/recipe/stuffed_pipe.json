@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nirvana:old_pipe"
+    },
+    {
+      "item": "nirvana:weed"
+    },
+    {
+      "item": "nirvana:weed"
+    },
+    {
+      "item": "nirvana:weed"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nirvana:stuffed_pipe"
+  }
+}
