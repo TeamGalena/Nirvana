@@ -7,6 +7,8 @@ import net.minecraft.world.level.Level;
 
 public interface IStackingEffect {
 
+    boolean shouldIncrease(ItemStack source, LivingEntity target, Level level);
+
     void onIncreasedTo(MobEffectInstance instance, ItemStack source, LivingEntity target, Level level);
 
 }

@@ -36,7 +36,7 @@ public abstract class SmokingItem extends Item {
 
     protected void registerDispenserBehaviour() {
         SmokingDispenserBehaviour dispenserBehaviour = (source, pos, look, stack) -> {
-            applyEffects(stack, source.level(), source.center(), null);
+            applyEffects(stack, source.level(), Vec3.atCenterOf(source.pos()), null);
             var mouth = pos.add(look.scale(0.5));
             source.level().sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE,
                     mouth.x(), mouth.y(), mouth.z(),
@@ -67,6 +67,10 @@ public abstract class SmokingItem extends Item {
 
         var effect = instance.getEffect();
         if (existing != null && effect.is(NirvanaEffects.STACKING_EFFECTS)) {
+            if (instance.getEffect() instanceof IStackingEffect stacking && !stacking.shouldIncrease(source, target, target.level())) {
+                return;
+            }
+
             var increased = new MobEffectInstance(
                     instance.getEffect(),
                     instance.getDuration(),
