@@ -1,5 +1,5 @@
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.16")
+    id("com.possible-triangle.gradle") version ("0.2.17")
 }
 
 subprojects {
@@ -53,9 +53,7 @@ subprojects {
     }
 
     enablePublishing {
-        repositories {
-            if (env.isCI) nexus()
-        }
+        nexus()
     }
 }
 

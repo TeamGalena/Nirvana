@@ -21,13 +21,6 @@ public class FabricClientEntrypoint implements ClientModInitializer {
     public void onInitializeClient() {
         CustomItemModel.register();
 
-        NirvanaClient.registerParticles(new NirvanaParticles.ParticleRegister() {
-            @Override
-            public <T extends ParticleOptions> void register(ParticleType<T> options, Function<SpriteSet, ParticleProvider<T>> factory) {
-                ParticleFactoryRegistry.getInstance().register(options, factory::apply);
-            }
-        });
-
         EntityModelLayerRegistry.registerModelLayer(ReeferRenderer.LAYER, ReeferRenderer::createLayers);
         EntityModelLayerRegistry.registerModelLayer(ReeferHeadRenderer.LAYER, ReeferHeadRenderer::createLayers);
     }
