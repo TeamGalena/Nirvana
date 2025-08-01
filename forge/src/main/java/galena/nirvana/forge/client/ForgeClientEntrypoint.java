@@ -19,17 +19,7 @@ public class ForgeClientEntrypoint {
     public static void init(IEventBus modBus) {
         CustomItemModel.register();
 
-        modBus.addListener(ForgeClientEntrypoint::registerParticles);
         modBus.addListener(ForgeClientEntrypoint::registerLayers);
-    }
-
-    private static void registerParticles(RegisterParticleProvidersEvent event) {
-        NirvanaClient.registerParticles(new NirvanaParticles.ParticleRegister() {
-            @Override
-            public <T extends ParticleOptions> void register(ParticleType<T> options, Function<SpriteSet, ParticleProvider<T>> factory) {
-                event.registerSpriteSet(options, factory::apply);
-            }
-        });
     }
 
     private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
