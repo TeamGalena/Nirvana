@@ -15,7 +15,7 @@ subprojects {
         }
 
         maven {
-                uri("https://maven.tterrag.com/")
+                url = uri("https://maven.tterrag.com/")
             content {
                 includeGroup("com.tterrag.registrate")
             }
