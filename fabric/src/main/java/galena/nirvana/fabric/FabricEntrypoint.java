@@ -2,6 +2,7 @@ package galena.nirvana.fabric;
 
 import static galena.nirvana.NirvanaConstants.MOD_ID;
 
+import com.possible_triangle.multikulti.registrate.platform.service.FabricRegistrateBuilders;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
@@ -53,6 +54,9 @@ public class FabricEntrypoint implements ModInitializer {
         NirvanaCommon.init();
         REGISTRATE.register();
 
+        var initializer = REGISTRATE.getDataGenInitializer();
+        initializer.addDependency(BANNER_PATTERN_TAGS, ProviderType.DYNAMIC);
+
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             CompatRegistrate.register();
         }
@@ -94,10 +98,9 @@ public class FabricEntrypoint implements ModInitializer {
                 provider.addTag(NirvanaTags.CREEPER_LIKE).add(EntityType.CREEPER)
         );
 
-        // TODO
-        // REGISTRATE.addDataGenerator(BANNER_PATTERN_TAGS, provider -> {
-        //     provider.addTag(NirvanaTags.PEACE_BANNER_PATTERN).add(NirvanaBanners.PEACE.getKey());
-        // });
+        REGISTRATE.addDataGenerator(BANNER_PATTERN_TAGS, provider -> {
+            provider.addTag(NirvanaTags.PEACE_BANNER_PATTERN).add(NirvanaBanners.PEACE.getKey());
+        });
 
         REGISTRATE.addDataGenerator(ProviderType.RECIPE, provider -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER)

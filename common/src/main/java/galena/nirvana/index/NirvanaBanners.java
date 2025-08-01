@@ -1,5 +1,6 @@
 package galena.nirvana.index;
 
+import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateLangProvider;
@@ -12,10 +13,10 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class NirvanaBanners {
 
-    private static final AbstractRegistrate<?> REGISTRATE = Services.PLATFORM.getRegistrate();
+    private static final MultikultiRegistrate<?> REGISTRATE = Services.PLATFORM.getRegistrate();
 
     public static final RegistryEntry<BannerPattern, BannerPattern> PEACE = REGISTRATE
-            .generic("peace", Registries.BANNER_PATTERN, () -> new BannerPattern(NirvanaConstants.createId("peace"), "peace"))
+            .dataDriven("peace", Registries.BANNER_PATTERN, () -> new BannerPattern(NirvanaConstants.createId("peace"), "peace"))
             .setData(ProviderType.LANG, (context, provider) -> {
                 for (DyeColor dye : DyeColor.values()) {
                     var key = context.getId().toLanguageKey("block.minecraft.banner", dye.getSerializedName());

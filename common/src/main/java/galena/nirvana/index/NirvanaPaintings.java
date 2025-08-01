@@ -12,7 +12,7 @@ public class NirvanaPaintings {
     public static final RegistryEntry<PaintingVariant, PaintingVariant> THIS_IS_NOT_A_HORN = REGISTRATE
             .painting("this_is_not_a_horn")
             .pixelSized(48, 32)
-            // .placeable() TODO
+            .placeable()
             .lang("This is not a horn", "Yapettoshen")
             .register();
 
