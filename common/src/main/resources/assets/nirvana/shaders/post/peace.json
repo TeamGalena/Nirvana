@@ -1,0 +1,53 @@
+{
+  "targets": [
+    "swap",
+    "saturated",
+    "previous"
+  ],
+  "passes": [
+    {
+      "name": "color_convolve",
+      "intarget": "minecraft:main",
+      "outtarget": "saturated",
+      "uniforms": [
+        {
+          "name": "Saturation",
+          "values": [
+            1.4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phosphor",
+      "intarget": "saturated",
+      "outtarget": "swap",
+      "auxtargets": [
+        {
+          "name": "PrevSampler",
+          "id": "previous"
+        }
+      ],
+      "uniforms": [
+        {
+          "name": "Phosphor",
+          "values": [
+            0.8,
+            0.85,
+            0.8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blit",
+      "intarget": "swap",
+      "outtarget": "previous"
+    },
+    {
+      "name": "blit",
+      "intarget": "swap",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

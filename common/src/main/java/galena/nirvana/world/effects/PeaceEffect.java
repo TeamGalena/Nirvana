@@ -1,22 +1,25 @@
 package galena.nirvana.world.effects;
 
+import galena.nirvana.index.NirvanaEffects;
 import galena.nirvana.index.NirvanaEntities;
 import galena.nirvana.index.NirvanaTags;
 import galena.nirvana.platform.Services;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class PeaceEffect extends MobEffect implements IStackingEffect {
     public PeaceEffect() {
@@ -32,16 +35,22 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
         return hitsRequired >= 0 && hitsTaken >= hitsRequired;
     }
 
+    public static boolean shouldRenderShader(@Nullable Player player) {
+        if (!Services.CONFIG.client().renderPeaceShader()) return false;
+        return Optional.ofNullable(player)
+                .map(it -> it.getEffect(NirvanaEffects.PEACE.get()))
+                .filter(it -> fulfills(it.getAmplifier(), Services.CONFIG.common().nauseaAfterHits()))
+                .isPresent();
+    }
+
+    @Override
+    public boolean shouldIncrease(ItemStack source, LivingEntity target, Level level) {
+        return source.is(NirvanaTags.NAUSEATING);
+    }
+
     @Override
     public void onIncreasedTo(MobEffectInstance instance, ItemStack source, LivingEntity target, Level level) {
-        if (!source.is(NirvanaTags.NAUSEATING)) return;
-        var hitsTaken = instance.getAmplifier() + 1;
-
-        if (fulfills(hitsTaken, Services.CONFIG.common().nauseaAfterHits())) {
-            target.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * 20, 0));
-        }
-
-        if (fulfills(hitsTaken, Services.CONFIG.common().reeferAfterHits())) {
+        if (fulfills(instance.getAmplifier() + 1, Services.CONFIG.common().reeferAfterHits())) {
             spawnReefers(target, level);
             transformCreepers(target.position(), level);
         }

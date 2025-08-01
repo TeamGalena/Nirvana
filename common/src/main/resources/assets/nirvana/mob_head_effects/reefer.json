@@ -1,0 +1,9 @@
+{
+  "items": [
+    "nirvana:reefer_head"
+  ],
+  "entity_types": [
+    "nirvana:reefer"
+  ],
+  "shader": "nirvana:peace"
+}

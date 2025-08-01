@@ -13,6 +13,8 @@
     "MobMixin"
   ],
   "client": [
+    "GameRendererAccessor",
+    "GameRendererMixin",
     "ItemInHandRendererMixin",
     "ParticleMixin",
     "PlayerItemInHandLayerMixin",
