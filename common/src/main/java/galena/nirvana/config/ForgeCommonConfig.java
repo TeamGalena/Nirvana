@@ -2,21 +2,24 @@ package galena.nirvana.config;
 
 import galena.nirvana.NirvanaConstants;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 public class ForgeCommonConfig implements NirvanaCommonConfig {
 
-    private final ForgeConfigSpec.DoubleValue jointRadius;
-    private final ForgeConfigSpec.IntValue nauseaAfterHits;
-    private final ForgeConfigSpec.IntValue reeferAfterHits;
-    private final ForgeConfigSpec.DoubleValue reeferChance;
-    private final ForgeConfigSpec.IntValue jointPeaceSeconds;
-    private final ForgeConfigSpec.DoubleValue bongRadius;
-    private final ForgeConfigSpec.IntValue bongPeaceSeconds;
-    private final ForgeConfigSpec.IntValue browniesPeaceSeconds;
-    private final ForgeConfigSpec.IntValue herbalSalveFactor;
-    private final ForgeConfigSpec.IntValue suspiciousPipeFactor;
-    private final ForgeConfigSpec.BooleanValue allowFakePlayerSmoking;
-    private final ForgeConfigSpec.BooleanValue generateBongTranslations;
+    private final DoubleValue jointRadius;
+    private final IntValue nauseaAfterHits;
+    private final IntValue reeferAfterHits;
+    private final DoubleValue reeferChance;
+    private final IntValue jointPeaceSeconds;
+    private final DoubleValue bongRadius;
+    private final IntValue bongPeaceSeconds;
+    private final IntValue browniesPeaceSeconds;
+    private final IntValue herbalSalveFactor;
+    private final IntValue suspiciousPipeFactor;
+    private final BooleanValue allowFakePlayerSmoking;
+    private final BooleanValue generateBongTranslations;
 
     public ForgeCommonConfig(ForgeConfigSpec.Builder builder) {
         builder.push(NirvanaConstants.MOD_ID);
