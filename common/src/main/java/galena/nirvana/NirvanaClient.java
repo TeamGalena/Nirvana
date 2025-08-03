@@ -20,8 +20,4 @@ public class NirvanaClient {
         event.register(NirvanaParticles.THC_SMOKE.get(), ThcSmokeParticle.Provider::new);
     }
 
-    public static void tickShaders() {
-        // TODO remove
-    }
-
 }

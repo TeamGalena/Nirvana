@@ -30,10 +30,6 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ReeferRenderer.LAYER, ReeferRenderer::createLayers);
         EntityModelLayerRegistry.registerModelLayer(ReeferHeadRenderer.LAYER, ReeferHeadRenderer::createLayers);
-
-        ClientTickEvents.START_CLIENT_TICK.register(event -> {
-            NirvanaClient.tickShaders();
-        });
     }
 
 }

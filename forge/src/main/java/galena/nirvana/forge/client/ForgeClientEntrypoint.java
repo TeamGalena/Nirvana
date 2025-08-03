@@ -25,7 +25,6 @@ public class ForgeClientEntrypoint {
 
         modBus.addListener(ForgeClientEntrypoint::registerParticles);
         modBus.addListener(ForgeClientEntrypoint::registerLayers);
-        MinecraftForge.EVENT_BUS.addListener(ForgeClientEntrypoint::tick);
     }
 
     private static void registerParticles(RegisterParticleProvidersEvent event) {
@@ -40,10 +39,6 @@ public class ForgeClientEntrypoint {
     private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ReeferRenderer.LAYER, ReeferRenderer::createLayers);
         event.registerLayerDefinition(ReeferHeadRenderer.LAYER, ReeferHeadRenderer::createLayers);
-    }
-
-    private static void tick(TickEvent.ClientTickEvent event) {
-        NirvanaClient.tickShaders();
     }
 
 }
