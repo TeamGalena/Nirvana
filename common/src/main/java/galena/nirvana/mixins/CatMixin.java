@@ -2,14 +2,13 @@ package galena.nirvana.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import galena.nirvana.NirvanaConstants;
+import java.util.Locale;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Cat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.Locale;
 
 @Mixin(Cat.class)
 public class CatMixin {
@@ -27,7 +26,7 @@ public class CatMixin {
     }
 
     @ModifyReturnValue(
-            method = "getTextureId()Lnet/minecraft/resources/ResourceLocation;",
+            method = "getResourceLocation()Lnet/minecraft/resources/ResourceLocation;",
             at = @At("RETURN")
     )
     private ResourceLocation overwriteTexture(ResourceLocation original) {
