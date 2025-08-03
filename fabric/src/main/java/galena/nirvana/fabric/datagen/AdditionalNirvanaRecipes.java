@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
 public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
@@ -30,14 +29,14 @@ public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
                 .define('s', Items.STRING)
                 .define('h', NirvanaItems.HEMP.get())
                 .unlockedBy("has_hemp", has(NirvanaItems.HEMP))
-                .save(exporter, new ResourceLocation(NirvanaConstants.MOD_ID, "lead_from_hemp"));
+                .save(exporter, NirvanaConstants.createId("lead_from_hemp"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Items.LEATHER)
                 .pattern("hh")
                 .pattern("hh")
                 .define('h', NirvanaItems.HEMP.get())
                 .unlockedBy("has_hemp", has(NirvanaItems.HEMP))
-                .save(exporter, new ResourceLocation(NirvanaConstants.MOD_ID, "leather_from_hemp"));
+                .save(exporter, NirvanaConstants.createId("leather_from_hemp"));
 
         Conditional.with(
                 ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, CompatRegistrate.FARMERS_DELIGHT_ROPE, 2)

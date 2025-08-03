@@ -87,7 +87,7 @@ public class FabricDataGenHelper implements IDataGenHelper {
             var name = withSuffix(base, "_" + age);
 
             var model = age < 3
-                    ? provider.models().singleTexture(name.getPath(), new ResourceLocation(NirvanaConstants.MOD_ID, "block/crop_cross"), "cross", name)
+                    ? provider.models().singleTexture(name.getPath(), NirvanaConstants.createId("block/crop_cross"), "cross", name)
                     : provider.models().getExistingFile(name);
 
             return ConfiguredModel.builder()
@@ -198,7 +198,7 @@ public class FabricDataGenHelper implements IDataGenHelper {
 
     @Override
     public void pipe(DataGenContext<Item, ? extends Item> context, RegistrateItemModelProvider provider) {
-        var parent = new ResourceLocation(NirvanaConstants.MOD_ID, "item/pipe_in_hand");
+        var parent = NirvanaConstants.createId("item/pipe_in_hand");
         provider.withExistingParent(context.getName(), parent).texture("layer0", provider.itemTexture(context));
     }
 

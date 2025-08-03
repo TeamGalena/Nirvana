@@ -10,7 +10,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 
 public class NirvanaJeiCompat {
 
-    public static final ResourceLocation ID = new ResourceLocation(NirvanaConstants.MOD_ID, "jei");
+    public static final ResourceLocation ID = NirvanaConstants.createId("jei");
 
     public static String interpretPotion(ItemStack ingredient, Object unused) {
         var potion = PotionUtils.getPotion(ingredient);

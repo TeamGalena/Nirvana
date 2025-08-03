@@ -21,7 +21,7 @@ public class CreateCompat {
         var bongs = items.stream().filter(NirvanaItems.POTION_BONG::isIn);
         return bongs.map(stack -> {
             var potion = PotionFluidHandler.getFluidFromPotionItem(stack);
-            return new ProcessingRecipeBuilder<>(FillingRecipe::new, new ResourceLocation(NirvanaConstants.MOD_ID, "bong"))
+            return new ProcessingRecipeBuilder<>(FillingRecipe::new, NirvanaConstants.createId("bong"))
                     .withItemIngredients(Ingredient.of(NirvanaItems.BONG))
                     .withFluidIngredients(FluidIngredient.fromFluidStack(potion))
                     .withSingleItemOutput(stack)

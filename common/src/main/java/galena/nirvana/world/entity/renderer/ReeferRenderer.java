@@ -16,8 +16,8 @@ import net.minecraft.world.entity.monster.Creeper;
 
 public class ReeferRenderer extends CreeperRenderer {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(NirvanaConstants.MOD_ID, "textures/entity/reefer.png");
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(NirvanaConstants.MOD_ID, "reefer"), "main");
+    private static final ResourceLocation TEXTURE = NirvanaConstants.createId("textures/entity/reefer.png");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(NirvanaConstants.createId("reefer"), "main");
 
     public ReeferRenderer(EntityRendererProvider.Context context) {
         super(context);
