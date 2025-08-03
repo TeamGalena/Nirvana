@@ -3,11 +3,9 @@ package galena.nirvana.index;
 import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import galena.nirvana.platform.Services;
-
-import java.util.function.Function;
-
 import galena.nirvana.world.particle.SmokeRingParticle;
 import galena.nirvana.world.particle.ThcSmokeParticle;
+import java.util.function.Function;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.SuspendedTownParticle;

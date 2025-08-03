@@ -1,7 +1,6 @@
 package galena.nirvana.fabric.datagen;
 
 import com.tterrag.registrate.providers.RegistrateLangProvider;
-import galena.nirvana.NirvanaCommon;
 import galena.nirvana.fabric.FabricEntrypoint;
 import galena.nirvana.index.NirvanaEffects;
 import galena.nirvana.index.NirvanaItems;

@@ -3,7 +3,6 @@ package galena.nirvana.fabric.compat;
 import galena.nirvana.compat.NirvanaJeiCompat;
 import galena.nirvana.index.NirvanaItems;
 import galena.nirvana.index.NirvanaRecipeTypes;
-import galena.nirvana.platform.Services;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeRegistration;

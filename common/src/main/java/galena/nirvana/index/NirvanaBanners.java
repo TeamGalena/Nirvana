@@ -1,7 +1,6 @@
 package galena.nirvana.index;
 
 import com.possible_triangle.multikulti.registrate.MultikultiRegistrate;
-import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateLangProvider;
 import com.tterrag.registrate.util.entry.RegistryEntry;

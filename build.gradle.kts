@@ -7,26 +7,26 @@ subprojects {
         modrinthMaven()
         mavenLocal()
 
-            maven {
-                url = uri("https://mvn.devos.one/snapshots/")
-                content {
-                    includeGroup("io.github.fabricators_of_create.Porting-Lib")
+        maven {
+            url = uri("https://mvn.devos.one/snapshots/")
+            content {
+                includeGroup("io.github.fabricators_of_create.Porting-Lib")
             }
         }
 
         maven {
-                url = uri("https://maven.tterrag.com/")
+            url = uri("https://maven.tterrag.com/")
             content {
                 includeGroup("com.tterrag.registrate")
             }
         }
 
-            maven {
-                url = uri("https://maven.blamejared.com/")
-                content {
-                    includeGroup("mezz.jei")
-                }
+        maven {
+            url = uri("https://maven.blamejared.com/")
+            content {
+                includeGroup("mezz.jei")
             }
+        }
 
         maven {
             url = uri("https://jitpack.io")
