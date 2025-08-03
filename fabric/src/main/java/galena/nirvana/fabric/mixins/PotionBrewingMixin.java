@@ -23,17 +23,17 @@ public class PotionBrewingMixin {
     }
 
     @Inject(cancellable = true, at = @At("HEAD"), method = "isIngredient(Lnet/minecraft/world/item/ItemStack;)Z")
-    private static void isIngredient(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    private void isIngredient(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (FabricBrewingRegistry.isCustomIngredient(stack)) cir.setReturnValue(true);
     }
 
     @Inject(cancellable = true, at = @At("HEAD"), method = "hasMix(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z")
-    private static void hasMix(ItemStack input, ItemStack ingredient, CallbackInfoReturnable<Boolean> cir) {
+    private void hasMix(ItemStack input, ItemStack ingredient, CallbackInfoReturnable<Boolean> cir) {
         if (FabricBrewingRegistry.hasCustomRecipe(input, ingredient)) cir.setReturnValue(true);
     }
 
     @Inject(cancellable = true, at = @At("HEAD"), method = "mix(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;")
-    private static void mix(ItemStack ingredient, ItemStack input, CallbackInfoReturnable<ItemStack> cir) {
+    private void mix(ItemStack ingredient, ItemStack input, CallbackInfoReturnable<ItemStack> cir) {
         FabricBrewingRegistry.getCustomRecipe(input, ingredient).ifPresent(recipe -> {
             cir.setReturnValue(recipe.output().copy());
         });
