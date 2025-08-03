@@ -2,7 +2,6 @@ package galena.nirvana.fabric;
 
 import static galena.nirvana.NirvanaConstants.MOD_ID;
 
-import com.possible_triangle.multikulti.registrate.platform.service.FabricRegistrateBuilders;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;

@@ -1,6 +1,5 @@
 package galena.nirvana.forge;
 
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import galena.nirvana.NirvanaCommon;
 import galena.nirvana.NirvanaConstants;
 import galena.nirvana.NirvanaTrades;

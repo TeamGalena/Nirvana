@@ -25,6 +25,10 @@ neoforge {
     includesMod("com.possible-triangle:multikulti-registrate-neoforge:${mc_version}-${multikulti_version}")
 }
 
+// issues with mixin extras
+tasks.withType<Test> { enabled = false }
+tasks.compileTestJava { enabled = false }
+
 repositories {
     maven {
         url = uri("https://mvn.devos.one/snapshots")
@@ -51,6 +55,9 @@ dependencies {
         isTransitive = false
     }
     modImplementation("net.createmod.ponder:Ponder-NeoForge-${mc_version}:${ponder_forge_version}")
+
+    // remove once transient dependencies are including in neoforge()
+    compileOnly(kotlin("stdlib", "2.2.0"))
 
     if (!env.isCI) {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")

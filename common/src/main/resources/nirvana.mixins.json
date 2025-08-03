@@ -5,11 +5,19 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
-    "CampfireBlockEntityMixin", "CatMixin", "CreeperMixin", "EntityMixin", "InventoryMixin", "LivingEntityMixin",
+    "CampfireBlockEntityMixin",
+    "CatMixin",
+    "CreeperMixin",
+    "EntityMixin",
+    "InventoryMixin",
+    "LivingEntityMixin",
     "MobMixin"
   ],
   "client": [
-    "ItemInHandRendererMixin", "ParticleMixin", "PlayerItemInHandLayerMixin", "SkullBlockRendererMixin"
+    "ItemInHandRendererMixin",
+    "ParticleMixin",
+    "PlayerItemInHandLayerMixin",
+    "SkullBlockRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
