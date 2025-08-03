@@ -10,6 +10,7 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
 
     private final DoubleValue jointRadius;
     private final IntValue nauseaAfterHits;
+    private final IntValue hungerAfterHits;
     private final IntValue reeferAfterHits;
     private final DoubleValue reeferChance;
     private final IntValue jointPeaceSeconds;
@@ -27,6 +28,9 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
         this.nauseaAfterHits = builder
                 .comment("number of uses after which smoking causes nausea")
                 .defineInRange("nauseaAfterHits", 3, -1, 256);
+        this.hungerAfterHits = builder
+                .comment("number of uses after which smoking causes hunger")
+                .defineInRange("hungerAfterHits", 5, -1, 256);
         this.reeferAfterHits = builder
                 .comment("number of uses after which smoking causes reefers to spawn")
                 .defineInRange("reeferAfterHits", 3, -1, 256);
@@ -89,6 +93,11 @@ public class ForgeCommonConfig implements NirvanaCommonConfig {
     @Override
     public int nauseaAfterHits() {
         return nauseaAfterHits.get();
+    }
+
+    @Override
+    public int hungerAfterHits() {
+        return hungerAfterHits.get();
     }
 
     @Override

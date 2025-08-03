@@ -16,6 +16,8 @@ public interface NirvanaCommonConfig {
 
     int nauseaAfterHits();
 
+    int hungerAfterHits();
+
     int reeferAfterHits();
 
     double reeferChance();

@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -49,9 +50,15 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
 
     @Override
     public void onIncreasedTo(MobEffectInstance instance, ItemStack source, LivingEntity target, Level level) {
-        if (fulfills(instance.getAmplifier() + 1, Services.CONFIG.common().reeferAfterHits())) {
+        var hitsTaken = instance.getAmplifier() + 1;
+
+        if (fulfills(hitsTaken, Services.CONFIG.common().reeferAfterHits())) {
             spawnReefers(target, level);
             transformCreepers(target.position(), level);
+        }
+
+        if (fulfills(hitsTaken, Services.CONFIG.common().hungerAfterHits())) {
+            target.addEffect(new MobEffectInstance(MobEffects.HUNGER, 20 * 20, 2));
         }
     }
 
