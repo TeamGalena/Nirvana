@@ -2,10 +2,11 @@ package galena.nirvana.config;
 
 import galena.nirvana.NirvanaConstants;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
 public class ForgeClientConfig implements NirvanaClientConfig {
 
-    private final ForgeConfigSpec.BooleanValue renderPeaceShader;
+    private final BooleanValue renderPeaceShader;
 
     public ForgeClientConfig(ForgeConfigSpec.Builder builder) {
         builder.push(NirvanaConstants.MOD_ID);
