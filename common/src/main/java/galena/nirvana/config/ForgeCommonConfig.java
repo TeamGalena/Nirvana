@@ -2,20 +2,23 @@ package galena.nirvana.config;
 
 import galena.nirvana.NirvanaConstants;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 public class ForgeCommonConfig implements NirvanaCommonConfig {
 
-    private final ModConfigSpec.DoubleValue jointRadius;
-    private final ModConfigSpec.IntValue nauseaAfterHits;
-    private final ModConfigSpec.IntValue reeferAfterHits;
-    private final ModConfigSpec.DoubleValue reeferChance;
-    private final ModConfigSpec.IntValue jointPeaceSeconds;
-    private final ModConfigSpec.DoubleValue bongRadius;
-    private final ModConfigSpec.IntValue bongPeaceSeconds;
-    private final ModConfigSpec.IntValue herbalSalveFactor;
-    private final ModConfigSpec.IntValue suspiciousPipeFactor;
-    private final ModConfigSpec.BooleanValue allowFakePlayerSmoking;
-    private final ModConfigSpec.BooleanValue generateBongTranslations;
+    private final DoubleValue jointRadius;
+    private final IntValue nauseaAfterHits;
+    private final IntValue reeferAfterHits;
+    private final DoubleValue reeferChance;
+    private final IntValue jointPeaceSeconds;
+    private final DoubleValue bongRadius;
+    private final IntValue bongPeaceSeconds;
+    private final IntValue herbalSalveFactor;
+    private final IntValue suspiciousPipeFactor;
+    private final BooleanValue allowFakePlayerSmoking;
+    private final BooleanValue generateBongTranslations;
 
     public ForgeCommonConfig(ModConfigSpec.Builder builder) {
         builder.push(NirvanaConstants.MOD_ID);
