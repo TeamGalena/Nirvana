@@ -47,21 +47,6 @@ repositories {
     }
 }
 
-// TODO move to gradle helper
-configurations.all {
-    resolutionStrategy {
-        force(
-            "org.lwjgl:lwjgl-glfw:3.3.2",
-            "org.lwjgl:lwjgl-jemalloc:3.3.2",
-            "org.lwjgl:lwjgl-openal:3.3.2",
-            "org.lwjgl:lwjgl-opengl:3.3.2",
-            "org.lwjgl:lwjgl-stb:3.3.2",
-            "org.lwjgl:lwjgl-stb:3.3.2",
-            "org.lwjgl:lwjgl:3.3.2"
-        )
-    }
-}
-
 dependencies {
     modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
