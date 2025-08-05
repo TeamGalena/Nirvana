@@ -3,6 +3,7 @@ package galena.nirvana.mixins;
 import com.mojang.blaze3d.systems.RenderSystem;
 import galena.nirvana.client.PeaceShader;
 import galena.nirvana.world.effects.PeaceEffect;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PostChain;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +31,7 @@ public abstract class GameRendererMixin {
             method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;doEntityOutline()V")
     )
-    private void renderPeaceShader(float partialTicks, long l, boolean bl, CallbackInfo ci) {
+    private void renderPeaceShader(DeltaTracker delta, boolean bl, CallbackInfo ci) {
         var accessor = (GameRendererAccessor) this;
         var minecraft = accessor.getMinecraft();
 
@@ -44,7 +45,7 @@ public abstract class GameRendererMixin {
             RenderSystem.disableBlend();
             RenderSystem.disableDepthTest();
             RenderSystem.resetTextureMatrix();
-            nirvana$shader.process(partialTicks);
+            nirvana$shader.process(delta.getGameTimeDeltaTicks());
         } else if (nirvana$shader != null) {
             nirvana$shader.close();
             nirvana$shader = null;

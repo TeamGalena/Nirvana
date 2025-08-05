@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public class InventoryMixin {
 
     /*
+    TODO check
     @Inject(
             method = "hurtArmor(Lnet/minecraft/world/damagesource/DamageSource;F[I)V",
             at = @At(

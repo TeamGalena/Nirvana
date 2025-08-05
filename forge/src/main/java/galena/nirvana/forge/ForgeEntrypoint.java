@@ -25,10 +25,10 @@ public class ForgeEntrypoint {
 
     public ForgeEntrypoint(ModContainer container, IEventBus modBus, Dist dist) {
         ForgeConfigs.register(container);
+        REGISTRATE.registerEventListeners(modBus);
         NirvanaCommon.init();
         NeoForge.EVENT_BUS.addListener(this::registerBrewing);
         NeoForge.EVENT_BUS.addListener(this::registerTrades);
-        REGISTRATE.registerEventListeners(modBus);
 
         if (dist == Dist.CLIENT) {
             ForgeClientEntrypoint.init(modBus);

@@ -56,9 +56,6 @@ dependencies {
     }
     modImplementation("net.createmod.ponder:Ponder-NeoForge-${mc_version}:${ponder_forge_version}")
 
-    // remove once transient dependencies are including in neoforge()
-    compileOnly(kotlin("stdlib", "2.2.0"))
-
     if (!env.isCI) {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
         modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_forge_version}")
