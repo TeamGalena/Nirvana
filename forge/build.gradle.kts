@@ -45,6 +45,13 @@ repositories {
             includeGroup("dev.engine-room.flywheel")
         }
     }
+
+    maven {
+        url = uri("https://thedarkcolour.github.io/KotlinForForge/")
+        content {
+            includeGroup("thedarkcolour")
+        }
+    }
 }
 
 dependencies {
@@ -54,8 +61,6 @@ dependencies {
         isTransitive = false
     }
     modImplementation("net.createmod.ponder:Ponder-Forge-${mc_version}:${ponder_forge_version}")
-
-    compileOnly(kotlin("stdlib", "2.2.0"))
 
     if (!env.isCI) {
         modRuntimeOnly("mezz.jei:jei-${mc_version}-forge:${jei_version}")

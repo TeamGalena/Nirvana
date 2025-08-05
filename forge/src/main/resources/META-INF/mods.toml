@@ -35,3 +35,10 @@ Get ready to make some Herb Rolled in Paper, Oddly Shaped Glasses, Herbal Salves
     versionRange = "*"
     ordering = "NONE"
     side = "BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="kotlinforforge"
+    mandatory=true
+    versionRange="[4.0,)"
+    ordering="NONE"
+    side="BOTH"
