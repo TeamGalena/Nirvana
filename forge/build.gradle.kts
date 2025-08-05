@@ -88,5 +88,14 @@ dependencies {
     }
 }
 
-uploadToCurseforge()
-uploadToModrinth()
+uploadToCurseforge {
+    dependencies {
+        required("kotlin-for-forge")
+    }
+}
+
+uploadToModrinth {
+    dependencies {
+        required("ordsPcFz")
+    }
+}
