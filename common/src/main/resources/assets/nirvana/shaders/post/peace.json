@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "phosphor",
+      "name": "nirvana:phosphor",
       "intarget": "saturated",
       "outtarget": "swap",
       "auxtargets": [
