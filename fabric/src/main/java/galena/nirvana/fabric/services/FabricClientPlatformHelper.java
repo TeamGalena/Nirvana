@@ -19,4 +19,9 @@ public class FabricClientPlatformHelper implements IClientPlatformHelper {
         return model;
     }
 
+    @Override
+    public String modelVariant() {
+        return "fabric_resource";
+    }
+
 }

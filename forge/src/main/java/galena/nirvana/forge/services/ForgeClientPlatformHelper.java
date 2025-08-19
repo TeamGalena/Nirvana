@@ -18,4 +18,9 @@ public class ForgeClientPlatformHelper implements IClientPlatformHelper {
         return model;
     }
 
+    @Override
+    public String modelVariant() {
+        return "standalone";
+    }
+
 }

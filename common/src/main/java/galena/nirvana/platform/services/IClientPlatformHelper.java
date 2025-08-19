@@ -16,4 +16,6 @@ public interface IClientPlatformHelper {
         return registerCustomModel(item, new CustomItemModel(name, contexts));
     }
 
+    String modelVariant();
+
 }

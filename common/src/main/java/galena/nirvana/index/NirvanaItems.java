@@ -20,7 +20,6 @@ import galena.nirvana.world.item.JointItem;
 import galena.nirvana.world.item.PotionBongItem;
 import galena.nirvana.world.item.SuspiciousPipeItem;
 import java.util.function.IntSupplier;
-import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,7 +35,6 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -132,7 +130,7 @@ public class NirvanaItems {
             .register();
 
     public static final ItemEntry<JointItem> JOINT = REGISTRATE
-            .item("joint", Services.PLATFORM::createJointItem)
+            .item("joint", JointItem::new)
             .properties(it -> it.durability(Services.CONFIG.common().getJointHits()))
             .tag(NirvanaTags.NAUSEATING)
             .tag(NirvanaTags.SMOKING_ITEM)
@@ -198,7 +196,7 @@ public class NirvanaItems {
 
     public static final ItemEntry<? extends Item> REEFER_SPAWN_EGG = REGISTRATE
             .item("reefer_spawn_egg", it -> Services.PLATFORM.createSpawnEggItem(NirvanaEntities.REEFER, 0x619932, 0x2f4f15, it))
-            .color(() -> () -> (ItemColor) (stack, i) -> ((SpawnEggItem) stack.getItem()).getColor(i))
+    //        .color(() -> () -> (stack, i) -> ((SpawnEggItem) stack.getItem()).getColor(i))
             .model((c, p) -> p.withExistingParent(c.getName(), "item/template_spawn_egg"))
             .tab(CreativeModeTabs.SPAWN_EGGS)
             .register();

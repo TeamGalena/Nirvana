@@ -11,28 +11,41 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class CreateCompat {
 
-    private static List<FillingRecipe> getBongFillingRecipes(IIngredientManager ingredientManager) {
+    private static List<RecipeHolder<FillingRecipe>> getBongFillingRecipes(IIngredientManager ingredientManager) {
         var items = ingredientManager.getAllIngredients(VanillaTypes.ITEM_STACK);
         var bongs = items.stream().filter(NirvanaItems.POTION_BONG::isIn);
         return bongs.map(stack -> {
-            var potion = PotionFluidHandler.getFluidFromPotionItem(stack);
-            return new StandardProcessingRecipe.Builder<>(FillingRecipe::new, NirvanaConstants.createId("bong"))
+            var potionFluid = PotionFluidHandler.getFluidFromPotionItem(stack);
+            var potion = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY)
+                    .potion()
+                    .flatMap(Holder::unwrapKey)
+                    .orElseThrow()
+                    .location();
+
+            var id = NirvanaConstants.createId("fill/bong/" + potion.getNamespace() + "/" + potion.getPath());
+            var recipe = new StandardProcessingRecipe.Builder<>(FillingRecipe::new, id)
                     .withItemIngredients(Ingredient.of(NirvanaItems.BONG))
-                    .withFluidIngredients(FluidIngredient.fromFluidStack(potion))
+                    .withFluidIngredients(FluidIngredient.fromFluidStack(potionFluid))
                     .withSingleItemOutput(stack)
                     .build();
+
+            return new RecipeHolder<>(id, recipe);
         }).toList();
     }
 
     @SuppressWarnings("unchecked")
     public static void addJeiRecipes(IRecipeRegistration registration) {
         registration.getJeiHelpers().getRecipeType(ResourceLocation.fromNamespaceAndPath("create", "spout_filling"))
-                .map(it -> (RecipeType<FillingRecipe>) it)
+                .map(it -> (RecipeType<RecipeHolder<FillingRecipe>>) it)
                 .ifPresent(type -> registration.addRecipes(type, getBongFillingRecipes(registration.getIngredientManager())));
     }
 

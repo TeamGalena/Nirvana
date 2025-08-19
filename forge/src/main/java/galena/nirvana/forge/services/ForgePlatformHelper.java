@@ -7,11 +7,9 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import galena.nirvana.forge.ForgeEntrypoint;
 import galena.nirvana.forge.world.ForgeDeerstalkerItem;
-import galena.nirvana.forge.world.ForgeJointItem;
 import galena.nirvana.platform.registrate.EntityPropertiesBuilder;
 import galena.nirvana.platform.services.IPlatformHelper;
 import galena.nirvana.world.item.DeerStalkerItem;
-import galena.nirvana.world.item.JointItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,11 +26,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public MultikultiRegistrate<?> getRegistrate() {
         return ForgeEntrypoint.REGISTRATE;
-    }
-
-    @Override
-    public JointItem createJointItem(Item.Properties properties) {
-        return new ForgeJointItem(properties);
     }
 
     @Override

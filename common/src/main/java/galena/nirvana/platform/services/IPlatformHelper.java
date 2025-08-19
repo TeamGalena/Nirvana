@@ -7,7 +7,6 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import galena.nirvana.platform.registrate.EntityPropertiesBuilder;
 import galena.nirvana.world.item.DeerStalkerItem;
-import galena.nirvana.world.item.JointItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,10 +19,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 public interface IPlatformHelper {
 
     MultikultiRegistrate<?> getRegistrate();
-
-    default JointItem createJointItem(Item.Properties properties) {
-        return new JointItem(properties);
-    }
 
     default DeerStalkerItem createDeerstalkerItem(Item.Properties properties) {
         return new DeerStalkerItem(properties);
