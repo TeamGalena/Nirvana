@@ -21,6 +21,9 @@ public abstract class GameRendererMixin {
     private PostChain nirvana$shader = null;
 
     @Unique
+    private boolean nirvana$shaderFailed = false;
+
+    @Unique
     private boolean nirvana$shouldRender() {
         var accessor = (GameRendererAccessor) this;
         if (accessor.getPostEffect() != null) return false;
@@ -32,13 +35,18 @@ public abstract class GameRendererMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;doEntityOutline()V")
     )
     private void renderPeaceShader(DeltaTracker delta, boolean bl, CallbackInfo ci) {
+        if(nirvana$shaderFailed) return;
+
         var accessor = (GameRendererAccessor) this;
         var minecraft = accessor.getMinecraft();
 
         if (nirvana$shouldRender()) {
             if (nirvana$shader == null) {
                 nirvana$shader = PeaceShader.load(minecraft);
-                if (nirvana$shader == null) return;
+                if (nirvana$shader == null) {
+                    nirvana$shaderFailed = true;
+                    return;
+                }
                 nirvana$shader.resize(minecraft.getWindow().getWidth(), minecraft.getWindow().getHeight());
             }
 
