@@ -3,9 +3,8 @@
   "minVersion": "0.8",
   "package": "galena.nirvana.forge.mixins",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "nirvana.refmap.json",
   "mixins": [
-    "GenericItemFillingMixin"
+    "GenericItemFillingMixin", "PlayerItemInHandLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
