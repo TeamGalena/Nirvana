@@ -17,7 +17,9 @@
     "GameRendererMixin",
     "ItemInHandRendererMixin",
     "ParticleMixin",
-    "SkullBlockRendererMixin"
+    "SkullBlockRendererMixin",
+    "PlayerItemInHandLayerMixin",
+    "PlayerItemInHandLayerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

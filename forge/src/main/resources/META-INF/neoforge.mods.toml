@@ -17,7 +17,7 @@ Get ready to make some Herb Rolled in Paper, Oddly Shaped Glasses, Herbal Salves
 
 [[dependencies.${mod_id}]]
     modId = "neoforge"
-    versionRange = "[21.1.207,)"
+    versionRange = "[21,)"
     ordering = "NONE"
     side = "BOTH"
 
