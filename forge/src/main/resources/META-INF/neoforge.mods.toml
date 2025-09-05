@@ -17,22 +17,20 @@ Get ready to make some Herb Rolled in Paper, Oddly Shaped Glasses, Herbal Salves
 
 [[dependencies.${mod_id}]]
     modId = "neoforge"
-    mandatory = true
     versionRange = "[21,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.${mod_id}]]
     modId = "minecraft"
-    mandatory = true
     versionRange = "[1.21.1,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.${mod_id}]]
     modId = "create"
-    mandatory = false
     versionRange = "*"
+    type = "optional"
     ordering = "NONE"
     side = "BOTH"
 
