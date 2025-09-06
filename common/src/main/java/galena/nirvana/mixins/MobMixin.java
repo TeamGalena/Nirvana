@@ -1,9 +1,13 @@
 package galena.nirvana.mixins;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.sugar.Local;
 import galena.nirvana.index.NirvanaEffects;
+import galena.nirvana.index.NirvanaItems;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -38,19 +42,16 @@ public abstract class MobMixin {
         return !self.hasEffect(NirvanaEffects.PEACE);
     }
 
-    /*
-    TODO
     @ModifyExpressionValue(
             method = "checkAndHandleImportantInteractions(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z",
-                    ordinal = 1
+                    ordinal = 0
             )
     )
     public boolean checkAndHandleImportantInteractions(boolean original, @Local ItemStack stack) {
         return original || stack.is(NirvanaItems.HERBAL_SALVE.get());
     }
-    */
 
 }

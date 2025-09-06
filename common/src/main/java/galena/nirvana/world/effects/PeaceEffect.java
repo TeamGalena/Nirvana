@@ -95,7 +95,7 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
                 var centerRange = REEFER_MIN_RANGE + rangeAround;
                 var vec = new Vec3(
                         (target.getRandom().nextDouble() * 2 - 1),
-                        (target.getRandom().nextDouble() * 2 - 1),
+                        0,
                         (target.getRandom().nextDouble() * 2 - 1)
                 ).normalize().scale(centerRange);
                 var reference = target.position().add(vec);
@@ -110,8 +110,6 @@ public class PeaceEffect extends MobEffect implements IStackingEffect {
         }
     }
 
-
-    // TODO check
     @Override
     public void onEffectAdded(LivingEntity entity, int i) {
         super.onEffectAdded(entity, i);

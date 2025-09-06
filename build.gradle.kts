@@ -8,13 +8,6 @@ subprojects {
         mavenLocal()
 
         maven {
-            url = uri("https://mvn.devos.one/snapshots/")
-            content {
-                includeGroup("io.github.fabricators_of_create.Porting-Lib")
-            }
-        }
-
-        maven {
             url = uri("https://maven.tterrag.com/")
             content {
                 includeGroup("com.tterrag.registrate")
@@ -48,6 +41,7 @@ subprojects {
                 includeGroup("dev.galena")
                 includeGroup("com.possible-triangle")
                 includeGroup("com.tterrag.registrate_fabric")
+                includeGroup("io.github.fabricators_of_create.Porting-Lib")
             }
         }
     }

@@ -8,7 +8,6 @@
     "CatMixin",
     "CreeperMixin",
     "EntityMixin",
-    "InventoryMixin",
     "LivingEntityMixin",
     "MobMixin"
   ],
