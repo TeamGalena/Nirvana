@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import galena.nirvana.platform.Services;
-import galena.nirvana.world.recipe.SuspicousCraftingRecipe;
+import galena.nirvana.world.recipe.SuspiciousCraftingRecipe;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -34,7 +34,7 @@ public class NirvanaRecipeTypes {
     private static final AbstractRegistrate<?> REGISTRATE = Services.PLATFORM.getRegistrate();
 
     public static final RegistryEntry<RecipeSerializer<?>, ? extends RecipeSerializer<?>> SUSPICIOUS_RECIPE_SERIALIZER = REGISTRATE
-            .generic("suspicious_crafting", Registries.RECIPE_SERIALIZER, SuspicousCraftingRecipe.Serializer::new)
+            .generic("suspicious_crafting", Registries.RECIPE_SERIALIZER, SuspiciousCraftingRecipe.Serializer::new)
             .register();
 
     public static Stream<Pair<ItemLike, ItemStack>> getSuspiciousVariants(ItemLike output, int factor) {

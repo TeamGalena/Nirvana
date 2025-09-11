@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import org.jetbrains.annotations.Nullable;
 
-public class SuspicousCraftingRecipe extends CustomRecipe {
+public class SuspiciousCraftingRecipe extends CustomRecipe {
 
     private final ItemStack result;
     private final Ingredient base;
@@ -31,7 +31,7 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
     private final int requiredWeed;
     private final int durationFactor;
 
-    public SuspicousCraftingRecipe(CraftingBookCategory category, ItemStack result, Ingredient base, int requiredFlowers, int requiredWeed, int durationFactor) {
+    public SuspiciousCraftingRecipe(CraftingBookCategory category, ItemStack result, Ingredient base, int requiredFlowers, int requiredWeed, int durationFactor) {
         super(category);
         this.result = result;
         this.base = base;
@@ -93,7 +93,7 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
 
     @Override
     public boolean canCraftInDimensions(int i, int j) {
-        return i >= 3 && j >= 3;
+        return i*j >= 9;
     }
 
     @Override
@@ -101,22 +101,22 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
         return NirvanaRecipeTypes.SUSPICIOUS_RECIPE_SERIALIZER.get();
     }
 
-    public static class Serializer implements RecipeSerializer<SuspicousCraftingRecipe> {
+    public static class Serializer implements RecipeSerializer<SuspiciousCraftingRecipe> {
 
-        private static final MapCodec<SuspicousCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(builder ->
+        private static final MapCodec<SuspiciousCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(builder ->
                 builder.group(
-                        CraftingBookCategory.CODEC.optionalFieldOf("category", CraftingBookCategory.MISC).forGetter(SuspicousCraftingRecipe::category),
-                        ItemStack.CODEC.fieldOf("result").forGetter(it -> it.result),
+                        CraftingBookCategory.CODEC.optionalFieldOf("category", CraftingBookCategory.MISC).forGetter(SuspiciousCraftingRecipe::category),
+                        ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("result").forGetter(it -> it.result),
                         Ingredient.CODEC.fieldOf("base").forGetter(it -> it.base),
                         Codec.INT.optionalFieldOf("flowers", 1).forGetter(it -> it.requiredFlowers),
                         Codec.INT.optionalFieldOf("weed", 1).forGetter(it -> it.requiredWeed),
                         Codec.INT.optionalFieldOf("durationFactor", 1).forGetter(it -> it.durationFactor)
-                ).apply(builder, SuspicousCraftingRecipe::new)
+                ).apply(builder, SuspiciousCraftingRecipe::new)
         );
 
-        private static final StreamCodec<RegistryFriendlyByteBuf, SuspicousCraftingRecipe> STREAM_CODEC = StreamCodec.composite(
+        private static final StreamCodec<RegistryFriendlyByteBuf, SuspiciousCraftingRecipe> STREAM_CODEC = StreamCodec.composite(
             CraftingBookCategory.STREAM_CODEC,
-                SuspicousCraftingRecipe::category,
+                SuspiciousCraftingRecipe::category,
                 ItemStack.STREAM_CODEC,
                 it -> it.result,
                 Ingredient.CONTENTS_STREAM_CODEC,
@@ -127,16 +127,16 @@ public class SuspicousCraftingRecipe extends CustomRecipe {
                 it -> it.requiredWeed,
                 ByteBufCodecs.INT,
                 it -> it.durationFactor,
-                SuspicousCraftingRecipe::new
+                SuspiciousCraftingRecipe::new
         );
 
         @Override
-        public MapCodec<SuspicousCraftingRecipe> codec() {
+        public MapCodec<SuspiciousCraftingRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, SuspicousCraftingRecipe> streamCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, SuspiciousCraftingRecipe> streamCodec() {
             return STREAM_CODEC;
         }
 
