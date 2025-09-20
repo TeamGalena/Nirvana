@@ -5,9 +5,12 @@ import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import galena.nirvana.platform.Services;
 import galena.nirvana.world.recipe.SuspiciousCraftingRecipe;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.NonNullList;
@@ -25,6 +28,7 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -60,32 +64,34 @@ public class NirvanaRecipeTypes {
                 });
     }
 
-    private static Stream<RecipeHolder<CraftingRecipe>> createSuspiciousRecipes(Ingredient base, ItemLike result, int flowerCount, int weedCount, int factor) {
-        var group = BuiltInRegistries.ITEM.getKey(result.asItem());
+    private static Stream<RecipeHolder<CraftingRecipe>> createSuspiciousRecipes(RecipeHolder<SuspiciousCraftingRecipe> from) {
         var weed = Ingredient.of(NirvanaItems.WEED);
 
-        return getSuspiciousVariants(result, factor).map(pair -> {
+        return getSuspiciousVariants(from.value().getContainer().getItem(), from.value().durationFactor).map(pair -> {
             var flowerBlock = pair.getFirst().asItem();
             var output = pair.getSecond();
             var type = BuiltInRegistries.ITEM.getKey(flowerBlock);
 
             Ingredient flower = Ingredient.of(flowerBlock);
-            NonNullList<Ingredient> inputs = NonNullList.createWithCapacity(flowerCount + weedCount + 1);
-            for (int i = 0; i < flowerCount; i++) inputs.add(flower);
-            for (int i = 0; i < weedCount; i++) inputs.add(weed);
-            inputs.add(base);
+            NonNullList<Ingredient> inputs = NonNullList.createWithCapacity(from.value().requiredFlowers + from.value().requiredWeed + 1);
+            for (int i = 0; i < from.value().requiredFlowers; i++) inputs.add(flower);
+            for (int i = 0; i < from.value().requiredWeed; i++) inputs.add(weed);
+            inputs.add(from.value().base);
 
-            ResourceLocation id = group.withSuffix("/" + type.getNamespace() + "/" + type.getPath());
-            var recipe =  new ShapelessRecipe(group.toString(), CraftingBookCategory.MISC, output, inputs);
+            var id = from.id().withSuffix("/" + type.getNamespace() + "/" + type.getPath());
+            var recipe = new ShapelessRecipe(from.id().getPath(), CraftingBookCategory.MISC, output, inputs);
             return new RecipeHolder<>(id, recipe);
         });
     }
 
     public static List<RecipeHolder<CraftingRecipe>> createSuspiciousRecipes() {
-        return Stream.of(
-                createSuspiciousRecipes(Ingredient.of(Items.BOWL), NirvanaItems.HERBAL_SALVE, 3, 3, Services.CONFIG.common().herbalSalveFactor()),
-                createSuspiciousRecipes(Ingredient.of(NirvanaItems.EMPTY_PIPE), NirvanaItems.SUSPICIOUS_PIPE, 6, 1, Services.CONFIG.common().suspiciousPipeFactor())
-        ).flatMap(Function.identity()).toList();
+        var recipeManager = Minecraft.getInstance().level.getRecipeManager();
+        return recipeManager.getAllRecipesFor(RecipeType.CRAFTING)
+                .stream()
+                .filter(it -> it.value() instanceof SuspiciousCraftingRecipe)
+                .map(it -> new RecipeHolder<>(it.id(), (SuspiciousCraftingRecipe) it.value()))
+                .flatMap(NirvanaRecipeTypes::createSuspiciousRecipes)
+                .toList();
     }
 
     public static void register() {
