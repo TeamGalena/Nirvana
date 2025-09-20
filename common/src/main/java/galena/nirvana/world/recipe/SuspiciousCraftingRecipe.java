@@ -26,10 +26,10 @@ import org.jetbrains.annotations.Nullable;
 public class SuspiciousCraftingRecipe extends CustomRecipe {
 
     private final ItemStack result;
-    private final Ingredient base;
-    private final int requiredFlowers;
-    private final int requiredWeed;
-    private final int durationFactor;
+    public final Ingredient base;
+    public final int requiredFlowers;
+    public final int requiredWeed;
+    public final int durationFactor;
 
     public SuspiciousCraftingRecipe(CraftingBookCategory category, ItemStack result, Ingredient base, int requiredFlowers, int requiredWeed, int durationFactor) {
         super(category);
@@ -38,6 +38,10 @@ public class SuspiciousCraftingRecipe extends CustomRecipe {
         this.requiredFlowers = requiredFlowers;
         this.requiredWeed = requiredWeed;
         this.durationFactor = durationFactor;
+    }
+
+    public ItemStack getContainer() {
+        return result.copy();
     }
 
     @Override
@@ -69,7 +73,7 @@ public class SuspiciousCraftingRecipe extends CustomRecipe {
 
     @Override
     public ItemStack assemble(CraftingInput container, HolderLookup.Provider lookup) {
-        var result = this.result.copy();
+        var result = getContainer();
 
         for (int i = 0; i < container.size(); ++i) {
             ItemStack stack = container.getItem(i);

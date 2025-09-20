@@ -20,6 +20,7 @@ public class NirvanaSounds {
     public static final RegistryEntry<SoundEvent, SoundEvent> JAM_SOUND = REGISTRATE
             .sound("music.disc.jam")
             .with("discs/jam")
+            .stream()
             .register();
 
     public static final ResourceKey<JukeboxSong> JAM_KEY = ResourceKey.create(Registries.JUKEBOX_SONG, NirvanaConstants.createId("jam"));
@@ -27,7 +28,7 @@ public class NirvanaSounds {
     private static final String JAM_DESCRIPTION_ID = Util.makeDescriptionId("jukebox_song", JAM_KEY.location());
 
     public static final RegistryEntry<JukeboxSong, JukeboxSong> JAM = REGISTRATE
-            .generic(JAM_KEY.location().getPath(), Registries.JUKEBOX_SONG, () -> new JukeboxSong(
+            .dataDriven(JAM_KEY.location().getPath(), Registries.JUKEBOX_SONG, () -> new JukeboxSong(
                     BuiltInRegistries.SOUND_EVENT.wrapAsHolder(JAM_SOUND.get()),
                     Component.translatable(JAM_DESCRIPTION_ID),
                     150, 13)

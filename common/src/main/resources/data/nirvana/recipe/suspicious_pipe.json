@@ -1,8 +1,12 @@
 {
   "type": "nirvana:suspicious_crafting",
   "category": "misc",
-  "result": "nirvana:suspicious_pipe",
-  "base": "nirvana:old_pipe",
+  "result": {
+    "id": "nirvana:suspicious_pipe"
+  },
+  "base": {
+    "item": "nirvana:old_pipe"
+  },
   "flowers": 6,
   "weed": 1,
   "durationFactor": 4

@@ -1,0 +1,8 @@
+{
+  "comparator_output": 13,
+  "description": {
+    "translate": "jukebox_song.nirvana.jam"
+  },
+  "length_in_seconds": 150.0,
+  "sound_event": "nirvana:music.disc.jam"
+}

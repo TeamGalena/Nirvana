@@ -56,7 +56,7 @@ public class FabricEntrypoint implements ModInitializer {
         var initializer = REGISTRATE.getDataGenInitializer();
         initializer.addDependency(BANNER_PATTERN_TAGS, ProviderType.DYNAMIC);
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment() && System.getProperty("fabric-api.datagen") != null) {
             CompatRegistrate.register();
         }
 

@@ -9,9 +9,9 @@
   },
   "item.use.herbal_salve": {
     "sounds": [
-      "nirvana:item/herbal_salve_1",
-      "nirvana:item/herbal_salve_4",
       "nirvana:item/herbal_salve_3",
+      "nirvana:item/herbal_salve_4",
+      "nirvana:item/herbal_salve_1",
       "nirvana:item/herbal_salve_2"
     ],
     "subtitle": "subtitle.item.use.herbal_salve"
@@ -26,7 +26,10 @@
   },
   "music.disc.jam": {
     "sounds": [
-      "nirvana:discs/jam"
+      {
+        "name": "nirvana:discs/jam",
+        "stream": true
+      }
     ]
   }
 }
