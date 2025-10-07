@@ -1,5 +1,9 @@
 import org.spongepowered.asm.gradle.plugins.MixinExtension
 
+plugins {
+    id("com.possible-triangle.forge")
+}
+
 val mc_version: String by extra
 val mod_id: String by extra
 val registrate_forge_version: String by extra
@@ -18,23 +22,22 @@ val data_trades_version: String by extra
 val galena_hats_version: String by extra
 val multikulti_version: String by extra
 
+mod {
+    mods.include("com.tterrag.registrate:Registrate:${registrate_forge_version}")
+    mods.include("com.possible-triangle:multikulti-core-forge:${mc_version}-${multikulti_version}")
+    mods.include("com.possible-triangle:multikulti-registrate-forge:${mc_version}-${multikulti_version}")
+    mods.include("dev.galena:hats-forge:${mc_version}-${galena_hats_version}")
+}
+
 forge {
     enableMixins()
 
     dependOn(project(":common"))
-    includesMod("com.tterrag.registrate:Registrate:${registrate_forge_version}")
-    includesMod("com.possible-triangle:multikulti-core-forge:${mc_version}-${multikulti_version}")
-    includesMod("com.possible-triangle:multikulti-registrate-forge:${mc_version}-${multikulti_version}")
-    includesMod("dev.galena:hats-forge:${mc_version}-${galena_hats_version}")
 }
 
 configure<MixinExtension> {
     config("$mod_id.forge.mixins.json")
 }
-
-// issues with mixin extras
-tasks.withType<Test> { enabled = false }
-tasks.compileTestJava { enabled = false }
 
 repositories {
     maven {
@@ -46,10 +49,12 @@ repositories {
         }
     }
 
-    maven {
-        url = uri("https://thedarkcolour.github.io/KotlinForForge/")
-        content {
-            includeGroup("thedarkcolour")
+    repositories {
+        maven {
+            url = uri("https://thedarkcolour.github.io/KotlinForForge/")
+            content {
+                includeGroup("thedarkcolour")
+            }
         }
     }
 }
@@ -76,14 +81,18 @@ dependencies {
     }
 }
 
-uploadToCurseforge {
-    dependencies {
-        required("kotlin-for-forge")
+upload {
+    curseforge {
+        dependencies {
+            required("kotlin-for-forge")
+        }
     }
-}
 
-uploadToModrinth {
-    dependencies {
-        required("ordsPcFz")
+    modrinth {
+        dependencies {
+            dependencies {
+                required("ordsPcFz")
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
+plugins {
+    id("com.possible-triangle.fabric")
+}
 
 val mod_id: String by extra
 val mc_version: String by extra
@@ -10,19 +12,21 @@ val forge_config_port_version: String by extra
 val galena_hats_version: String by extra
 val multikulti_version: String by extra
 
+mod {
+    mods.include("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
+    mods.include("com.possible-triangle:multikulti-core-fabric:${mc_version}-${multikulti_version}")
+    mods.include("com.possible-triangle:multikulti-registrate-fabric:${mc_version}-${multikulti_version}")
+    mods.include("dev.galena:hats-fabric:${mc_version}-${galena_hats_version}")
+    mods.include("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_port_version}")
+}
+
 fabric {
-    enableMixins()
     dataGen()
 
     dependOn(project(":common"))
-    includesMod("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
-    includesMod("com.possible-triangle:multikulti-core-fabric:${mc_version}-${multikulti_version}")
-    includesMod("com.possible-triangle:multikulti-registrate-fabric:${mc_version}-${multikulti_version}")
-    includesMod("dev.galena:hats-fabric:${mc_version}-${galena_hats_version}")
-    includesMod("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_port_version}")
 }
 
-configure<LoomGradleExtensionAPI> {
+loom {
     accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
 }
 
@@ -65,6 +69,3 @@ dependencies {
         modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_version}")
     }
 }
-
-uploadToCurseforge()
-uploadToModrinth()

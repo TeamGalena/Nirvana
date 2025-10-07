@@ -1,12 +1,11 @@
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.17")
+    id("com.possible-triangle.core")
 }
 
 subprojects {
-    repositories {
-        modrinthMaven()
-        mavenLocal()
+    apply(plugin = "com.possible-triangle.core")
 
+    repositories {
         maven {
             url = uri("https://mvn.devos.one/snapshots/")
             content {
@@ -52,8 +51,10 @@ subprojects {
         }
     }
 
-    enablePublishing {
-        nexus()
+    upload {
+        maven {
+            nexus()
+        }
     }
 }
 
