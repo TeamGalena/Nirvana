@@ -1,13 +1,12 @@
 pluginManagement {
     repositories {
-        mavenLocal()
         gradlePluginPortal()
-        maven { url = uri("https://maven.fabricmc.net/") }
-        maven { url = uri("https://maven.neoforged.net/releases/") }
-        maven { url = uri("https://repo.spongepowered.org/repository/maven-public/") }
-        maven { url = uri("https://maven.architectury.dev/") }
-        maven { url = uri("https://maven.neoforged.net/releases/") }
+        mavenLocal()
     }
+}
+
+plugins {
+    id("com.possible-triangle.helper") version ("1.0.49")
 }
 
 include("common", "fabric", "forge")

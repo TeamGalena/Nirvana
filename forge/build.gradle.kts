@@ -13,14 +13,19 @@ val data_trades_version: String by extra
 val galena_hats_version: String by extra
 val multikulti_version: String by extra
 
-neoforge {
-    enableMixins()
+plugins {
+    id("com.possible-triangle.neoforge")
+}
 
+mod {
+    mods.include("com.tterrag.registrate:Registrate:${registrate_forge_version}")
+    mods.include("dev.galena:hats-neoforge:${mc_version}-${galena_hats_version}")
+    mods.include("com.possible-triangle:multikulti-core-neoforge:${mc_version}-${multikulti_version}")
+    mods.include("com.possible-triangle:multikulti-registrate-neoforge:${mc_version}-${multikulti_version}")
+}
+
+neoforge {
     dependOn(project(":common"))
-    includesMod("com.tterrag.registrate:Registrate:${registrate_forge_version}")
-    includesMod("dev.galena:hats-neoforge:${mc_version}-${galena_hats_version}")
-    includesMod("com.possible-triangle:multikulti-core-neoforge:${mc_version}-${multikulti_version}")
-    includesMod("com.possible-triangle:multikulti-registrate-neoforge:${mc_version}-${multikulti_version}")
 }
 
 // issues with mixin extras
@@ -63,17 +68,5 @@ dependencies {
         // modRuntimeOnly("dev.galena:oreganized:${oreganized_version}:slim")
         modRuntimeOnly("maven.modrinth:blueprint:${blueprint_version}")
         modRuntimeOnly("maven.modrinth:data-trades:${data_trades_version}")
-    }
-}
-
-uploadToCurseforge {
-    dependencies {
-        required("kotlin-for-forge")
-    }
-}
-
-uploadToModrinth {
-    dependencies {
-        required("ordsPcFz")
     }
 }

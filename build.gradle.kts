@@ -1,12 +1,14 @@
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.18")
+    id("com.possible-triangle.core")
+    id("com.possible-triangle.architectury") apply false
+    id("com.possible-triangle.neoforge") apply false
+    id("com.possible-triangle.fabric") apply false
 }
 
 subprojects {
-    repositories {
-        modrinthMaven()
-        mavenLocal()
+    apply(plugin = "com.possible-triangle.core")
 
+    repositories {
         maven {
             url = uri("https://maven.tterrag.com/")
             content {
@@ -46,8 +48,10 @@ subprojects {
         }
     }
 
-    enablePublishing {
-        nexus()
+    upload {
+        maven {
+            nexus()
+        }
     }
 }
 
