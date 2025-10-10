@@ -6,9 +6,7 @@ import com.mojang.authlib.GameProfile;
 import galena.nirvana.NirvanaConstants;
 import galena.nirvana.index.NirvanaBlocks;
 import galena.nirvana.world.block.renderer.ReeferHeadRenderer;
-
 import java.util.Map;
-
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.EntityModelSet;
