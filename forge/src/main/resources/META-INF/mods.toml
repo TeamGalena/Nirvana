@@ -14,6 +14,7 @@ description = '''
 Nirvana is a mod that aims to add Hemp and herb in a vanilla friendly way!
 Get ready to make some Herb Rolled in Paper, Oddly Shaped Glasses, Herbal Salves, Burlap and much more.
 '''
+updateJSONURL = "https://api.modrinth.com/updates/nirvana-mod/forge_updates.json"
 
 [[dependencies.${mod_id}]]
     modId = "forge"
