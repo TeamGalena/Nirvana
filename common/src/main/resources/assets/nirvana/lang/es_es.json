@@ -15,5 +15,8 @@
   "block.minecraft.banner.nirvana.peace.red": "Señal de Paz Roja",
   "block.minecraft.banner.nirvana.peace.white": "Señal de Paz Blanca",
   "block.minecraft.banner.nirvana.peace.yellow": "Señal de Paz Amarilla",
-  "block.nirvana.black_hemp_burlap": "Arpillera Negra"
+  "block.nirvana.black_hemp_burlap": "Arpillera Negra",
+  "block.nirvana.black_woven_burlap": "Arpillera Tejida Negra",
+  "block.nirvana.hemp": "Cáñamo",
+  "block.nirvana.hemp_burlap": "Arpillera"
 }
