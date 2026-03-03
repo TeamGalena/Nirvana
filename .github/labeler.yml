@@ -1,13 +1,15 @@
 # <meta>
 #    <source>@pssbletrngle/github-meta-generator</source>
 #    <version>0.0.0-dev</version>
-#    <timestamp>2026-03-03T15:52:47.800Z</timestamp>
+#    <timestamp>2026-03-03T15:56:00.773Z</timestamp>
 # </meta>
 
-forge:
-  - "forge"
 neoforge:
   - "neoforge"
+fabric:
+  - "fabric"
+forge:
+  - "forge"
 
 1.21:
   - "1.21"
