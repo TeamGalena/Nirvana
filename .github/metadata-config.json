@@ -2,8 +2,9 @@
    "$schema": "https://webhooks.new.macarena.ceo/schema/config.json",
    "type": "minecraft",
    "loaders": [
-      "forge",
-      "neoforge"
+      "neoforge",
+      "fabric",
+      "forge"
    ],
    "upload": {
       "curseforge": true,
