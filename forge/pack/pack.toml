@@ -1,0 +1,11 @@
+name = "nirvana-neoforge"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "5a997de949b9531d18e6a2f9de75453269f89efd4de44d905d7b81df1769bcfc"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.219"

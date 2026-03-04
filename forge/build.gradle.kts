@@ -58,13 +58,13 @@ dependencies {
 
     if (!env.isCI) {
         modRuntimeOnly(libs.jei.neoforge)
-        modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_forge_version}")
-        modRuntimeOnly("maven.modrinth:farmers-delight:${fd_forge_version}")
-        modRuntimeOnly("maven.modrinth:supplementaries:${supplementaries_forge_version}")
-        modRuntimeOnly("maven.modrinth:moonlight:${moonlight_forge_version}")
-        modRuntimeOnly("maven.modrinth:freecam:${freecam_forge_version}")
-        // modRuntimeOnly("dev.galena:oreganized:${oreganized_version}:slim")
-        modRuntimeOnly("maven.modrinth:blueprint:${blueprint_version}")
-        modRuntimeOnly("maven.modrinth:data-trades:${data_trades_version}")
+        modRuntimeOnly(libs.oreganized)
+        modRuntimeOnly(pack.forge.modrinth.just.enough.effect.descriptions.jeed)
+        modRuntimeOnly(pack.forge.modrinth.farmers.delight)
+        modRuntimeOnly(pack.forge.modrinth.supplementaries)
+        modRuntimeOnly(pack.forge.modrinth.moonlight)
+        modRuntimeOnly(pack.forge.modrinth.freecam)
+        modRuntimeOnly(pack.forge.modrinth.blueprint)
+        modRuntimeOnly(pack.forge.modrinth.data.trades)
     }
 }

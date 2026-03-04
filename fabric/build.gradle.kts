@@ -1,5 +1,3 @@
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
-
 val mod_id: String by extra
 val mc_version: String by extra
 val registrate_fabric_version: String by extra
@@ -26,10 +24,8 @@ fabric {
     dataGen()
 
     dependOn(project(":common"))
-}
 
-configure<LoomGradleExtensionAPI> {
-    accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
+    accessWidener()
 }
 
 repositories {
@@ -63,6 +59,6 @@ dependencies {
 
     if (!env.isCI) {
         modRuntimeOnly(libs.jei.fabric)
-        modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_fabric_version}")
+        modRuntimeOnly(pack.fabric.modrinth.just.enough.effect.descriptions.jeed)
     }
 }

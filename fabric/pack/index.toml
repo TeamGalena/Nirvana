@@ -1,0 +1,6 @@
+hash-format = "sha256"
+
+[[files]]
+file = "mods/just-enough-effect-descriptions-jeed.pw.toml"
+hash = "26fd57dde103b1ea1fd028d4de1712ac2a9105ea32dc9d56e8ec7a9047d9fc73"
+metafile = true

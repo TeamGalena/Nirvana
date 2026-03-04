@@ -33,3 +33,5 @@ config-api-port-common = { module = "fuzs.forgeconfigapiport:forgeconfigapiport-
 
 galena-hats-neoforge = { module = "dev.galena:hats-neoforge", version.ref = "galena-hats" }
 galena-hats-fabric = { module = "dev.galena:hats-fabric", version.ref = "galena-hats" }
+
+oreganized = { module = "dev.galena:oreganized", version = "5.1.2" }

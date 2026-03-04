@@ -1,0 +1,36 @@
+hash-format = "sha256"
+
+[[files]]
+file = "mods/blueprint.pw.toml"
+hash = "a5122c5ecc0e36da4f60474cc8ecaff590aaeae8be545ffddfe2c25db89816e7"
+metafile = true
+
+[[files]]
+file = "mods/data-trades.pw.toml"
+hash = "e5068a68f60925542ecb9e06d50d4455989d847db00a7f5f3f9e1e4a32da26ef"
+metafile = true
+
+[[files]]
+file = "mods/farmers-delight.pw.toml"
+hash = "b75ba223cc0d159d38890b0c5db42e9454210f874dd0d0b9060f8277e803a5d8"
+metafile = true
+
+[[files]]
+file = "mods/freecam.pw.toml"
+hash = "184c6768f11e0c33c22c104397ad559c5b9337c709d1d05c8e9c93891dcddaee"
+metafile = true
+
+[[files]]
+file = "mods/just-enough-effect-descriptions-jeed.pw.toml"
+hash = "0b6a884fe3969a05a24aec1569d1ffcb2ec8fb8b268f749416a9c0677e3cac46"
+metafile = true
+
+[[files]]
+file = "mods/moonlight.pw.toml"
+hash = "1965658333e46f8a375d3efee20cbfc49400d576f7051e81da832a70da79e3c0"
+metafile = true
+
+[[files]]
+file = "mods/supplementaries.pw.toml"
+hash = "599e373cbd3ff6fbe64a00ec53a5275fe583e60d3c5593508d13d1846e329952"
+metafile = true
