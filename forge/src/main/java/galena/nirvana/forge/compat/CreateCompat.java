@@ -3,7 +3,6 @@ package galena.nirvana.forge.compat;
 import com.simibubi.create.content.fluids.potion.PotionFluidHandler;
 import com.simibubi.create.content.fluids.transfer.FillingRecipe;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
-import com.simibubi.create.foundation.fluid.FluidIngredient;
 import galena.nirvana.NirvanaConstants;
 import galena.nirvana.index.NirvanaItems;
 import java.util.List;
@@ -17,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 public class CreateCompat {
 
@@ -34,7 +34,7 @@ public class CreateCompat {
             var id = NirvanaConstants.createId("fill/bong/" + potion.getNamespace() + "/" + potion.getPath());
             var recipe = new StandardProcessingRecipe.Builder<>(FillingRecipe::new, id)
                     .withItemIngredients(Ingredient.of(NirvanaItems.BONG))
-                    .withFluidIngredients(FluidIngredient.fromFluidStack(potionFluid))
+                    .withFluidIngredients(SizedFluidIngredient.of(potionFluid))
                     .withSingleItemOutput(stack)
                     .build();
 

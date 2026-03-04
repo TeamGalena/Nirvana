@@ -1,35 +1,21 @@
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
-
-val mod_id: String by extra
-val mc_version: String by extra
-val registrate_fabric_version: String by extra
-val jei_version: String by extra
-val jeed_fabric_version: String by extra
-val create_fabric_version: String by extra
-val forge_config_port_version: String by extra
-val galena_hats_version: String by extra
-val multikulti_version: String by extra
-
 plugins {
     id("com.possible-triangle.fabric")
 }
 
 mod {
-    mods.include("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
-    mods.include("com.possible-triangle:multikulti-core-fabric:${mc_version}-${multikulti_version}")
-    mods.include("com.possible-triangle:multikulti-registrate-fabric:${mc_version}-${multikulti_version}")
-    mods.include("dev.galena:hats-fabric:${mc_version}-${galena_hats_version}")
-    mods.include("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_port_version}")
+    mods.include(libs.registrate.fabric)
+    mods.include(libs.galena.hats.fabric)
+    mods.include(libs.multikulti.core.fabric)
+    mods.include(libs.multikulti.registrate.fabric)
+    mods.include(libs.config.api.port.fabric)
 }
 
 fabric {
     dataGen()
 
     dependOn(project(":common"))
-}
 
-configure<LoomGradleExtensionAPI> {
-    accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
+    accessWidener()
 }
 
 repositories {
@@ -50,18 +36,19 @@ repositories {
 }
 
 dependencies {
-    modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${mc_version}-fabric-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${mc_version}-lib:${jei_version}")
+    modCompileOnly(libs.jei.common.api)
+    modCompileOnly(libs.jei.fabric.api)
+    modCompileOnly(libs.jei.lib)
 
+    // TODO re-add once create fabric is updated to 1.21.1
     // modCompileOnly("com.simibubi.create:create-fabric-${mc_version}:${create_fabric_version}") {
     //     exclude("com.jozufozu.flywheel")
     // }
 
-    modImplementation("com.possible-triangle:multikulti-datagen-fabric:${mc_version}-${multikulti_version}")
+    modImplementation(libs.multikulti.datagen.fabric)
 
     if (!env.isCI) {
-        modRuntimeOnly("mezz.jei:jei-${mc_version}-fabric:${jei_version}")
-        modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_fabric_version}")
+        modRuntimeOnly(libs.jei.fabric)
+        modRuntimeOnly(pack.fabric.modrinth.just.enough.effect.descriptions.jeed)
     }
 }

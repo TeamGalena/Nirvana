@@ -1,0 +1,13 @@
+name = "Data Trades"
+filename = "data_trades-neoforge-3.0.1.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/nm1MuVrD/versions/y72DPGvP/data_trades-neoforge-3.0.1.jar"
+hash-format = "sha512"
+hash = "85cbc41c8c008d4d572129890f152d31d84f1910c3a1b11531e4d355f4c29220d47303e1cbdcb962dd96bf36ad6efdd76af673cafa8362a69db4a5ae2374b365"
+
+[update]
+[update.modrinth]
+mod-id = "nm1MuVrD"
+version = "y72DPGvP"

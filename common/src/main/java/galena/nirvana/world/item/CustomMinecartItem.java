@@ -1,7 +1,7 @@
 package galena.nirvana.world.item;
 
-import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import java.util.function.Supplier;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -69,7 +69,7 @@ public class CustomMinecartItem extends MinecartItem {
         DispenserBlock.registerBehavior(asItem(), dispenseBehavior);
     }
 
-    public CustomMinecartItem(Properties properties, EntityEntry<? extends AbstractMinecart> entity) {
+    public CustomMinecartItem(Properties properties, Supplier<? extends EntityType<? extends AbstractMinecart>> entity) {
         super(AbstractMinecart.Type.TNT, properties);
         this.entity = entity::get;
     }
