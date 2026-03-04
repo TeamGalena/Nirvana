@@ -74,7 +74,7 @@
   "item.nirvana.peace_banner_pattern.desc": "Friedenssymbol",
   "item.nirvana.potion_bong": "Bong %s",
   "item.nirvana.potion_bong.effect.awkward": "Awkward Bong",
-  "item.nirvana.potion_bong.effect.empty": "Empty Bong",
+  "item.nirvana.potion_bong.effect.empty": "Leere Bong",
   "item.nirvana.potion_bong.effect.fire_resistance": "Bong der Feuerresistenz",
   "item.nirvana.potion_bong.effect.harming": "Bong des Schadens",
   "item.nirvana.potion_bong.effect.healing": "Bong der Heilung",
@@ -104,5 +104,12 @@
   "subtitle.item.use.bong": "Bong gezogen",
   "subtitle.item.use.herbal_salve": "Kräutersalbe aufgetragen",
   "subtitle.item.use.smoking": "Geraucht",
-  "nirvana.pattern.potion": "^Trank (.+)$"
+  "nirvana.pattern.potion": "^Trank (.+)$",
+  "block.nirvana.potted_wild_hemp": "Eingetopfter Hanf",
+  "block.nirvana.reefer_head": "Reeferkopf",
+  "item.nirvana.music_disc_jam.desc": "",
+  "item.nirvana.potion_bong.effect.infested": "Bong des Befalls",
+  "item.nirvana.potion_bong.effect.oozing": "Bong des Schleimens",
+  "item.nirvana.potion_bong.effect.weaving": "Bong des Webens",
+  "item.nirvana.potion_bong.effect.wind_charged": "Bong der Windladung"
 }
