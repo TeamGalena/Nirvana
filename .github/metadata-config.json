@@ -1,0 +1,15 @@
+{
+  "$schema": "https://webhooks.new.macarena.ceo/schema/config.json",
+  "type": "minecraft",
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "forge"
+  ],
+  "upload": {
+    "curseforge": true,
+    "modrinth": true,
+    "nexus": true
+  },
+  "sonar": true
+}
