@@ -28,10 +28,6 @@ neoforge {
     dependOn(project(":common"))
 }
 
-// issues with mixin extras
-tasks.withType<Test> { enabled = false }
-tasks.compileTestJava { enabled = false }
-
 repositories {
     maven {
         url = uri("https://mvn.devos.one/snapshots")
