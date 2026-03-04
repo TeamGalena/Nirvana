@@ -1,0 +1,13 @@
+name = "Data Trades"
+filename = "data_trades-forge-2.1.1.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/nm1MuVrD/versions/74bS0ghR/data_trades-forge-2.1.1.jar"
+hash-format = "sha512"
+hash = "303dff294502d76b4139a894d3ed01134371969abb4815d56cf2d2d30c7a02c994cf22fa0933d21d95b33658eeeb074950ba0d01b75950d5f8fe8d5f3fa56ae9"
+
+[update]
+[update.modrinth]
+mod-id = "nm1MuVrD"
+version = "74bS0ghR"

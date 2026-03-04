@@ -1,0 +1,13 @@
+name = "Freecam"
+filename = "freecam-forge-1.2.1+1.20.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/XeEZ3fK2/versions/bvoDmWip/freecam-forge-1.2.1%2B1.20.jar"
+hash-format = "sha512"
+hash = "14d5194c02d6281094efdc857e608b412cdb84ffbf94a06401c8509daa74914273e18224f05d9fe9bcea23fa70d5350c6edaf8bf657e58787f08a4553169c0d2"
+
+[update]
+[update.modrinth]
+mod-id = "XeEZ3fK2"
+version = "bvoDmWip"

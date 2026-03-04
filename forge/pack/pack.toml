@@ -1,0 +1,11 @@
+name = "nirvana-forge"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "a9b1268e2a824cc496bebc105ce96b991da373df77c6dc346245d30e285a37c3"
+
+[versions]
+forge = "47.3.10"
+minecraft = "1.20.1"

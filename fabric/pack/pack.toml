@@ -1,0 +1,11 @@
+name = "nirvana-fabric"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "dec28358864c959c2c3afc1cf24ef41dfdcae48e5051056285510e1a800a6e06"
+
+[versions]
+fabric = "0.17.2"
+minecraft = "1.20.1"
