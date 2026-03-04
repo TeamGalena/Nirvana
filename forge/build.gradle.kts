@@ -18,10 +18,10 @@ plugins {
 }
 
 mod {
-    mods.include("com.tterrag.registrate:Registrate:${registrate_forge_version}")
-    mods.include("dev.galena:hats-neoforge:${mc_version}-${galena_hats_version}")
-    mods.include("com.possible-triangle:multikulti-core-neoforge:${mc_version}-${multikulti_version}")
-    mods.include("com.possible-triangle:multikulti-registrate-neoforge:${mc_version}-${multikulti_version}")
+    mods.include(libs.registrate.neoforge)
+    mods.include(libs.galena.hats.neoforge)
+    mods.include(libs.multikulti.core.neoforge)
+    mods.include(libs.multikulti.registrate.neoforge)
 }
 
 neoforge {
@@ -47,15 +47,17 @@ repositories {
 }
 
 dependencies {
-    modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${mc_version}-lib:${jei_version}")
-    modImplementation("com.simibubi.create:create-${mc_version}:${create_forge_version}:all") {
+    modCompileOnly(libs.jei.common.api)
+    modCompileOnly(libs.jei.neoforge.api)
+    modCompileOnly(libs.jei.lib)
+    modImplementation(variantOf(libs.create.neoforge) {
+        classifier("all")
+    }) {
         isTransitive = false
     }
 
     if (!env.isCI) {
-        modRuntimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+        modRuntimeOnly(libs.jei.neoforge)
         modRuntimeOnly("maven.modrinth:just-enough-effect-descriptions-jeed:${jeed_forge_version}")
         modRuntimeOnly("maven.modrinth:farmers-delight:${fd_forge_version}")
         modRuntimeOnly("maven.modrinth:supplementaries:${supplementaries_forge_version}")
