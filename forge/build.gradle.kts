@@ -1,18 +1,3 @@
-val mc_version: String by extra
-val registrate_forge_version: String by extra
-val jei_version: String by extra
-val jeed_forge_version: String by extra
-val fd_forge_version: String by extra
-val moonlight_forge_version: String by extra
-val supplementaries_forge_version: String by extra
-val create_forge_version: String by extra
-val freecam_forge_version: String by extra
-val oreganized_version: String by extra
-val blueprint_version: String by extra
-val data_trades_version: String by extra
-val galena_hats_version: String by extra
-val multikulti_version: String by extra
-
 plugins {
     id("com.possible-triangle.neoforge")
 }
@@ -44,15 +29,20 @@ repositories {
             includeGroup("dev.engine-room.flywheel")
         }
     }
+
+    maven {
+        url = uri("https://maven.teamabnormals.com/")
+        content {
+            includeGroup("com.teamabnormals")
+        }
+    }
 }
 
 dependencies {
     modCompileOnly(libs.jei.common.api)
     modCompileOnly(libs.jei.neoforge.api)
     modCompileOnly(libs.jei.lib)
-    modImplementation(variantOf(libs.create.neoforge) {
-        classifier("all")
-    }) {
+    modImplementation(libs.create.neoforge) {
         isTransitive = false
     }
 
@@ -64,7 +54,6 @@ dependencies {
         modRuntimeOnly(pack.forge.modrinth.supplementaries)
         modRuntimeOnly(pack.forge.modrinth.moonlight)
         modRuntimeOnly(pack.forge.modrinth.freecam)
-        modRuntimeOnly(pack.forge.modrinth.blueprint)
         modRuntimeOnly(pack.forge.modrinth.data.trades)
     }
 }

@@ -1,12 +1,12 @@
 [versions]
 galena-hats = "1.21.1-1.2.4"
-jei = "19.21.0.247"
+jei = "19.27.0.340"
 multikulti = "1.21.1-1.2.3"
 config-api-port = "21.1.3"
 
 [libraries]
 
-registrate-neoforge = { module = "com.tterrag.registrate:Registrate", version = "MC1.21-1.3.0+62" }
+registrate-neoforge = { module = "com.tterrag.registrate:Registrate", version = "MC1.21-1.3.0+67" }
 registrate-fabric = { module = "com.tterrag.registrate_fabric:Registrate", version = "1.3.5-MC1.21.1" }
 
 multikulti-core-neoforge = { group = "com.possible-triangle", name = "multikulti-core-neoforge", version.ref = "multikulti" }
@@ -22,7 +22,7 @@ jei-fabric-api = { group = "mezz.jei", name = "jei-1.21.1-fabric-api", version.r
 jei-fabric = { group = "mezz.jei", name = "jei-1.21.1-fabric", version.ref = "jei" }
 jei-lib = { group = "mezz.jei", name = "jei-1.21.1-lib", version.ref = "jei" }
 
-create-neoforge = { group = "com.simibubi.create", name = "create-1.21.1", version = "6.0.6-99" }
+create-neoforge = { group = "com.simibubi.create", name = "create-1.21.1", version = "6.0.10-265" }
 create-fabric = { group = "com.simibubi.create", name = "create-fabric-1.21.1", version = "0.5.1-f-build.1335+mc1.20.1" }
 
 dye-depot-neoforge = { group = "com.ninni.dye_depot", name = "dye_depot", version = "1.21.1-2.0.2-neoforge" }

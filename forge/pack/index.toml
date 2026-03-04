@@ -1,11 +1,6 @@
 hash-format = "sha256"
 
 [[files]]
-file = "mods/blueprint.pw.toml"
-hash = "a5122c5ecc0e36da4f60474cc8ecaff590aaeae8be545ffddfe2c25db89816e7"
-metafile = true
-
-[[files]]
 file = "mods/data-trades.pw.toml"
 hash = "e5068a68f60925542ecb9e06d50d4455989d847db00a7f5f3f9e1e4a32da26ef"
 metafile = true

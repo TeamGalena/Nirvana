@@ -30,7 +30,7 @@ updateJSONURL = "https://api.modrinth.com/updates/nirvana-mod/forge_updates.json
 
 [[dependencies.${mod_id}]]
     modId = "create"
-    versionRange = "*"
+    versionRange = "[1.21.1-6.0.7,)"
     type = "optional"
     ordering = "NONE"
     side = "BOTH"
