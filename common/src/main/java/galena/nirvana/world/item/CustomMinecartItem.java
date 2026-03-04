@@ -1,9 +1,8 @@
 package galena.nirvana.world.item;
 
-import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import java.util.function.Supplier;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
@@ -21,8 +20,6 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 public class CustomMinecartItem extends MinecartItem {
 
