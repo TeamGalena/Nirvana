@@ -131,7 +131,7 @@ public class NirvanaBlocks {
             .register();
 
     public static final BlockEntityEntry<SkullBlockEntity> MODDED_SKULL = REGISTRATE
-            .<SkullBlockEntity>blockEntity("skull", ModdedSkullBlockEntity::new)
+            .<SkullBlockEntity>blockEntity("skull", ($, pos, state) -> new ModdedSkullBlockEntity(pos, state))
             .renderer(() -> SkullBlockRenderer::new)
             .validBlocks(REEFER_HEAD, REEFER_WALL_HEAD)
             .register();
