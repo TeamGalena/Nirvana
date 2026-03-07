@@ -238,7 +238,6 @@ public class NirvanaItems {
     public static final ItemEntry<? extends Item> REEFER_HEAD = REGISTRATE
             .item("reefer_head", it -> new StandingAndWallBlockItem(NirvanaBlocks.REEFER_HEAD.get(), NirvanaBlocks.REEFER_WALL_HEAD.get(), it, Direction.DOWN))
             .properties(it -> it.rarity(Rarity.UNCOMMON))
-            .properties(it -> it.defaultDurability(ArmorMaterials.LEATHER.getDurabilityForType(ArmorItem.Type.HELMET)))
             .model((c, p) -> p.withExistingParent(c.getName(), "item/template_skull"))
             .tab(CreativeModeTabs.FUNCTIONAL_BLOCKS)
             .tag(NirvanaTags.HEADS)
