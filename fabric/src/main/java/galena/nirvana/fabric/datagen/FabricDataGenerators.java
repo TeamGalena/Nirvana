@@ -23,6 +23,7 @@ public class FabricDataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(AdditionalNirvanaRecipes::new);
         pack.addProvider(PackMetadataProvider::new);
         pack.addProvider(DataRegistries::new);
+        pack.addProvider(NirvanaBiomeTagsProvider::new);
     }
 
     private void addDefaultTranslations() {

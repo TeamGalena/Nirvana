@@ -45,7 +45,7 @@ public class WorldgenFeatureProvider {
                 new PlacedFeature(
                         configured.getOrThrow(PATCH_WILD_HEMP.configured()),
                         List.of(
-                                RarityFilter.onAverageOnceEvery(120),
+                                RarityFilter.onAverageOnceEvery(10),
                                 InSquarePlacement.spread(),
                                 HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
                                 BiomeFilter.biome()

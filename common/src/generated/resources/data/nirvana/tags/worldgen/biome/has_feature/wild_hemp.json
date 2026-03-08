@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:is_jungle",
+      "required": false
+    },
+    {
+      "id": "#atmospheric:is_rainforest",
+      "required": false
+    },
+    {
+      "id": "#biomeswevegone:jungle",
+      "required": false
+    }
+  ]
+}
