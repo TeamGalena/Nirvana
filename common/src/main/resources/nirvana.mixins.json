@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "galena.nirvana.mixins",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "${mod_id}.refmap.json",
   "mixins": [
     "CampfireBlockEntityMixin",
     "CreeperMixin",

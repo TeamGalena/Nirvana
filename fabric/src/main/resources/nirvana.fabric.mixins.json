@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "galena.nirvana.fabric.mixins",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "nirvana.refmap.json",
   "mixins": [
     "ChickenMixin",
     "GenericItemFillingMixin",
