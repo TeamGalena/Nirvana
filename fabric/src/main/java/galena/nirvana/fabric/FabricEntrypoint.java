@@ -3,7 +3,6 @@ package galena.nirvana.fabric;
 import static galena.nirvana.NirvanaConstants.MOD_ID;
 
 import com.tterrag.registrate.providers.ProviderType;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import galena.nirvana.NirvanaCommon;
 import galena.nirvana.NirvanaConstants;
@@ -23,13 +22,10 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -99,15 +95,6 @@ public class FabricEntrypoint implements ModInitializer {
 
         REGISTRATE.addDataGenerator(BANNER_PATTERN_TAGS, provider -> {
             provider.addTag(NirvanaTags.PEACE_BANNER_PATTERN).add(NirvanaBanners.PEACE.getKey());
-        });
-
-        REGISTRATE.addDataGenerator(ProviderType.RECIPE, provider -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER)
-                    .pattern("XXX")
-                    .pattern("XXX")
-                    .define('X', NirvanaItems.HEMP_CLOTH.get())
-                    .unlockedBy("has_hemp", RegistrateRecipeProvider.has(NirvanaItems.HEMP_CLOTH))
-                    .save(provider, NirvanaConstants.createId("leather_from_hemp"));
         });
 
         REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, provider ->

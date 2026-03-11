@@ -32,13 +32,6 @@ public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
                 .unlockedBy("has_hemp", has(NirvanaItems.HEMP))
                 .save(output, NirvanaConstants.createId("lead_from_hemp"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Items.LEATHER)
-                .pattern("hh")
-                .pattern("hh")
-                .define('h', NirvanaItems.HEMP.get())
-                .unlockedBy("has_hemp", has(NirvanaItems.HEMP))
-                .save(output, NirvanaConstants.createId("leather_from_hemp"));
-
         Conditional.with(
                 ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, CompatRegistrate.FARMERS_DELIGHT_ROPE, 2)
                         .pattern("h")
@@ -47,6 +40,13 @@ public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
                         .unlockedBy("has_hemp", has(NirvanaItems.HEMP)),
                 new ModLoaded(Mods.FARMERS_DELIGHT), new Inverted(new ModLoaded(Mods.SUPPLEMENTARIES))
         ).save(output, NirvanaConstants.createId("fd_rope_from_hemp"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER)
+                .pattern("hhh")
+                .pattern("hhh")
+                .define('h', NirvanaItems.HEMP_CLOTH.get())
+                .unlockedBy("has_hemp", has(NirvanaItems.HEMP_CLOTH))
+                .save(output, NirvanaConstants.createId("leather_from_hemp"));
 
         Conditional.with(
                 ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, CompatRegistrate.SUPPLEMENTARIES_ROPE, 2)
