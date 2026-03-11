@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_hemp": {
+    "has_hemp_cloth": {
       "conditions": {
         "items": [
           {
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_hemp",
+      "has_hemp_cloth",
       "has_the_recipe"
     ]
   ],
