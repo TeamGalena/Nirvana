@@ -3,7 +3,6 @@ package galena.nirvana.fabric;
 import static galena.nirvana.NirvanaConstants.MOD_ID;
 
 import com.tterrag.registrate.providers.ProviderType;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import galena.nirvana.NirvanaCommon;
 import galena.nirvana.NirvanaTrades;

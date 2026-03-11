@@ -7,7 +7,6 @@ import galena.nirvana.NirvanaConstants;
 import galena.nirvana.fabric.datagen.CompatRegistrate.Mods;
 import galena.nirvana.index.NirvanaItems;
 import java.util.function.Consumer;
-
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
