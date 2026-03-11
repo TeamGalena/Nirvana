@@ -42,10 +42,10 @@ public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
         ).save(output, NirvanaConstants.createId("fd_rope_from_hemp"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER)
-                .pattern("hhh")
-                .pattern("hhh")
-                .define('h', NirvanaItems.HEMP_CLOTH.get())
-                .unlockedBy("has_hemp", has(NirvanaItems.HEMP_CLOTH))
+                .pattern("cc")
+                .pattern("cc")
+                .define('c', NirvanaItems.HEMP_CLOTH.get())
+                .unlockedBy("has_hemp_cloth", has(NirvanaItems.HEMP_CLOTH))
                 .save(output, NirvanaConstants.createId("leather_from_hemp"));
 
         Conditional.with(
