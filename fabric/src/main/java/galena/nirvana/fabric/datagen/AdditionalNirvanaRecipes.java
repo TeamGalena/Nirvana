@@ -41,9 +41,9 @@ public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
                 new ModLoaded(Mods.FARMERS_DELIGHT), new Inverted(new ModLoaded(Mods.SUPPLEMENTARIES))
         ).save(output, NirvanaConstants.createId("fd_rope_from_hemp"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER)
-                .pattern("cc")
-                .pattern("cc")
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LEATHER, 2)
+                .pattern("ccc")
+                .pattern("ccc")
                 .define('c', NirvanaItems.HEMP_CLOTH.get())
                 .unlockedBy("has_hemp_cloth", has(NirvanaItems.HEMP_CLOTH))
                 .save(output, NirvanaConstants.createId("leather_from_hemp"));
