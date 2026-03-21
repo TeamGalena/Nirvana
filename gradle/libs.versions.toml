@@ -1,7 +1,7 @@
 [versions]
 galena-hats = "1.21.1-1.2.5"
 jei = "19.27.0.340"
-multikulti = "1.21.1-1.2.3"
+multikulti = "1.21.1-1.2.5"
 config-api-port = "21.1.3"
 
 [libraries]
