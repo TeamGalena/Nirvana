@@ -6,9 +6,12 @@ config-api-port = "21.1.3"
 
 [libraries]
 
-registrate-neoforge = { module = "com.tterrag.registrate:Registrate", version = "MC1.21-1.3.0+67" }
+neoforge-stub = { group = "com.possible-triangle", name = "neoforge_stub", version = "1.0.2" }
+
+registrate-neoforge = { module = "com.tterrag.registrate:Registrate", version = "MC1.21.1-1.4.6" }
 registrate-fabric = { module = "com.tterrag.registrate_fabric:Registrate", version = "1.3.5-MC1.21.1" }
 
+multikulti-registrate-common = { group = "com.possible-triangle", name = "multikulti-registrate-common", version.ref = "multikulti" }
 multikulti-core-neoforge = { group = "com.possible-triangle", name = "multikulti-core-neoforge", version.ref = "multikulti" }
 multikulti-registrate-neoforge = { group = "com.possible-triangle", name = "multikulti-registrate-neoforge", version.ref = "multikulti" }
 multikulti-core-fabric = { group = "com.possible-triangle", name = "multikulti-core-fabric", version.ref = "multikulti" }
@@ -25,8 +28,8 @@ jei-lib = { group = "mezz.jei", name = "jei-1.21.1-lib", version.ref = "jei" }
 create-neoforge = { group = "com.simibubi.create", name = "create-1.21.1", version = "6.0.10-265" }
 create-fabric = { group = "com.simibubi.create", name = "create-fabric-1.21.1", version = "0.5.1-f-build.1335+mc1.20.1" }
 
-dye-depot-neoforge = { group = "com.ninni.dye_depot", name = "dye_depot", version = "1.21.1-2.0.2-neoforge" }
-dye-depot-fabric = { group = "com.ninni.dye_depot", name = "dye_depot", version = "1.21.1-2.0.2-fabric" }
+dye-depot-neoforge = { group = "com.ninni.dye_depot", name = "dye_depot-neoforge", version = "1.21.1-2.1.0" }
+dye-depot-fabric = { group = "com.ninni.dye_depot", name = "dye_depot-fabric", version = "1.21.1-2.1.0" }
 
 config-api-port-fabric = { module = "fuzs.forgeconfigapiport:forgeconfigapiport-fabric", version.ref = "config-api-port" }
 config-api-port-common = { module = "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi", version.ref = "config-api-port" }

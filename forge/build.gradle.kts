@@ -2,13 +2,6 @@ plugins {
     id("com.possible-triangle.neoforge")
 }
 
-mod {
-    mods.include(libs.registrate.neoforge)
-    mods.include(libs.galena.hats.neoforge)
-    mods.include(libs.multikulti.core.neoforge)
-    mods.include(libs.multikulti.registrate.neoforge)
-}
-
 neoforge {
     dependOn(project(":common"))
 }
@@ -39,6 +32,11 @@ repositories {
 }
 
 dependencies {
+    modInclude(libs.registrate.neoforge)
+    modInclude(libs.galena.hats.neoforge)
+    modInclude(libs.multikulti.core.neoforge)
+    modInclude(libs.multikulti.registrate.neoforge)
+
     modCompileOnly(libs.jei.common.api)
     modCompileOnly(libs.jei.neoforge.api)
     modCompileOnly(libs.jei.lib)

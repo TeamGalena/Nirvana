@@ -2,14 +2,6 @@ plugins {
     id("com.possible-triangle.fabric")
 }
 
-mod {
-    mods.include(libs.registrate.fabric)
-    mods.include(libs.galena.hats.fabric)
-    mods.include(libs.multikulti.core.fabric)
-    mods.include(libs.multikulti.registrate.fabric)
-    mods.include(libs.config.api.port.fabric)
-}
-
 fabric {
     dataGen()
 
@@ -36,6 +28,12 @@ repositories {
 }
 
 dependencies {
+    modInclude(libs.registrate.fabric)
+    modInclude(libs.galena.hats.fabric)
+    modInclude(libs.multikulti.core.fabric)
+    modInclude(libs.multikulti.registrate.fabric)
+    modInclude(libs.config.api.port.fabric)
+
     modCompileOnly(libs.jei.common.api)
     modCompileOnly(libs.jei.fabric.api)
     modCompileOnly(libs.jei.lib)
