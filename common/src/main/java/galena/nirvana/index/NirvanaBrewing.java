@@ -47,15 +47,25 @@ public class NirvanaBrewing {
 
         var catalysts = BuiltInRegistries.ITEM.stream()
                 .map(ItemStack::new)
-                .filter(vanilla::isIngredient)
-                .toList();
+                .filter(stack -> {
+                    try {
+                        return vanilla.isIngredient(stack);
+                    } catch (IllegalStateException e) {
+                        return false;
+                    }
+                }).toList();
 
         BuiltInRegistries.POTION.holders().forEach(potion -> {
             var from = withPotion(NirvanaItems.POTION_BONG, potion);
             var potionStack = withPotion(Items.POTION, potion);
             catalysts.stream()
-                    .filter(it -> vanilla.hasMix(potionStack, it))
-                    .forEach(catalyst -> registerMix(builder, catalyst, from));
+                    .filter(it -> {
+                        try {
+                            return vanilla.hasMix(potionStack, it);
+                        } catch (IllegalStateException e) {
+                            return false;
+                        }
+                    }).forEach(catalyst -> registerMix(builder, catalyst, from));
         });
     }
 
