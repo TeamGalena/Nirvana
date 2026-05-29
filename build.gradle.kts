@@ -18,7 +18,7 @@ subprojects {
         }
 
         maven {
-            url = uri("https://maven.gegy.dev/releases/")
+            url = uri("https://maven.ithundxr.dev/snapshots")
             content {
                 includeGroup("com.tterrag.registrate")
             }
