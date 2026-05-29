@@ -7,7 +7,7 @@ config-api-port = "21.1.3"
 [libraries]
 
 registrate-neoforge = { module = "com.tterrag.registrate:Registrate", version = "MC1.21.1-1.4.6" }
-registrate-fabric = { module = "com.tterrag.registrate_fabric:Registrate", version = "1.3.5-MC1.21.1" }
+registrate-fabric = { module = "com.tterrag.registrate_fabric:Registrate", version = "1.3.6-MC1.21.1" }
 
 multikulti-core-common = { group = "com.possible-triangle", name = "multikulti-core-common", version.ref = "multikulti" }
 multikulti-registrate-common = { group = "com.possible-triangle", name = "multikulti-registrate-common", version.ref = "multikulti" }
