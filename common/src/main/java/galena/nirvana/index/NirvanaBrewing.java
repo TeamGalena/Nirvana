@@ -39,33 +39,32 @@ public class NirvanaBrewing {
         var waterBottle = withPotion(Items.POTION, Potions.WATER);
 
         Services.BREWING.addRecipe(
-                builder,
-                Services.PLATFORM.createNBTIngredient(waterBottle),
-                Ingredient.of(NirvanaItems.WEED),
-                NirvanaItems.BONG.asStack()
+            builder,
+            Services.PLATFORM.createNBTIngredient(waterBottle),
+            Ingredient.of(NirvanaItems.WEED),
+            NirvanaItems.BONG.asStack()
         );
 
         var catalysts = BuiltInRegistries.ITEM.stream()
-                .map(ItemStack::new)
-                .filter(stack -> {
-                    try {
-                        return vanilla.isIngredient(stack);
-                    } catch (IllegalStateException e) {
-                        return false;
-                    }
-                }).toList();
+            .map(ItemStack::new)
+            .filter(stack -> {
+                try {
+                    return vanilla.isIngredient(stack);
+                } catch (IllegalStateException e) {
+                    return false;
+                }
+            }).toList();
 
         BuiltInRegistries.POTION.holders().forEach(potion -> {
             var from = withPotion(NirvanaItems.POTION_BONG, potion);
             var potionStack = withPotion(Items.POTION, potion);
-            catalysts.stream()
-                    .filter(it -> {
-                        try {
-                            return vanilla.hasMix(potionStack, it);
-                        } catch (IllegalStateException e) {
-                            return false;
-                        }
-                    }).forEach(catalyst -> registerMix(builder, catalyst, from));
+            catalysts.stream().filter(it -> {
+                try {
+                    return vanilla.hasMix(potionStack, it);
+                } catch (IllegalStateException e) {
+                    return false;
+                }
+            }).forEach(catalyst -> registerMix(builder, catalyst, from));
         });
     }
 
