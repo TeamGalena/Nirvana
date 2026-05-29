@@ -38,6 +38,8 @@ public class NirvanaTags {
 
     public static final TagKey<Block> SMOKING_CRATES = TagKey.create(Registries.BLOCK, NirvanaConstants.createId("smoking_crates"));
 
+    public static final TagKey<Block>[] STORAGE_BLOCKS = platformSpecific(Registries.BLOCK, "storage_blocks");
+
     public static final TagKey<BannerPattern> PEACE_BANNER_PATTERN = TagKey.create(Registries.BANNER_PATTERN, NirvanaConstants.createId("peace_banner_patterns"));
 
     public static final TagKey<Item> BURLAP = TagKey.create(Registries.ITEM, NirvanaConstants.createId("burlap"));
