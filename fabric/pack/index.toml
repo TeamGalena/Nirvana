@@ -4,3 +4,13 @@ hash-format = "sha256"
 file = "mods/just-enough-effect-descriptions-jeed.pw.toml"
 hash = "26fd57dde103b1ea1fd028d4de1712ac2a9105ea32dc9d56e8ec7a9047d9fc73"
 metafile = true
+
+[[files]]
+file = "mods/moonlight.pw.toml"
+hash = "6ead9b7056bef41b7f5a4d852be2ea2250e678633ffe8c8c5244d14b92b5c38e"
+metafile = true
+
+[[files]]
+file = "mods/supplementaries.pw.toml"
+hash = "17f0ef695dd707eca137a80cd6939d470c4f00bafb497eb2a8523349326bee0c"
+metafile = true

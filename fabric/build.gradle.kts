@@ -43,6 +43,8 @@ dependencies {
 
     if (!env.isCI) {
         modRuntimeOnly(libs.jei.fabric)
+        modRuntimeOnly(pack.fabric.modrinth.moonlight)
+        modRuntimeOnly(pack.fabric.modrinth.supplementaries)
         modRuntimeOnly(pack.fabric.modrinth.just.enough.effect.descriptions.jeed)
     }
 }

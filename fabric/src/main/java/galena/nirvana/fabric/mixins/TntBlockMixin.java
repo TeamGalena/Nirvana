@@ -63,13 +63,24 @@ public class TntBlockMixin {
     }
 
     @WrapWithCondition(
-            method = "useItemOn",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/TntBlock;explode(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/LivingEntity;)V"
-            )
+        method = "useItemOn",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/block/TntBlock;explode(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/LivingEntity;)V"
+        )
     )
     public boolean use(Level level, BlockPos pos, LivingEntity igniter, @Local(ordinal = 0, argsOnly = true) BlockState state, @Local(argsOnly = true) BlockHitResult hit) {
+        return onCaughtFire(state, level, pos, hit.getDirection(), igniter);
+    }
+
+    @WrapWithCondition(
+        method = "onProjectileHit",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/block/TntBlock;explode(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/LivingEntity;)V"
+        )
+    )
+    public boolean onProjectileHit(Level level, BlockPos pos, LivingEntity igniter, @Local(ordinal = 0, argsOnly = true) BlockState state, @Local(argsOnly = true) BlockHitResult hit) {
         return onCaughtFire(state, level, pos, hit.getDirection(), igniter);
     }
 
