@@ -40,8 +40,20 @@ dependencies {
     modCompileOnly(libs.jei.common.api)
     modCompileOnly(libs.jei.neoforge.api)
     modCompileOnly(libs.jei.lib)
-    modImplementation(libs.create.neoforge) {
-        isTransitive = false
+    modImplementation(
+        variantOf(libs.create.neoforge) {
+            classifier("slim")
+        },
+    ) {
+        // This is silly, I should maybe just include flywheel & ponder myself
+        exclude(group = "com.tterrag.registrate")
+        exclude(group = "dev.architectury")
+        exclude(group = "cc.tweaked")
+        exclude(group = "info.journeymap")
+        exclude(group = "maven.modrinth")
+        exclude(group = "dev.ftb.mods")
+        exclude(group = "dev.engine-room.vanillin")
+        exclude(group = "top.theillusivec4.curios")
     }
 
     if (!env.isCI) {
