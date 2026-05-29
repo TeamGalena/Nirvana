@@ -3,6 +3,10 @@ plugins {
 }
 
 neoforge {
+    dataGen {
+        splitSourceSet()
+    }
+
     dependOn(project(":common"))
 }
 
@@ -56,13 +60,17 @@ dependencies {
         exclude(group = "top.theillusivec4.curios")
     }
 
+    modImplementation(pack.forge.modrinth.farmers.delight)
+    modImplementation(pack.forge.modrinth.moonlight)
+    modImplementation(pack.forge.modrinth.supplementaries)
+
+    // for datagen
+    modImplementation(libs.multikulti.datagen.neoforge)
+
     if (!env.isCI) {
         modRuntimeOnly(libs.jei.neoforge)
         modRuntimeOnly(libs.oreganized)
         modRuntimeOnly(pack.forge.modrinth.just.enough.effect.descriptions.jeed)
-        modRuntimeOnly(pack.forge.modrinth.farmers.delight)
-        modRuntimeOnly(pack.forge.modrinth.supplementaries)
-        modRuntimeOnly(pack.forge.modrinth.moonlight)
         modRuntimeOnly(pack.forge.modrinth.freecam)
         modRuntimeOnly(pack.forge.modrinth.data.trades)
     }

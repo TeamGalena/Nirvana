@@ -1,4 +1,4 @@
-package galena.nirvana.fabric.datagen;
+package galena.nirvana.forge.data;
 
 import com.mojang.serialization.Lifecycle;
 import galena.nirvana.NirvanaConstants;

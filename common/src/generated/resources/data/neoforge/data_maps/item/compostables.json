@@ -1,0 +1,16 @@
+{
+  "values": {
+    "nirvana:bliss_bloom": {
+      "chance": 0.85
+    },
+    "nirvana:hemp": {
+      "chance": 0.65
+    },
+    "nirvana:hemp_seeds": {
+      "chance": 0.3
+    },
+    "nirvana:wild_hemp": {
+      "chance": 0.65
+    }
+  }
+}

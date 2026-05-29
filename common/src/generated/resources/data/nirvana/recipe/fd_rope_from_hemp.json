@@ -1,4 +1,19 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "supplementaries"
+      }
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "fabric:load_conditions": [
     {
       "condition": "fabric:not",
@@ -16,26 +31,11 @@
       ]
     }
   ],
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
   "key": {
     "h": {
       "item": "nirvana:hemp"
     }
   },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:mod_loaded",
-        "modid": "supplementaries"
-      }
-    },
-    {
-      "type": "neoforge:mod_loaded",
-      "modid": "farmersdelight"
-    }
-  ],
   "pattern": [
     "h",
     "h"

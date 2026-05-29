@@ -1,23 +1,23 @@
-package galena.nirvana.fabric.datagen;
+package galena.nirvana.forge.data;
 
 import com.possible_triangle.multikulti.datagen.conditions.Conditional;
 import com.possible_triangle.multikulti.datagen.conditions.Inverted;
 import com.possible_triangle.multikulti.datagen.conditions.ModLoaded;
 import galena.nirvana.NirvanaConstants;
-import galena.nirvana.fabric.datagen.CompatRegistrate.Mods;
+import galena.nirvana.forge.data.CompatRegistrate.Mods;
 import galena.nirvana.index.NirvanaItems;
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
 
-public class AdditionalNirvanaRecipes extends FabricRecipeProvider {
+public class AdditionalNirvanaRecipes extends RecipeProvider {
 
-    public AdditionalNirvanaRecipes(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public AdditionalNirvanaRecipes(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

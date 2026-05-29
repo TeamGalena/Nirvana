@@ -7,7 +7,7 @@ metafile = true
 
 [[files]]
 file = "mods/farmers-delight.pw.toml"
-hash = "b75ba223cc0d159d38890b0c5db42e9454210f874dd0d0b9060f8277e803a5d8"
+hash = "9aab64fbec4cc794817026caf84e7d0dff14ba3892da94aa0e00d23c84560499"
 metafile = true
 
 [[files]]
@@ -22,10 +22,10 @@ metafile = true
 
 [[files]]
 file = "mods/moonlight.pw.toml"
-hash = "1965658333e46f8a375d3efee20cbfc49400d576f7051e81da832a70da79e3c0"
+hash = "4e93b2710a407b1a518aba64e77d97fd5a2f853b54e2133eac0768ba90bdc5d6"
 metafile = true
 
 [[files]]
 file = "mods/supplementaries.pw.toml"
-hash = "599e373cbd3ff6fbe64a00ec53a5275fe583e60d3c5593508d13d1846e329952"
+hash = "9cfdabfae56ec49c0c3939640e3149a2deebd33dc342f3585e0c82b9ac326ab6"
 metafile = true

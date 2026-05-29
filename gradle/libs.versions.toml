@@ -1,7 +1,7 @@
 [versions]
 galena-hats = "1.21.1-1.2.5"
 jei = "19.27.0.340"
-multikulti = "1.21.1-2.0.0"
+multikulti = "1.21.1-2.0.1"
 config-api-port = "21.1.3"
 
 [libraries]
@@ -15,7 +15,7 @@ multikulti-core-neoforge = { group = "com.possible-triangle", name = "multikulti
 multikulti-registrate-neoforge = { group = "com.possible-triangle", name = "multikulti-registrate-neoforge", version.ref = "multikulti" }
 multikulti-core-fabric = { group = "com.possible-triangle", name = "multikulti-core-fabric", version.ref = "multikulti" }
 multikulti-registrate-fabric = { group = "com.possible-triangle", name = "multikulti-registrate-fabric", version.ref = "multikulti" }
-multikulti-datagen-fabric = { group = "com.possible-triangle", name = "multikulti-datagen-fabric", version.ref = "multikulti" }
+multikulti-datagen-neoforge = { group = "com.possible-triangle", name = "multikulti-datagen-neoforge", version.ref = "multikulti" }
 
 jei-common-api = { group = "mezz.jei", name = "jei-1.21.1-common-api", version.ref = "jei" }
 jei-neoforge-api = { group = "mezz.jei", name = "jei-1.21.1-neoforge-api", version.ref = "jei" }

@@ -1,5 +1,6 @@
-package galena.nirvana.fabric.datagen;
+package galena.nirvana.forge.data;
 
+import galena.nirvana.NirvanaConstants;
 import galena.nirvana.index.NirvanaTags;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
@@ -7,11 +8,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class NirvanaBiomeTagsProvider extends BiomeTagsProvider {
 
-    public NirvanaBiomeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
-        super(output, lookup);
+    public NirvanaBiomeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup, ExistingFileHelper existing) {
+        super(output, lookup, NirvanaConstants.MOD_ID, existing);
     }
 
     @Override

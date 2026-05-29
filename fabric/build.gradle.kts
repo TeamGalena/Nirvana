@@ -3,8 +3,6 @@ plugins {
 }
 
 fabric {
-    dataGen()
-
     dependOn(project(":common"))
 
     accessWidener()
@@ -42,8 +40,6 @@ dependencies {
     // modCompileOnly("com.simibubi.create:create-fabric-${mc_version}:${create_fabric_version}") {
     //     exclude("com.jozufozu.flywheel")
     // }
-
-    modImplementation(libs.multikulti.datagen.fabric)
 
     if (!env.isCI) {
         modRuntimeOnly(libs.jei.fabric)

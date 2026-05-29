@@ -21,9 +21,6 @@
     "client": [
       "galena.nirvana.fabric.client.FabricClientEntrypoint"
     ],
-    "fabric-datagen": [
-      "galena.nirvana.fabric.datagen.FabricDataGenerators"
-    ],
     "jei_mod_plugin": [
       "galena.nirvana.fabric.compat.NirvanaJeiFabricPlugin"
     ]
