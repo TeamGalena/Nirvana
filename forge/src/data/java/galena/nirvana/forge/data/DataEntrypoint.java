@@ -39,6 +39,7 @@ public class DataEntrypoint {
         generator.addProvider(true, new PackMetadataProvider(output));
         generator.addProvider(true, new DataRegistries(output, registries));
         generator.addProvider(true, new NirvanaBiomeTagsProvider(output, registries, existing));
+        generator.addProvider(true, new NirvanaPotionTagsProvider(output, registries, existing));
 
         new PotionTranslationProvider(REGISTRATE).addTranslations();
 

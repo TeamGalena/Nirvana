@@ -55,17 +55,19 @@ public class NirvanaBrewing {
                 }
             }).toList();
 
-        BuiltInRegistries.POTION.holders().forEach(potion -> {
-            var from = withPotion(NirvanaItems.POTION_BONG, potion);
-            var potionStack = withPotion(Items.POTION, potion);
-            catalysts.stream().filter(it -> {
-                try {
-                    return vanilla.hasMix(potionStack, it);
-                } catch (IllegalStateException e) {
-                    return false;
-                }
-            }).forEach(catalyst -> registerMix(builder, catalyst, from));
-        });
+        BuiltInRegistries.POTION.holders()
+            .filter(it -> !it.is(NirvanaTags.NO_BONG))
+            .forEach(potion -> {
+                var from = withPotion(NirvanaItems.POTION_BONG, potion);
+                var potionStack = withPotion(Items.POTION, potion);
+                catalysts.stream().filter(it -> {
+                    try {
+                        return vanilla.hasMix(potionStack, it);
+                    } catch (IllegalStateException e) {
+                        return false;
+                    }
+                }).forEach(catalyst -> registerMix(builder, catalyst, from));
+            });
     }
 
     public static void register(PotionBrewing.Builder builder) {

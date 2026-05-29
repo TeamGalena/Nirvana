@@ -31,6 +31,8 @@ public class CreateCompat {
                     .orElseThrow()
                     .location();
 
+            stack.setDamageValue(0);
+
             var id = NirvanaConstants.createId("fill/bong/" + potion.getNamespace() + "/" + potion.getPath());
             var recipe = new StandardProcessingRecipe.Builder<>(FillingRecipe::new, id)
                     .withItemIngredients(Ingredient.of(NirvanaItems.BONG))

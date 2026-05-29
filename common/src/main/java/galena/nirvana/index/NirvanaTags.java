@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
@@ -49,6 +50,8 @@ public class NirvanaTags {
     public static final TagKey<Item>[] SEEDS = platformSpecific(Registries.ITEM, "seeds");
 
     public static final TagKey<Item>[] HEADS = platformSpecific(Registries.ITEM, "heads");
+
+    public static final TagKey<Potion> NO_BONG = TagKey.create(Registries.POTION, NirvanaConstants.createId("no_bong"));
 
     @SuppressWarnings("unchecked")
     private static <T> TagKey<T>[] platformSpecific(ResourceKey<Registry<T>> registry, String path) {
